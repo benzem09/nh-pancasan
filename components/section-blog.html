@@ -1,0 +1,16 @@
+<div class="flex justify-between items-center mb-6 gap-2">
+    <h3 class="text-lg font-bold">Postingan Terkini</h3>
+    
+    <div class="flex items-center gap-2">
+        <div id="search-container" class="flex items-center bg-slate-800/50 rounded-full px-2 py-1 border border-white/5 transition-all duration-300 w-10 overflow-hidden">
+            <button onclick="toggleSearch()" class="min-w-[24px] text-slate-400 hover:text-white">
+                🔍
+            </button>
+            <input type="text" id="searchInput" onkeyup="filterBlog()" placeholder="Cari judul..." 
+                class="bg-transparent border-none outline-none text-[10px] text-white w-0 transition-all duration-300">
+        </div>
+
+        <button onclick="openModal('postModal')" class="bg-blue-600/20 text-blue-400 border border-blue-600 px-3 py-1 rounded-md text-[10px] font-bold whitespace-nowrap">+ Post Baru</button>
+    </div>
+</div>
+<div id="blog-feed" class="space-y-4"></div>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ben Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="p-4 md:p-8 bg-[#0f172a] text-slate-200">
+
+    <div id="comp-modals"></div>
+
+    <div class="max-w-4xl mx-auto">
+        <header id="comp-header" class="flex justify-between items-center mb-2"></header>
+        <nav id="comp-navigation" class="flex border-b border-white/10 mb-6 gap-6 overflow-x-auto sticky top-0 bg-[#0f172a] z-30"></nav>
+
+        <main id="main-content">
+            <div id="section-blog" class="tab-content"></div>
+            <div id="section-categories" class="tab-content hidden"></div>
+            <div id="section-about" class="tab-content hidden"></div>
+        </main>
+    </div>
+
+<script>
+    async function loadComponent(id, path) {
+        try {
+            const res = await fetch(path);
+            if (!res.ok) throw new Error(`Gagal muat ${path}`);
+            const html = await res.text();
+            document.getElementById(id).innerHTML = html;
+        } catch (e) { 
+            console.error(e);
+        }
+    }
+
+    async function initApp() {
+        // 1. Muat semua komponen HTML
+        await Promise.all([
+            loadComponent('comp-modals', 'components/modals.html'),
+            loadComponent('comp-header', 'components/header.html'),
+            loadComponent('comp-navigation', 'components/navigation.html'),
+            loadComponent('section-blog', 'components/section-blog.html'),
+            loadComponent('section-categories', 'components/section-categories.html'),
+            loadComponent('section-about', 'components/section-about.html'),
+            loadComponent('comp-about-me', 'components/about-me.html'),
+        ]);
+
+        // 2. Muat Script JS secara berurutan
+        const scripts = [
+            'assets/js/api.js',
+            'assets/js/main.js',
+            'assets/js/blog.js',
+        ];
+
+        for (const src of scripts) {
+            await new Promise(resolve => {
+                const s = document.createElement('script');
+                s.src = src;
+                s.onload = resolve;
+                document.body.appendChild(s);
+            });
+        }
+
+        
+        // Jalankan tab default
+        if (typeof switchTab === "function") {
+            switchTab('blog');
+        }
+    }
+    
+    initApp();
+</script>
+</body>
+</html>

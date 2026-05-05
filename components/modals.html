@@ -1,0 +1,35 @@
+<div id="postModal" class="modal p-4 hidden">
+    <div class="glass p-6 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+        <h2 class="text-lg font-bold mb-4 text-blue-400">📝 Tulis Postingan</h2>
+        <input type="text" id="postTitle" placeholder="Judul Artikel" class="w-full bg-slate-800 p-2 rounded mb-3 outline-none border border-white/10">
+        <select id="postCategory" class="w-full bg-slate-800 p-2 rounded mb-3 outline-none border border-white/10 text-xs text-slate-300">
+            <option value="Umum">📁 Pilih Kategori: Umum</option>
+            <option value="Teknologi">💻 Teknologi</option>
+            <option value="Catatan">📓 Catatan</option>
+            <option value="Nahu">🛠️ Nahu</option>
+            <option value="Curhat">☕ Curhat</option>
+        </select>
+        <textarea id="postContent" placeholder="Isi konten..." rows="16" class="w-full min-h-[320px] max-h-[65vh] resize-y bg-slate-800 p-3 rounded-xl mb-4 outline-none border border-white/10 text-sm leading-relaxed"></textarea>
+        <div class="flex gap-2">
+            <button onclick="closeModal('postModal'); resetPostModal();" class="flex-1 bg-slate-700 py-2 rounded-lg text-xs">Batal</button>
+            <button onclick="submitPost()" id="btnSubmitPost" class="flex-1 bg-blue-600 py-2 rounded-lg text-xs font-bold">Terbitkan</button>
+        </div>
+    </div>
+</div>
+
+<div id="viewModal" class="modal p-4 hidden">
+    
+    <!-- tombol floating global -->
+    <button id="tocToggle" class="toc-toggle-btn hidden">≡ </button>
+
+    <!-- panel daftar isi -->
+    <div id="tocContainer" class="toc-floating hidden"></div>
+
+    <div class="glass p-6 rounded-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto">
+        <h2 id="viewTitle" class="text-xl font-bold mb-4 text-blue-400"></h2>
+        <div id="viewContent" class="text-sm opacity-80 leading-loose mb-6"></div>
+        <button onclick="closeModal('viewModal')" class="w-full bg-slate-700 py-2 rounded-lg text-xs mt-6">
+            Tutup
+        </button>
+    </div>
+</div>

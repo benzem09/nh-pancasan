@@ -1,0 +1,352 @@
+body {
+    background-color: #0f172a;
+    color: #e2e8f0;
+    font-family: sans-serif; }
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background-color: #0f172a; /* Warna background agar tidak transparan saat ditumpuk */
+    padding-top: 1rem;
+    padding-bottom: 0.5rem;
+  
+}
+
+.flex.border-b {
+    position: sticky;
+    top: 60px; /* Jarak dari atas (di bawah header) */
+    z-index: 30;
+    background-color: #0f172a;
+    padding-bottom: 0.5rem;
+  
+}
+        
+html {
+    scroll-behavior: smooth;
+  
+}
+
+.line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+  
+}
+
+button[onclick^="deletePost"] {
+    background: rgba(239, 68, 68, 0.1);
+    border-radius: 8px;
+    backdrop-filter: blur(4px);
+  
+}
+
+button[onclick^="handleReaction"] {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 4px 10px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  
+}
+
+button[onclick^="handleReaction"]:active {
+    transform: scale(0.9);
+  
+}
+
+.glass {
+    background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.1);
+  
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.8);
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(8px);
+    z-index: 9999;
+    padding: 16px;
+  
+}
+/* box popup */
+.modal-content {
+    width: 100%;
+    max-width: 850px;
+    max-height: 90vh;
+    overflow-y: auto;
+
+    background: rgba(15, 23, 42, 0.95);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 24px;
+    padding: 24px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+}
+.hidden {
+    display: none;
+  
+}
+        /* Animasi perpindahan tab */
+.tab-content {
+    animation: fadeIn 0.3s ease;
+  
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+      
+    }
+    
+    to {
+        opacity: 1;
+        transform: translateY(0);
+      
+    }
+  
+}
+
+.post-body {
+    font-size: 14px;
+    line-height: 1.8;
+    color: #cbd5e1;
+}
+
+.post-body h1,
+.post-body h2,
+.post-body h3 {
+    color: #60a5fa;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 12px;
+}
+
+.post-body p {
+    margin-bottom: 12px;
+}
+
+.post-body ul,
+.post-body ol {
+    padding-left: 20px;
+    margin-bottom: 12px;
+}
+
+.table-wrapper table {
+    min-width: 100%;
+    width: max-content;
+}
+.table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 16px 0;
+    width: 100%;
+}
+
+.table-wrapper::-webkit-scrollbar {
+    height: 6px;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb {
+    background: rgba(59,130,246,0.4);
+    border-radius: 999px;
+}
+
+.post-body table {
+    border-collapse: collapse;
+    min-width: 100%;
+    width: max-content;
+    font-size: 13px;
+}
+
+.post-body th,
+.post-body td {
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 10px;
+    text-align: left;
+    vertical-align: top;
+    white-space: nowrap;
+}
+
+.post-body td:nth-child(3),
+.post-body th:nth-child(3) {
+    white-space: normal;
+    min-width: 180px;
+}
+
+.post-body th {
+    background: rgba(59,130,246,0.15);
+    color: #60a5fa;
+}
+
+.toc-box {
+    width: 85vw%;
+    max-width: 320px;
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    border-radius: 1rem;
+    padding: 1rem;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+}
+
+.toc-box h3 {
+    color: #60a5fa; /* blue-400 */
+    font-weight: bold;
+    font-size: 0.75rem;
+    margin-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 0.5rem;
+}
+
+.toc-box ul {
+    max-height: 50vh; /* Agar bisa di-scroll jika heading sangat banyak */
+    overflow-y: auto;
+    list-style: none;
+    padding: 0;
+}
+
+/* Scrollbar halus untuk TOC */
+.toc-box ul::-webkit-scrollbar { width: 3px; }
+.toc-box ul::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 10px; }
+
+.toc-box li {
+    margin-bottom: 6px;
+    font-size: 12px;
+}
+
+.toc-box li.h2 {
+    padding-left: 12px;
+}
+
+.toc-box li.h3 {
+    padding-left: 24px;
+}
+
+.toc-box a {
+    color: #cbd5e1;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.toc-box a:hover {
+    color: #60a5fa;
+}
+
+#tocContainer {
+    backdrop-filter: blur(12px);
+    position: fixed; /* Tetap di posisi saat scroll */
+    bottom: 80px;    /* Di atas tombol toggle */
+    right: 20px;
+    z-index: 100;
+    transition: all 0.3s ease-in-out;
+}
+
+/* tombol floating */
+.toc-toggle-btn {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    z-index: 9999;
+
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: none;
+
+    background: #2563eb;
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
+
+    box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+    cursor: pointer;
+}
+
+/* panel daftar isi */
+.toc-floating {
+    position: fixed;
+    bottom: 155px;
+    right: 20px;
+    z-index: 9999;
+
+    width: 260px;
+    max-height: 320px;
+    overflow-y: auto;
+
+    background: #0f172a; /* solid */
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 16px;
+
+    box-shadow: 0 12px 30px rgba(0,0,0,0.45);
+}
+
+/* hidden */
+.hidden {
+    display: none;
+}
+
+.toc-floating h3 {
+    color: #60a5fa;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.toc-floating ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.toc-floating li {
+    margin-bottom: 8px;
+    font-size: 13px;
+}
+
+.toc-floating a {
+    color: #cbd5e1;
+    text-decoration: none;
+}
+
+.toc-floating a:hover {
+    color: #60a5fa;
+}
+
+#viewContent {
+    font-size: 14px;
+    line-height: 1.8;
+    word-break: break-word;
+}
+#viewContent p {
+    white-space: pre-wrap;
+}
+#search-container {
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#searchInput {
+    transition: width 0.3s ease;
+}
+/* Efek Loading Berdenyut */
+.skeleton {
+    background: linear-gradient(90deg, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+    border-radius: 12px;
+}
+.skeleton.h-32 {
+    height: 40px; /* Sangat tipis menyesuaikan layout baru */
+    margin-bottom: 6px;
+    border-radius: 8px;
+}
+
+@keyframes loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
