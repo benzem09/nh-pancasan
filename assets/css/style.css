@@ -136,26 +136,6 @@ button[onclick^="handleReaction"]:active {
     margin-bottom: 12px;
 }
 
-.table-wrapper table {
-    min-width: 100%;
-    width: max-content;
-}
-.table-wrapper {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    margin: 16px 0;
-    width: 100%;
-}
-
-.table-wrapper::-webkit-scrollbar {
-    height: 6px;
-}
-
-.table-wrapper::-webkit-scrollbar-thumb {
-    background: rgba(59,130,246,0.4);
-    border-radius: 999px;
-}
-
 .post-body table {
     border-collapse: collapse;
     min-width: 100%;
@@ -183,139 +163,115 @@ button[onclick^="handleReaction"]:active {
     color: #60a5fa;
 }
 
-.toc-box {
-    width: 85vw%;
-    max-width: 320px;
-    background: rgba(15, 23, 42, 0.8);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(59, 130, 246, 0.2);
-    border-radius: 1rem;
-    padding: 1rem;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+.table-wrapper table {
+    min-width: 100%;
+    width: max-content;
+}
+.table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 16px 0;
+    width: 100%;
 }
 
-.toc-box h3 {
-    color: #60a5fa; /* blue-400 */
-    font-weight: bold;
-    font-size: 0.75rem;
-    margin-bottom: 0.75rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    padding-bottom: 0.5rem;
+.table-wrapper::-webkit-scrollbar {
+    height: 6px;
 }
 
-.toc-box ul {
-    max-height: 50vh; /* Agar bisa di-scroll jika heading sangat banyak */
-    overflow-y: auto;
-    list-style: none;
-    padding: 0;
+.table-wrapper::-webkit-scrollbar-thumb {
+    background: rgba(59,130,246,0.4);
+    border-radius: 999px;
 }
 
-/* Scrollbar halus untuk TOC */
-.toc-box ul::-webkit-scrollbar { width: 3px; }
-.toc-box ul::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 10px; }
-
-.toc-box li {
-    margin-bottom: 6px;
-    font-size: 12px;
-}
-
-.toc-box li.h2 {
-    padding-left: 12px;
-}
-
-.toc-box li.h3 {
-    padding-left: 24px;
-}
-
-.toc-box a {
-    color: #cbd5e1;
-    text-decoration: none;
-    transition: 0.2s;
-}
-
-.toc-box a:hover {
-    color: #60a5fa;
-}
-
-#tocContainer {
-    backdrop-filter: blur(12px);
-    position: fixed; /* Tetap di posisi saat scroll */
-    bottom: 80px;    /* Di atas tombol toggle */
-    right: 20px;
-    z-index: 100;
-    transition: all 0.3s ease-in-out;
-}
-
-/* tombol floating */
-.toc-toggle-btn {
+#tocToggle {
     position: fixed;
     bottom: 90px;
     right: 20px;
     z-index: 9999;
 
-    width: 52px;
-    height: 52px;
+    width: 58px;
+    height: 58px;
     border-radius: 50%;
     border: none;
-
     background: #2563eb;
     color: white;
     font-size: 22px;
-    font-weight: bold;
+    cursor: grab;
 
-    box-shadow: 0 8px 24px rgba(0,0,0,0.35);
-    cursor: pointer;
+    box-shadow: 0 8px 25px rgba(37,99,235,.35);
 }
 
-/* panel daftar isi */
-.toc-floating {
+#tocContainer {
     position: fixed;
-    bottom: 155px;
+    bottom: 160px;
     right: 20px;
-    z-index: 9999;
+    z-index: 9998;
 
-    width: 260px;
-    max-height: 320px;
+    width: 85vw;
+    max-width: 320px;
+    max-height: 60vh;
     overflow-y: auto;
 
-    background: #0f172a; /* solid */
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 16px;
-    padding: 16px;
+    background: rgba(15,23,42,.96);
+    backdrop-filter: blur(14px);
 
-    box-shadow: 0 12px 30px rgba(0,0,0,0.45);
+    border: 1px solid rgba(59,130,246,.2);
+    border-radius: 18px;
+    padding: 18px;
+
+    box-shadow: 0 12px 30px rgba(0,0,0,.45);
 }
 
-/* hidden */
-.hidden {
-    display: none;
-}
-
-.toc-floating h3 {
+#tocContainer h3 {
     color: #60a5fa;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: bold;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
 }
 
-.toc-floating ul {
+#tocContainer ul {
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
-.toc-floating li {
-    margin-bottom: 8px;
+#tocContainer li {
+    margin-bottom: 10px;
     font-size: 13px;
 }
 
-.toc-floating a {
+#tocContainer li.h2 {
+    padding-left: 14px;
+}
+
+#tocContainer li.h3 {
+    padding-left: 28px;
+}
+
+#tocContainer a {
     color: #cbd5e1;
     text-decoration: none;
 }
 
-.toc-floating a:hover {
+#tocContainer a:hover {
     color: #60a5fa;
+}
+
+.hidden {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    #tocContainer {
+        max-width: 420px;
+        padding: 24px;
+    }
+
+    #tocToggle {
+        width: 64px;
+        height: 64px;
+        font-size: 24px;
+    }
 }
 
 #viewContent {

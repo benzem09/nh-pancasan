@@ -126,84 +126,127 @@ async function loadFullPost(postId) {
 
     container.innerHTML = "<div class='skeleton h-32 w-full'></div>";
     titleElem.innerText = "Memuat...";
-    
-    // Reset TOC saat membuka post baru
-    if(tocBtn) tocBtn.classList.add("hidden");
-    if(tocContainer) tocContainer.classList.add("hidden");
+
+    tocBtn.classList.add("hidden");
+    tocContainer.classList.add("hidden");
+    tocContainer.innerHTML = "";
 
     try {
-        // Mengambil data dari folder posts/
         const post = await getPublicFile(`posts/post_${postId}.json`);
+
         titleElem.innerText = post.title || "Tanpa Judul";
 
         container.innerHTML = `
             <div class="post-body text-slate-300 leading-relaxed">
                 <div class="flex items-center gap-2 mb-6 opacity-60">
-                    <span class="text-[10px] bg-blue-600/20 text-blue-400 px-2 py-0.5 rounded border border-blue-600/30">
+                    <span class="text-[10px] bg-blue-600/20 text-blue-400 px-2 py-1 rounded border border-blue-600/30">
                         ${post.category || 'Umum'}
                     </span>
-                    <span class="text-[10px]">👤 @${post.author}</span>
-                    <span class="text-[10px]">📅 ${post.date}</span>
+                    <span class="text-[10px]">👤 @${post.author || "admin"}</span>
+                    <span class="text-[10px]">📅 ${post.date || "-"}</span>
                 </div>
+
                 <div id="main-post-content">
                     ${marked.parse(post.content || "")}
                 </div>
             </div>
         `;
 
-        // 1. Wrap Table untuk scroll horizontal
+        // wrap table
         container.querySelectorAll("table").forEach(table => {
             const wrapper = document.createElement("div");
-            wrapper.className = "overflow-x-auto my-4 border border-white/10 rounded-lg";
+            wrapper.className = "table-wrapper";
             table.parentNode.insertBefore(wrapper, table);
             wrapper.appendChild(table);
         });
 
-        // 2. LOGIKA GENERATE TOC (Table of Contents)
-        const headings = container.querySelectorAll("h1, h2, h3");
-        
-        if (headings.length > 1 && tocBtn && tocContainer) {
-            let tocHTML = `
-                <div class="toc-box">
-                    <h3>📑 Daftar Isi </h3>
-                    <ul>
-            `;
+        // generate toc
+        const headings = container.querySelectorAll("h1,h2,h3");
+
+        if (headings.length > 1) {
+            let tocHTML = `<h3>📑 Daftar Isi</h3><ul>`;
 
             headings.forEach((heading, index) => {
                 const id = `heading-${index}`;
                 heading.id = id;
-                const level = heading.tagName.toLowerCase(); // h1, h2, h3
-                const indent = level === 'h2' ? 'ml-3' : level === 'h3' ? 'ml-6' : '';
 
                 tocHTML += `
-                    <li class="${indent} mb-2 border-l border-white/5 pl-2">
-                        <a href="#${id}" class="text-slate-400 hover:text-blue-400 text-[11px] block transition-colors">
-                            • ${heading.innerText}
-                        </a>
+                    <li class="${heading.tagName.toLowerCase()}">
+                        <a href="#${id}">• ${heading.innerText}</a>
                     </li>
                 `;
             });
 
-            tocHTML += `</ul></div>`;
-            
-            // Tampilkan tombol TOC dan isi containernya
-            tocBtn.classList.remove("hidden");
+            tocHTML += `</ul>`;
+
             tocContainer.innerHTML = tocHTML;
 
-            // Logika Klik Toggle
+            tocBtn.classList.remove("hidden");
+
             tocBtn.onclick = (e) => {
                 e.stopPropagation();
                 tocContainer.classList.toggle("hidden");
             };
         }
 
-    } catch (e) {
-        console.error(e);
+    } catch (err) {
+        console.error(err);
         titleElem.innerText = "Error";
-        container.innerHTML = "<p class='text-center opacity-30'>Gagal memuat detail postingan.</p>";
+        container.innerHTML = "Gagal memuat detail postingan.";
     }
 }
 
+const tocBtn = document.getElementById("tocToggle");
+const tocContainer = document.getElementById("tocContainer");
+
+let dragging = false;
+let offsetX = 0;
+let offsetY = 0;
+
+tocBtn.addEventListener("mousedown", startDrag);
+tocBtn.addEventListener("touchstart", startDrag);
+
+document.addEventListener("mousemove", drag);
+document.addEventListener("touchmove", drag);
+
+document.addEventListener("mouseup", stopDrag);
+document.addEventListener("touchend", stopDrag);
+
+function startDrag(e) {
+    dragging = true;
+
+    const touch = e.touches ? e.touches[0] : e;
+    const rect = tocBtn.getBoundingClientRect();
+
+    offsetX = touch.clientX - rect.left;
+    offsetY = touch.clientY - rect.top;
+
+    tocBtn.style.cursor = "grabbing";
+}
+
+function drag(e) {
+    if (!dragging) return;
+
+    const touch = e.touches ? e.touches[0] : e;
+
+    const x = touch.clientX - offsetX;
+    const y = touch.clientY - offsetY;
+
+    tocBtn.style.left = `${x}px`;
+    tocBtn.style.top = `${y}px`;
+    tocBtn.style.right = "auto";
+    tocBtn.style.bottom = "auto";
+
+    tocContainer.style.left = `${x - 240}px`;
+    tocContainer.style.top = `${y - 260}px`;
+    tocContainer.style.right = "auto";
+    tocContainer.style.bottom = "auto";
+}
+
+function stopDrag() {
+    dragging = false;
+    tocBtn.style.cursor = "grab";
+}
 
 // 5. PREPARE EDIT (Mengambil detail dari shard)
 async function prepareEdit(postId) {

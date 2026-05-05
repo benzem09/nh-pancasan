@@ -48,10 +48,7 @@ async function switchTab(tabName) {
     if (tabName === 'about-me') await refreshAbout-me();
 }
 function toggleTOC() {
-    const panel = document.getElementById("tocPanel");
-    if (panel) {
-        panel.classList.toggle("hidden");
-    }
+    document.querySelector('.toc-menu').classList.toggle('show');
 }
 window.onload = () => {
     switchTab('blog');
