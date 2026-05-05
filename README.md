@@ -220,7 +220,7 @@ Tidak perlu:
 ## 1. Clone Repository
 
 ```bash
-git clone https://github.com/onkbaonk/oonk.git
+git clone https://github.com/onkbaonk/onkhub.git
 cd repo
 ```
 ## Sebelum Menjalankan Aplikasi
