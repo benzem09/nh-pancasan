@@ -220,6 +220,7 @@ button[onclick^="handleReaction"]:active {
     padding: 18px;
 
     box-shadow: 0 12px 30px rgba(0,0,0,.45);
+    transition: all 0.3s ease-in-out;
 }
 
 #tocContainer h3 {

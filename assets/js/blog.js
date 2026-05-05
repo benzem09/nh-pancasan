@@ -170,6 +170,9 @@ async function loadFullPost(postId) {
                 const id = `heading-${index}`;
                 heading.id = id;
 
+                const level = heading.tagName.toLowerCase();
+                const indent = level === 'h2' ? 'ml-3' : level === 'h3' ? 'ml-6' : '';
+
                 tocHTML += `
                     <li class="${heading.tagName.toLowerCase()}">
                         <a href="#${id}">• ${heading.innerText}</a>
