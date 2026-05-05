@@ -1,4 +1,4 @@
-const REPO_PATH = "onkbaonk/john";
+const REPO_PATH = "onkbaonk/ben";
 const BRANCH = "main";
 
 let GITHUB_TOKEN = localStorage.getItem("github_token") || "";
