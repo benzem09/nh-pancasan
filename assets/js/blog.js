@@ -1,5 +1,5 @@
 let EDIT_POST_ID = null;
-const availableCategories = ["Semua", "Fiqih", "Catatan", "Nahu", "Hadist", "Umum"];
+const availableCategories = ["Semua", "Fiqih", "sharaf", "Nahu", "Hadist", "Umum"];
 
 // 1. FUNGSI PEMBANTU (Helper)
 function getBlogIndexPath(year = new Date().getFullYear()) {
