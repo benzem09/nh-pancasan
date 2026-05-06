@@ -164,7 +164,10 @@ async function loadFullPost(postId) {
         const headings = container.querySelectorAll("h1,h2,h3");
 
         if (headings.length > 1) {
-            let tocHTML = `<h3>📑 Daftar Isi</h3><ul>`;
+            let tocHTML = `
+                <div class="toc-box">
+                    <h3>📑 Daftar Isi</h3>
+                    <ul>`;
 
             headings.forEach((heading, index) => {
                 const id = `heading-${index}`;
@@ -180,7 +183,7 @@ async function loadFullPost(postId) {
                 `;
             });
 
-            tocHTML += `</ul>`;
+            tocHTML += `</ul></div>`;
 
             tocContainer.innerHTML = tocHTML;
 

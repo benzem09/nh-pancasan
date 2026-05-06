@@ -183,6 +183,17 @@ button[onclick^="handleReaction"]:active {
     border-radius: 999px;
 }
 
+.toc-box {
+    width: 85vw%;
+    max-width: 320px;
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    border-radius: 1rem;
+    padding: 1rem;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+}
+
 #tocToggle {
     position: fixed;
     bottom: 90px;
