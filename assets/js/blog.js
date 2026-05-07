@@ -137,14 +137,31 @@ async function loadFullPost(postId) {
     container.innerHTML = "<div class='skeleton h-32 w-full'></div>";
     titleElem.innerText = "Memuat...";
 
-    tocBtn.classList.add("hidden");
-    tocContainer.classList.add("hidden");
-    tocContainer.innerHTML = "";
+    if (tocBtn) tocBtn.classList.add("hidden");
+    if (tocContainer) {
+        tocContainer.classList.add("hidden");
+        tocContainer.innerHTML = "";
+      
+    }
 
     try {
         const post = await getPublicFile(`posts/post_${postId}.json`);
 
         titleElem.innerText = post.title || "Tanpa Judul";
+        let canonical = document.querySelector('link[rel="canonical"]');
+        if (canonical) {
+            canonical.href = window.location.href;
+        }
+        
+        document.title = `${post.title} - NH Pancasan`;
+        const metaDesc = document.querySelector('meta[name="description"]');
+        if (metaDesc) {
+          metaDesc.setAttribute(
+            "content",
+            (post.content || "").replace(/[#>*`]/g, "").slice(0, 150)
+            );
+          
+        }
 
         container.innerHTML = `
             <div class="post-body text-slate-300 leading-relaxed">
@@ -187,8 +204,9 @@ async function loadFullPost(postId) {
                 const indent = level === 'h2' ? 'ml-3' : level === 'h3' ? 'ml-6' : '';
 
                 tocHTML += `
-                    <li class="${heading.tagName.toLowerCase()}">
-                        <a href="#${id}">• ${heading.innerText}</a>
+                    <li class="${indent} border-l border-white/5 pl-2 mb-1">
+                        <a href="#${id}" class="text-slate-400 hover:text-blue-400 text-[11px] block py-1 transition-colors">
+                        • ${heading.innerText}</a>
                     </li>
                 `;
             });
