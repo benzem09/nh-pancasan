@@ -6,6 +6,15 @@ function getBlogIndexPath(year = new Date().getFullYear()) {
     return `indices/index_${year}.json`;
 }
 
+function generateSlug(title) {
+    return title
+        .toLowerCase()
+        .trim()
+        .replace(/[^a-z0-9\s-]/g, '')
+        .replace(/\s+/g, '-')
+        .replace(/-+/g, '-');
+}
+
 // 2. REFRESH BLOG (Menggabungkan Index dari Semua Tahun)
 async function refreshBlog() {
     const feed = document.getElementById('blog-feed');
@@ -39,7 +48,7 @@ async function refreshBlog() {
             
             return `
             <div class="glass p-3 rounded-xl hover:border-blue-500/30 transition-all relative group mb-2">
-                <div class="cursor-pointer" onclick="loadFullPost(${p.id})">
+                <div class="cursor-pointer" onclick="openPost('${p.slug || generateSlug(p.title)}', ${p.id})">
                     <h3 class="font-bold text-sm text-blue-400 pr-12 line-clamp-1"> ${cleanTitle}</h3>
                     <div class="flex justify-between mt-2 pt-2 border-t border-white/5 opacity-40 text-[8px]">
                         <span>👤 ${p.author.toUpperCase()} | 🏷 ${p.category || 'Umum'} | 📅 ${p.date}</span>
@@ -71,13 +80,14 @@ async function submitPost() {
     btn.disabled = true;
 
     const postId = Date.now();
+    const slug = generateSlug(t);
     const now = new Date();
     const year = now.getFullYear();
     const dateStr = now.toISOString().split('T')[0];
 
     try {
         // A. Simpan Detail ke posts/post_ID.json (Level 1)
-        const detailedData = { id: postId, title: t, content: c, category: cat, author: CURRENT_USER, date: dateStr, reactions: {}, comments: [] };
+        const detailedData = { id: postId, slug, title: t, content: c, category: cat, author: CURRENT_USER, date: dateStr, reactions: {}, comments: [] };
         await updateGithubFile(`posts/post_${postId}.json`, detailedData, null, `Create post ${postId}`);
 
         // B. Update Daftar Tahun (indices/years.json)
@@ -100,7 +110,7 @@ async function submitPost() {
             indexRes = { content: data.content, sha: data.sha };
         } catch (e) { indexRes = { content: [], sha: null }; }
 
-        indexRes.content.push({ id: postId, title: t, author: CURRENT_USER, category: cat, date: dateStr });
+        indexRes.content.push({ id: postId, slug, title: t, author: CURRENT_USER, category: cat, date: dateStr });
         await updateGithubFile(indexPath, indexRes.content, indexRes.sha, `Update Index ${year}`);
         
         closeModal('postModal');
@@ -254,6 +264,11 @@ function stopDrag() {
     tocBtn.style.cursor = "grab";
 }
 
+function openPost(slug, id) {
+    history.pushState({}, '', `?post=${slug}`);
+    loadFullPost(id);
+}
+
 // 5. PREPARE EDIT (Mengambil detail dari shard)
 async function prepareEdit(postId) {
     try {
@@ -288,6 +303,7 @@ async function submitEdit() {
         const postYear = new Date(file.content.date).getFullYear(); // Ambil tahun dari data asli
 
         file.content.title = t;
+        file.content.slug = generateSlug(t);
         file.content.content = c;
         file.content.category = cat;
 
@@ -300,6 +316,7 @@ async function submitEdit() {
 
         if (idx !== -1) {
             index.content[idx].title = t;
+            index.content[idx].slug = generateSlug(t);
             index.content[idx].category = cat;
             await updateGithubFile(indexPath, index.content, index.sha, `Update Index ${postYear}`);
         }
@@ -368,7 +385,7 @@ async function refreshCategories(filter = "Semua") {
     if (!filterBar) return;
 
     filterBar.innerHTML = availableCategories.map(cat => `
-        <button onclick="refreshCategories('${cat}')" 
+        <button onclick="openPost('${p.slug || generateSlug(p.title)}', ${p.id})" 
             class="px-4 py-1 rounded-full text-[10px] whitespace-nowrap border ${filter === cat ? 'bg-blue-600 border-blue-600 text-white' : 'bg-white/5 border-white/10 text-slate-400'}">
             ${cat}
         </button>
@@ -400,6 +417,37 @@ async function refreshCategories(filter = "Semua") {
             </div>`).join('');
     } catch (e) { console.error(e); }
 }
+
+async function checkUrlPost() {
+    const params = new URLSearchParams(window.location.search);
+    const slug = params.get('post');
+
+    if (!slug) return;
+
+    try {
+        const years = await getPublicFile('indices/years.json');
+        const fetchPromises = years.map(y =>
+            getPublicFile(`indices/index_${y}.json`)
+        );
+
+        const results = await Promise.all(fetchPromises);
+
+        let allPosts = [];
+        results.forEach(c => allPosts = allPosts.concat(c));
+
+        const found = allPosts.find(
+            p => (p.slug || generateSlug(p.title)) === slug
+        );
+
+        if (found) {
+            loadFullPost(found.id);
+        }
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+checkUrlPost();
 
 //11. open
 function openPostEditor() {
