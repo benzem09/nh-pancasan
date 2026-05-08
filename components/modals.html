@@ -18,30 +18,37 @@
 </div>
 
 <div id="viewModal" class="modal p-4 hidden">
-    
-    <!-- tombol floating global -->
-    <button id="tocToggle" class="hidden">☰</button>
+    <div id="floatingAction" class="hidden">
+        <button id="btnToc" class="fab-btn" title="Daftar Isi">📑</button>
+        <button id="btnShare" class="fab-btn" title="Bagikan">🔗</button>
+        <button id="btnDownload" class="fab-btn" title="Download">💾</button>
+    </div>
 
-    <!-- panel daftar isi -->
-    <div id="tocContainer" class="hidden"></div>
-    <button id="downloadToggle"
-    class="download-toggle-btn hidden">
-    ⬇
-    </button>
-   <div id="downloadMenu" class="download-floating hidden">
-    <div class="download-box">
-        <h3>Download</h3>
+    <div id="tocPopup" class="fab-popup hidden">
+        <div class="fab-popup-inner" id="tocContainer"></div>
+    </div>
 
-        <button id="downloadMdBtn">Markdown (.md)</button>
-        <button id="downloadHtmlBtn">HTML (.html)</button>
-      </div>
-     </div>
+    <div id="sharePopup" class="fab-popup hidden">
+        <div class="fab-popup-inner">
+            <div class="popup-title">Bagikan Link</div>
+            <div class="popup-url">
+                <input type="text" id="shareUrl" readonly>
+                <button id="copyUrl" class="bg-blue-600 px-3 py-1 rounded text-[10px]">Salin</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="downloadPopup" class="fab-popup hidden">
+        <div class="fab-popup-inner">
+            <div class="popup-title">Format Download</div>
+            <button id="dlMd" class="popup-item">Markdown (.md)</button>
+            <button id="dlHtml" class="popup-item">HTML (.html)</button>
+        </div>
+    </div>
 
     <div class="glass p-6 rounded-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto">
-        <h2 id="viewTitle" class="text-xl font-bold mb-4 text-blue-400"></h2>
+        <h2 id="viewTitle" class="text-xl font-bold mb-4 text-blue-400 text-center"></h2>
         <div id="viewContent" class="text-sm opacity-80 leading-loose mb-6"></div>
-        <button onclick="closeModal('viewModal')" class="w-full bg-slate-700 py-2 rounded-lg text-xs mt-6">
-            Tutup
-        </button>
+        <button onclick="closeModal('viewModal')" class="w-full bg-slate-700 py-2 rounded-lg text-xs mt-6">Tutup</button>
     </div>
 </div>

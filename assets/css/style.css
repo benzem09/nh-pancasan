@@ -163,187 +163,123 @@ button[onclick^="handleReaction"]:active {
     color: #60a5fa;
 }
 
-.table-wrapper table {
-    min-width: 100%;
-    width: max-content;
-}
+/* --- 1. TABLE WRAPPER (WAJIB ADA) --- */
 .table-wrapper {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     margin: 16px 0;
     width: 100%;
+    border-radius: 8px;
 }
 
+.table-wrapper table {
+    min-width: 100%;
+    width: max-content;
+    border-collapse: collapse;
+}
+
+/* Scrollbar cantik untuk tabel */
 .table-wrapper::-webkit-scrollbar {
     height: 6px;
 }
-
 .table-wrapper::-webkit-scrollbar-thumb {
     background: rgba(59,130,246,0.4);
     border-radius: 999px;
 }
 
-.toc-box {
-    width: 85vw%;
-    max-width: 320px;
-    background: rgba(15, 23, 42, 0.8);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(59, 130, 246, 0.2);
-    border-radius: 1rem;
-    padding: 1rem;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
-}
-
-#tocToggle {
-    position: fixed;
-    bottom: 90px;
-    right: 20px;
-    z-index: 9999;
-
-    width: 58px;
-    height: 58px;
-    border-radius: 50%;
-    border: none;
-    background: #2563eb;
-    color: white;
-    font-size: 22px;
-    cursor: grab;
-
-    box-shadow: 0 8px 25px rgba(37,99,235,.35);
-}
-
-#tocContainer {
-    position: fixed;
-    bottom: 160px;
-    right: 20px;
-    z-index: 9998;
-
-    width: 85vw;
-    max-width: 320px;
-    max-height: 60vh;
-    overflow-y: auto;
-
-    background: rgba(15,23,42,.96);
-    backdrop-filter: blur(14px);
-
-    border: 1px solid rgba(59,130,246,.2);
-    border-radius: 18px;
-    padding: 18px;
-
-    box-shadow: 0 12px 30px rgba(0,0,0,.45);
-    transition: all 0.3s ease-in-out;
-}
-
-#tocContainer h3 {
-    color: #60a5fa;
-    font-size: 15px;
-    font-weight: bold;
-    margin-bottom: 14px;
-}
-
-#tocContainer ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-#tocContainer li {
-    margin-bottom: 10px;
-    font-size: 13px;
-}
-
-#tocContainer li.h2 {
-    padding-left: 14px;
-}
-
-#tocContainer li.h3 {
-    padding-left: 28px;
-}
-
-#tocContainer a {
-    color: #cbd5e1;
-    text-decoration: none;
-}
-
-#tocContainer a:hover {
-    color: #60a5fa;
-}
-
+/* --- 2. GLOBAL UTILITY --- */
 .hidden {
     display: none;
 }
 
-@media (min-width: 768px) {
-    #tocContainer {
-        max-width: 420px;
-        padding: 24px;
-    }
-
-    #tocToggle {
-        width: 64px;
-        height: 64px;
-        font-size: 24px;
-    }
-}
-.download-toggle-btn {
+/* --- 3. SISTEM FAB BARU (Gantikan semua tombol lama) --- */
+#floatingAction {
     position: fixed;
-    bottom: 160px;
     right: 20px;
+    bottom: 120px;
     z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
 
-    width: 58px;
-    height: 58px;
+.fab-btn {
+    background: rgba(30, 41, 59, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
-    border: none;
-
-    background: #16a34a;
-    color: white;
-    font-size: 22px;
-    cursor: pointer;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: grab;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    transition: transform 0.2s;
 }
 
-.download-floating {
+.fab-btn:active { transform: scale(0.85); cursor: grabbing; }
+
+/* --- 4. POPUP BARU --- */
+.fab-popup {
     position: fixed;
-    bottom: 230px;
-    right: 20px;
-    z-index: 9999;
+    right: 80px;
+    bottom: 120px;
+    z-index: 10000;
 }
 
-.download-box {
-    width: 220px;
-    background: rgba(15,23,42,.95);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255,255,255,.08);
-    border-radius: 16px;
-    padding: 16px;
-    box-shadow: 0 12px 30px rgba(0,0,0,.45);
+.fab-popup-inner {
+    background: rgba(15, 23, 42, 0.98);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(59, 130, 246, 0.4);
+    border-radius: 14px;
+    padding: 12px;
+    min-width: 220px;
+    max-width: 280px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
 }
 
-.download-box h3 {
-    color: #4ade80;
-    font-size: 14px;
+.popup-title {
+    color: #60a5fa;
+    font-size: 11px;
     font-weight: bold;
-    margin-bottom: 12px;
-}
-
-.download-box button {
-    width: 100%;
-    padding: 10px;
     margin-bottom: 8px;
-    border-radius: 10px;
-    border: none;
-    background: rgba(255,255,255,.05);
-    color: #cbd5e1;
-    cursor: pointer;
-    font-size: 12px;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 4px;
 }
 
-#downloadMenu {
-    position: fixed;
-    bottom: 230px;
-    right: 20px;
-    z-index: 9999;
+.popup-item {
+    width: 100%;
+    text-align: left;
+    padding: 8px;
+    font-size: 11px;
+    color: #cbd5e1;
+    border-radius: 6px;
+    display: block;
+    cursor: pointer;
 }
+
+.popup-item:hover { background: rgba(59, 130, 246, 0.15); color: #60a5fa; }
+
+.popup-url { display: flex; gap: 5px; }
+.popup-url input {
+    flex: 1;
+    background: #0f172a;
+    border: 1px solid #1e293b;
+    padding: 5px;
+    font-size: 10px;
+    border-radius: 4px;
+    color: #94a3b8;
+}
+
+/* --- 5. RESPONSIVE MOBILE --- */
+@media (max-width: 767px) {
+    .fab-btn { width: 40px; height: 40px; font-size: 20px; }
+    .fab-popup { right: 65px; }
+}
+
 
 #viewContent {
     font-size: 14px;
