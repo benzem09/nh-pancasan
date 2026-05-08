@@ -134,23 +134,15 @@ async function loadFullPost(postId) {
 
     container.innerHTML = "<div class='skeleton h-32 w-full'></div>";
     titleElem.innerText = "Memuat...";
-
-    // Reset UI
     fab.classList.add("hidden");
     document.querySelectorAll('.fab-popup').forEach(p => p.classList.add('hidden'));
 
     try {
         const post = await getPublicFile(`posts/post_${postId}.json`);
         titleElem.innerText = post.title;
-        
-        // Render Konten
-        container.innerHTML = `
-            <div class="post-body">
-                ${marked.parse(post.content || "")}
-            </div>
-        `;
+        container.innerHTML = `<div class="post-body">${marked.parse(post.content || "")}</div>`;
 
-        // --- KEMBALIKAN TABLE WRAPPER ---
+        // 1. KEMBALIKAN TABLE WRAPPER
         container.querySelectorAll("table").forEach(table => {
             const wrapper = document.createElement("div");
             wrapper.className = "table-wrapper";
@@ -158,10 +150,9 @@ async function loadFullPost(postId) {
             wrapper.appendChild(table);
         });
 
-        // Logika TOC
         const headings = container.querySelectorAll("h1, h2, h3");
         if (headings.length > 1) {
-            let tocHTML = `<div class="popup-title">📑 Daftar Isi</div><ul class="max-h-[60vh] overflow-y-auto">`;
+            let tocHTML = `<div class="popup-title">📑 Daftar Isi</div><ul class="max-h-[50vh] overflow-y-auto">`;
             headings.forEach((h, i) => {
                 const id = `heading-${i}`;
                 h.id = id;
@@ -173,19 +164,40 @@ async function loadFullPost(postId) {
 
             fab.classList.remove("hidden");
 
-            // Events
+            // Event Click FAB
             document.getElementById('btnToc').onclick = (e) => { e.stopPropagation(); toggleFabPopup('tocPopup'); };
-            document.getElementById('btnShare').onclick = (e) => { e.stopPropagation(); toggleFabPopup('sharePopup'); document.getElementById('shareUrl').value = window.location.href; };
+            document.getElementById('btnShare').onclick = (e) => { 
+                e.stopPropagation(); 
+                document.getElementById('shareUrl').value = window.location.href;
+                toggleFabPopup('sharePopup'); 
+            };
             document.getElementById('btnDownload').onclick = (e) => { e.stopPropagation(); toggleFabPopup('downloadPopup'); };
             
+            // Logic Copy & Download (MENGGUNAKAN SLUG JUDUL)
             document.getElementById('copyUrl').onclick = () => {
                 navigator.clipboard.writeText(window.location.href);
                 alert("Link disalin!");
             };
-            document.getElementById('dlMd').onclick = () => downloadPost(post.id, 'md');
-            document.getElementById('dlHtml').onclick = () => downloadPost(post.id, 'html');
+
+            // Download menggunakan judul post (slug)
+            const fileName = post.slug || generateSlug(post.title);
+            document.getElementById('dlMd').onclick = () => executeDownload(post.content, `${fileName}.md`);
+            document.getElementById('dlHtml').onclick = () => {
+                const htmlContent = `<!DOCTYPE html><html><head><title>${post.title}</title></head><body>${marked.parse(post.content)}</body></html>`;
+                executeDownload(htmlContent, `${fileName}.html`);
+            };
         }
     } catch (e) { console.error(e); }
+}
+
+function executeDownload(content, filename) {
+    const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    a.click();
+    URL.revokeObjectURL(url);
 }
 
 function toggleFabPopup(id) {
@@ -198,49 +210,6 @@ function toggleFabPopup(id) {
 function openPost(slug, id) {
     history.pushState({}, '', `?post=${slug}`);
     loadFullPost(id);
-}
-
-function downloadPost(postId, format = "md") {
-    getPublicFile(`posts/post_${postId}.json`)
-        .then(post => {
-            let content = "";
-            let filename = post.slug || `post-${postId}`;
-
-            if (format === "md") {
-                content = post.content || "";
-                filename += ".md";
-            }
-
-            if (format === "html") {
-                content = `
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>${post.title}</title>
-</head>
-<body>
-${marked.parse(post.content || "")}
-</body>
-</html>
-                `;
-                filename += ".html";
-            }
-
-            const blob = new Blob([content], {
-                type: "text/plain;charset=utf-8"
-            });
-
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement("a");
-
-            a.href = url;
-            a.download = filename;
-            a.click();
-
-            URL.revokeObjectURL(url);
-        })
-        .catch(err => console.error(err));
 }
 
 // 5. PREPARE EDIT (Mengambil detail dari shard)
@@ -447,7 +416,6 @@ function startFabDrag(e) {
     const touch = e.touches ? e.touches[0] : e;
     fabStartY = touch.clientY;
     fabStartTop = fabContainer.offsetTop;
-    fabContainer.style.cursor = 'grabbing';
 }
 
 document.addEventListener('mousemove', doFabDrag);
@@ -456,25 +424,17 @@ document.addEventListener('touchmove', doFabDrag, {passive: false});
 function doFabDrag(e) {
     if (!isDraggingFab) return;
     const touch = e.touches ? e.touches[0] : e;
-    const deltaY = touch.clientY - fabStartY;
-    let newTop = fabStartTop + deltaY;
-
-    // Batasi area geser
+    let newTop = fabStartTop + (touch.clientY - fabStartY);
     if (newTop < 50) newTop = 50;
     if (newTop > window.innerHeight - 180) newTop = window.innerHeight - 180;
-
+    
     fabContainer.style.top = newTop + "px";
     fabContainer.style.bottom = "auto";
-
-    // Popup ikut bergeser
-    document.querySelectorAll('.fab-popup').forEach(p => {
-        p.style.top = newTop + "px";
-        p.style.bottom = "auto";
-    });
+    document.querySelectorAll('.fab-popup').forEach(p => { p.style.top = newTop + "px"; p.style.bottom = "auto"; });
 }
 
-document.addEventListener('mouseup', () => { isDraggingFab = false; fabContainer.style.cursor = 'grab'; });
-document.addEventListener('touchend', () => { isDraggingFab = false; });
+document.addEventListener('mouseup', () => isDraggingFab = false);
+document.addEventListener('touchend', () => isDraggingFab = false);
 
 //11. open
 function openPostEditor() {
