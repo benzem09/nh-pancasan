@@ -133,6 +133,8 @@ async function loadFullPost(postId) {
     const titleElem = document.getElementById('viewTitle');
     const tocBtn = document.getElementById("tocToggle");
     const tocContainer = document.getElementById("tocContainer");
+    const downloadBtn = document.getElementById("downloadToggle");
+    const downloadMenu = document.getElementById("downloadMenu");
 
     container.innerHTML = "<div class='skeleton h-32 w-full'></div>";
     titleElem.innerText = "Memuat...";
@@ -143,6 +145,8 @@ async function loadFullPost(postId) {
         tocContainer.innerHTML = "";
       
     }
+    if (downloadBtn) downloadBtn.classList.add("hidden");
+    if (downloadMenu) downloadMenu.classList.add("hidden");
 
     try {
         const post = await getPublicFile(`posts/post_${postId}.json`);
@@ -222,6 +226,17 @@ async function loadFullPost(postId) {
                 tocContainer.classList.toggle("hidden");
             };
         }
+        if (downloadBtn && downloadMenu) {
+          downloadBtn.classList.remove("hidden");
+          downloadBtn.onclick = (e) => {
+            e.stopPropagation();
+            downloadMenu.classList.toggle("hidden");
+            
+          };
+          document.getElementById("downloadMdBtn").onclick = () => downloadPost(post.id, "md");
+          document.getElementById("downloadHtmlBtn").onclick = () => downloadPost(post.id, "html");
+          
+        }
 
     } catch (err) {
         console.error(err);
@@ -285,6 +300,49 @@ function stopDrag() {
 function openPost(slug, id) {
     history.pushState({}, '', `?post=${slug}`);
     loadFullPost(id);
+}
+
+function downloadPost(postId, format = "md") {
+    getPublicFile(`posts/post_${postId}.json`)
+        .then(post => {
+            let content = "";
+            let filename = post.slug || `post-${postId}`;
+
+            if (format === "md") {
+                content = post.content || "";
+                filename += ".md";
+            }
+
+            if (format === "html") {
+                content = `
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>${post.title}</title>
+</head>
+<body>
+${marked.parse(post.content || "")}
+</body>
+</html>
+                `;
+                filename += ".html";
+            }
+
+            const blob = new Blob([content], {
+                type: "text/plain;charset=utf-8"
+            });
+
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+
+            a.href = url;
+            a.download = filename;
+            a.click();
+
+            URL.revokeObjectURL(url);
+        })
+        .catch(err => console.error(err));
 }
 
 // 5. PREPARE EDIT (Mengambil detail dari shard)

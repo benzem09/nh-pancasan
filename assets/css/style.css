@@ -285,6 +285,65 @@ button[onclick^="handleReaction"]:active {
         font-size: 24px;
     }
 }
+.download-toggle-btn {
+    position: fixed;
+    bottom: 160px;
+    right: 20px;
+    z-index: 9999;
+
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    border: none;
+
+    background: #16a34a;
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.download-floating {
+    position: fixed;
+    bottom: 230px;
+    right: 20px;
+    z-index: 9999;
+}
+
+.download-box {
+    width: 220px;
+    background: rgba(15,23,42,.95);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 12px 30px rgba(0,0,0,.45);
+}
+
+.download-box h3 {
+    color: #4ade80;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.download-box button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 8px;
+    border-radius: 10px;
+    border: none;
+    background: rgba(255,255,255,.05);
+    color: #cbd5e1;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+#downloadMenu {
+    position: fixed;
+    bottom: 230px;
+    right: 20px;
+    z-index: 9999;
+}
 
 #viewContent {
     font-size: 14px;
