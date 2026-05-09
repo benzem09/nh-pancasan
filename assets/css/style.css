@@ -291,8 +291,8 @@ button[onclick^="handleReaction"]:active {
 .action-btn svg,
 .fab-btn img,
 .fab-btn svg {
-    width: 22px;
-    height: 22px;
+    width: 16px;
+    height: 16px;
     display: inline-block;
     vertical-align: middle;
 
@@ -302,7 +302,6 @@ button[onclick^="handleReaction"]:active {
 }
 
 /* tombol */
-.home,
 .action-btn,
 .fab-btn,
 .toc-toggle-btn,
@@ -315,13 +314,6 @@ button[onclick^="handleReaction"]:active {
     filter: brightness(0) invert(1);
 }
 
-.icon {
-    width: 20px;
-    height: 20px;
-    display: inline-block;
-    vertical-align: middle;
-    color: currentColor;
-}
 button .icon,
 a .icon {
     pointer-events: none;
