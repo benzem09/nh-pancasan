@@ -302,6 +302,7 @@ button[onclick^="handleReaction"]:active {
 }
 
 /* tombol */
+.home,
 .action-btn,
 .fab-btn,
 .toc-toggle-btn,
