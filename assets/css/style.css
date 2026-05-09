@@ -285,6 +285,35 @@ button[onclick^="handleReaction"]:active {
     100% { background-position: -200% 0; }
 }
 
+/* semua icon global */
+.icon,
+.action-btn img,
+.action-btn svg,
+.fab-btn img,
+.fab-btn svg {
+    width: 22px;
+    height: 22px;
+    display: inline-block;
+    vertical-align: middle;
+
+    color: #ffffff !important;
+    fill: #ffffff !important;
+    stroke: #ffffff !important;
+}
+
+/* tombol */
+.action-btn,
+.fab-btn,
+.toc-toggle-btn,
+.share-toggle-btn,
+.download-toggle-btn {
+    color: #ffffff !important;
+}
+#floatingAction button img,
+#floatingAction button svg {
+    filter: brightness(0) invert(1);
+}
+
 .icon {
     width: 20px;
     height: 20px;
