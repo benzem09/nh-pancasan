@@ -284,3 +284,15 @@ button[onclick^="handleReaction"]:active {
     0% { background-position: 200% 0; }
     100% { background-position: -200% 0; }
 }
+
+.icon {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: middle;
+    color: currentColor;
+}
+button .icon,
+a .icon {
+    pointer-events: none;
+}

@@ -125,24 +125,60 @@ async function submitPost() {
     }
 }
 
-// 4. LOAD FULL POST (Mendukung Sharding & TOC)
+// LOAD FULL POST + SEO + TOC + DOWNLOAD + SHARE
 async function loadFullPost(postId) {
     openModal('viewModal');
+
     const container = document.getElementById('viewContent');
     const titleElem = document.getElementById('viewTitle');
     const fab = document.getElementById("floatingAction");
 
     container.innerHTML = "<div class='skeleton h-32 w-full'></div>";
     titleElem.innerText = "Memuat...";
+
     fab.classList.add("hidden");
     document.querySelectorAll('.fab-popup').forEach(p => p.classList.add('hidden'));
 
     try {
         const post = await getPublicFile(`posts/post_${postId}.json`);
-        titleElem.innerText = post.title;
-        container.innerHTML = `<div class="post-body">${marked.parse(post.content || "")}</div>`;
 
-        // 1. KEMBALIKAN TABLE WRAPPER
+        // title
+        titleElem.innerText = post.title || "Tanpa Judul";
+
+        // SEO
+        document.title = `${post.title} - NH Pancasan`;
+
+        const metaDesc = document.querySelector('meta[name="description"]');
+        if (metaDesc) {
+            metaDesc.setAttribute(
+                "content",
+                (post.content || "")
+                .replace(/[#>*`]/g, "")
+                .slice(0, 150)
+            );
+        }
+
+        const canonical = document.querySelector('link[rel="canonical"]');
+        if (canonical) canonical.href = window.location.href;
+
+        // render content
+        container.innerHTML = `
+            <div class="post-body text-slate-300 leading-relaxed">
+                <div class="flex items-center gap-2 mb-6 opacity-60">
+                    <span class="text-[10px] bg-blue-600/20 text-blue-400 px-2 py-1 rounded border border-blue-600/30">
+                        ${post.category || 'Umum'}
+                    </span>
+                    <span class="text-[10px]">👤 @${post.author || "admin"}</span>
+                    <span class="text-[10px]">📅 ${post.date || "-"}</span>
+                </div>
+
+                <div id="main-post-content">
+                    ${marked.parse(post.content || "")}
+                </div>
+            </div>
+        `;
+
+        // table wrapper
         container.querySelectorAll("table").forEach(table => {
             const wrapper = document.createElement("div");
             wrapper.className = "table-wrapper";
@@ -150,63 +186,128 @@ async function loadFullPost(postId) {
             wrapper.appendChild(table);
         });
 
-        const headings = container.querySelectorAll("h1, h2, h3");
+        // TOC
+        const headings = container.querySelectorAll("h1,h2,h3");
+
         if (headings.length > 1) {
-            let tocHTML = `<div class="popup-title">📑 Daftar Isi</div><ul class="max-h-[50vh] overflow-y-auto">`;
-            headings.forEach((h, i) => {
-                const id = `heading-${i}`;
-                h.id = id;
-                const indent = h.tagName === 'H2' ? 'ml-3' : h.tagName === 'H3' ? 'ml-6' : '';
-                tocHTML += `<li class="${indent} mb-2"><a href="#${id}" class="text-slate-400 text-[11px] hover:text-blue-400">• ${h.innerText}</a></li>`;
+            let tocHTML = `
+                <div class="popup-title">📑 Daftar Isi</div>
+                <ul class="max-h-[50vh] overflow-y-auto">
+            `;
+
+            headings.forEach((heading, index) => {
+                const id = `heading-${index}`;
+                heading.id = id;
+
+                const indent =
+                    heading.tagName === "H2" ? "ml-3" :
+                    heading.tagName === "H3" ? "ml-6" : "";
+
+                tocHTML += `
+                    <li class="${indent} mb-2">
+                        <a href="#${id}" class="text-slate-400 text-[11px] hover:text-blue-400">
+                            • ${heading.innerText}
+                        </a>
+                    </li>
+                `;
             });
+
             tocHTML += `</ul>`;
             document.getElementById("tocContainer").innerHTML = tocHTML;
-
-            fab.classList.remove("hidden");
-
-            // Event Click FAB
-            document.getElementById('btnToc').onclick = (e) => { e.stopPropagation(); toggleFabPopup('tocPopup'); };
-            document.getElementById('btnShare').onclick = (e) => { 
-                e.stopPropagation(); 
-                document.getElementById('shareUrl').value = window.location.href;
-                toggleFabPopup('sharePopup'); 
-            };
-            document.getElementById('btnDownload').onclick = (e) => { e.stopPropagation(); toggleFabPopup('downloadPopup'); };
-            
-            // Logic Copy & Download (MENGGUNAKAN SLUG JUDUL)
-            document.getElementById('copyUrl').onclick = () => {
-                navigator.clipboard.writeText(window.location.href);
-                alert("Link disalin!");
-            };
-
-            // Download menggunakan judul post (slug)
-            const fileName = post.slug || generateSlug(post.title);
-            document.getElementById('dlMd').onclick = () => executeDownload(post.content, `${fileName}.md`);
-            document.getElementById('dlHtml').onclick = () => {
-                const htmlContent = `<!DOCTYPE html><html><head><title>${post.title}</title></head><body>${marked.parse(post.content)}</body></html>`;
-                executeDownload(htmlContent, `${fileName}.html`);
-            };
         }
-    } catch (e) { console.error(e); }
+
+        fab.classList.remove("hidden");
+
+        // TOC button
+        document.getElementById('btnToc').onclick = (e) => {
+            e.stopPropagation();
+            toggleFabPopup('tocPopup');
+        };
+
+        // SHARE native android
+        document.getElementById('btnShare').onclick = async (e) => {
+            e.stopPropagation();
+
+            try {
+                if (navigator.share) {
+                    await navigator.share({
+                        title: post.title || document.title,
+                        text: `Baca artikel: ${post.title}`,
+                        url: window.location.href
+                    });
+                } else {
+                    await navigator.clipboard.writeText(window.location.href);
+                    alert("Link disalin!");
+                }
+            } catch (err) {
+                console.log("Share dibatalkan");
+            }
+        };
+
+        // DOWNLOAD popup
+        document.getElementById('btnDownload').onclick = (e) => {
+            e.stopPropagation();
+            toggleFabPopup('downloadPopup');
+        };
+
+        const fileName = post.slug || generateSlug(post.title);
+
+        document.getElementById('dlMd').onclick = () => {
+            executeDownload(post.content, `${fileName}.md`);
+        };
+
+        document.getElementById('dlHtml').onclick = () => {
+            const htmlContent = `
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>${post.title}</title>
+</head>
+<body>
+${marked.parse(post.content)}
+</body>
+</html>`;
+            executeDownload(htmlContent, `${fileName}.html`);
+        };
+
+    } catch (err) {
+        console.error(err);
+        titleElem.innerText = "Error";
+        container.innerHTML = "Gagal memuat detail postingan.";
+    }
 }
 
+
+// download helper
 function executeDownload(content, filename) {
-    const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+    const blob = new Blob([content], {
+        type: "text/plain;charset=utf-8"
+    });
+
     const url = URL.createObjectURL(blob);
+
     const a = document.createElement("a");
     a.href = url;
     a.download = filename;
     a.click();
+
     URL.revokeObjectURL(url);
 }
 
+
+// popup toggle
 function toggleFabPopup(id) {
     const target = document.getElementById(id);
     const isHidden = target.classList.contains('hidden');
-    document.querySelectorAll('.fab-popup').forEach(p => p.classList.add('hidden'));
+
+    document.querySelectorAll('.fab-popup')
+        .forEach(p => p.classList.add('hidden'));
+
     if (isHidden) target.classList.remove('hidden');
 }
 
+// slug open
 function openPost(slug, id) {
     history.pushState({}, '', `?post=${slug}`);
     loadFullPost(id);
@@ -404,33 +505,46 @@ async function checkUrlPost() {
 
 checkUrlPost();
 
-// LOGIKA DRAG GLOBAL (Letakkan di Paling Bawah blog.js)
-let isDraggingFab = false, fabStartY, fabStartTop;
+// DRAG FAB
+let isDraggingFab = false;
+let fabStartY = 0;
+let fabStartTop = 0;
+
 const fabContainer = document.getElementById("floatingAction");
 
 fabContainer.addEventListener('mousedown', startFabDrag);
-fabContainer.addEventListener('touchstart', startFabDrag, {passive: false});
+fabContainer.addEventListener('touchstart', startFabDrag, { passive: false });
 
 function startFabDrag(e) {
     isDraggingFab = true;
+
     const touch = e.touches ? e.touches[0] : e;
     fabStartY = touch.clientY;
     fabStartTop = fabContainer.offsetTop;
 }
 
 document.addEventListener('mousemove', doFabDrag);
-document.addEventListener('touchmove', doFabDrag, {passive: false});
+document.addEventListener('touchmove', doFabDrag, { passive: false });
 
 function doFabDrag(e) {
     if (!isDraggingFab) return;
+
     const touch = e.touches ? e.touches[0] : e;
+
     let newTop = fabStartTop + (touch.clientY - fabStartY);
+
     if (newTop < 50) newTop = 50;
-    if (newTop > window.innerHeight - 180) newTop = window.innerHeight - 180;
-    
+    if (newTop > window.innerHeight - 180) {
+        newTop = window.innerHeight - 180;
+    }
+
     fabContainer.style.top = newTop + "px";
     fabContainer.style.bottom = "auto";
-    document.querySelectorAll('.fab-popup').forEach(p => { p.style.top = newTop + "px"; p.style.bottom = "auto"; });
+
+    document.querySelectorAll('.fab-popup').forEach(p => {
+        p.style.top = newTop + "px";
+        p.style.bottom = "auto";
+    });
 }
 
 document.addEventListener('mouseup', () => isDraggingFab = false);
