@@ -1,10 +1,14 @@
 const CACHE_NAME = "nh-pancasan-v1";
 
 const urlsToCache = [
-    "/ben/",
-    "/ben/index.html",
-    "/ben/assets/css/style.css",
-    "/ben/assets/js/blog.js"
+  "./",
+  "./index.html",
+  "./manifest.json",
+  "./assets/css/style.css",
+  "./assets/js/main.js",
+  "./assets/js/blog.js",
+  "./assets/img/logo.png",
+  "./posts/post.json"
 ];
 
 self.addEventListener("install", event => {
@@ -19,4 +23,18 @@ self.addEventListener("fetch", event => {
         caches.match(event.request)
             .then(response => response || fetch(event.request))
     );
+});
+
+self.addEventListener("activate", event => {
+  event.waitUntil(
+    caches.keys().then(keys =>
+      Promise.all(
+        keys.map(key => {
+          if (key !== CACHE_NAME) {
+            return caches.delete(key);
+          }
+        })
+      )
+    )
+  );
 });
