@@ -341,15 +341,38 @@ function executeDownload(content, filename) {
 function downloadPDF(postTitle) {
     const element = document.querySelector(".post-body");
 
+    // simpan style asli
+    const originalBg = element.style.background;
+    const originalColor = element.style.color;
+    const originalPadding = element.style.padding;
+
+    // mode PDF
+    element.style.background = "#ffffff";
+    element.style.color = "#000000";
+    element.style.padding = "20px";
+
+    // paksa semua child ikut hitam
+    element.querySelectorAll("*").forEach(el => {
+        el.dataset.oldColor = el.style.color;
+        el.dataset.oldBg = el.style.background;
+
+        el.style.color = "#000000";
+        el.style.background = "transparent";
+        el.style.boxShadow = "none";
+        el.style.backdropFilter = "none";
+        el.style.textShadow = "none";
+    });
+
     const options = {
         margin: 0.5,
         filename: `${generateSlug(postTitle)}.pdf`,
         image: {
             type: "jpeg",
-            quality: 0.98
+            quality: 1
         },
         html2canvas: {
             scale: 2,
+            backgroundColor: "#ffffff",
             useCORS: true
         },
         jsPDF: {
@@ -359,7 +382,21 @@ function downloadPDF(postTitle) {
         }
     };
 
-    html2pdf().set(options).from(element).save();
+    html2pdf()
+        .set(options)
+        .from(element)
+        .save()
+        .then(() => {
+            // restore style asli
+            element.style.background = originalBg;
+            element.style.color = originalColor;
+            element.style.padding = originalPadding;
+
+            element.querySelectorAll("*").forEach(el => {
+                el.style.color = el.dataset.oldColor || "";
+                el.style.background = el.dataset.oldBg || "";
+            });
+        });
 }
 
 // popup toggle
