@@ -9,8 +9,25 @@ header {
     z-index: 40;
     background-color: #0f172a; /* Warna background agar tidak transparan saat ditumpuk */
     padding-top: 1rem;
+
+}
+
+.brand-wrapper-horizontal {
+    position: sticky;
+    height: 35px;
+    display: flex;
+    flex-direction: row; /* Membuat isi memanjang ke samping */
+    align-items: center; /* Teks dan gambar sejajar secara vertikal */
+    gap: 1px; /* Jarak antara gambar logo dan teks */
+    text-decoration: none;
+    padding-top: 1rem;
     padding-bottom: 0.5rem;
-  
+}
+
+.logo-img-wide {
+    height: 45px; /* Sesuaikan tinggi agar tidak terlalu besar */
+    width: auto;  /* Lebar otomatis mengikuti proporsi gambar */
+    object-fit: contain;
 }
 
 .brand-info {
