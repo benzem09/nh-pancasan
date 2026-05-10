@@ -20,6 +20,7 @@
 <div id="viewModal" class="modal p-4 hidden">
     <div id="floatingAction" class="floating-actions">
         <button onclick="closeModal('viewModal')"  class="fab-btn"><img src="assets/icons/close.svg" class="icon"></button>
+        <button id="btnSearch" class="fab-btn"><img src="assets/icons/search.svg" class="icon"></button>
         <button id="btnShare" class="fab-btn" title="Bagikan"><img src="assets/icons/share.svg" class="icon"></button>
         <button id="btnDownload" class="fab-btn" title="Download"><img src="assets/icons/download.svg" class="icon"></button>
         <button id="btnToc" class="fab-btn" title="Daftar Isi"><img src="assets/icons/menu.svg" class="icon"></button>
@@ -29,6 +30,17 @@
         <div class="fab-popup-inner" id="tocContainer"></div>
     </div>
 
+    <div id="searchPopup" class="fab-popup hidden">
+      <div class="fab-popup-inner">
+        <div class="popup-title">Search in Post</div>
+        
+        <input
+        id="searchInPost"
+        type="text"
+        placeholder="Cari kata..."
+        class="w-full bg-slate-900 border border-slate-700 rounded px-3 py-2 text-xs text-white outline-none"/>
+      </div>
+    </div>
     <div id="sharePopup" class="fab-popup hidden">
         <div class="fab-popup-inner">
             <div class="popup-title">Bagikan Link</div>

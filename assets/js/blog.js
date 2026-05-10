@@ -223,6 +223,21 @@ async function loadFullPost(postId) {
             e.stopPropagation();
             toggleFabPopup('tocPopup');
         };
+        
+        //SEARCH button
+        document.getElementById('btnSearch').onclick = (e) => {
+          e.stopPropagation();
+          toggleFabPopup('searchPopup');
+          
+        };
+        const searchInput = document.getElementById("searchInPost");
+        if (searchInput) {
+          searchInput.addEventListener("input", function () {
+            highlightText(this.value);
+            
+          });
+          
+        }
 
         // SHARE native android
         document.getElementById('btnShare').onclick = async (e) => {
@@ -278,6 +293,29 @@ ${marked.parse(post.content)}
     }
 }
 
+//search
+function highlightText(keyword) {
+    const content = document.getElementById("main-post-content");
+    if (!content) return;
+
+    // reset dulu
+    const original = content.dataset.original || content.innerHTML;
+    if (!content.dataset.original) {
+        content.dataset.original = original;
+    }
+
+    if (!keyword.trim()) {
+        content.innerHTML = original;
+        return;
+    }
+
+    const regex = new RegExp(`(${keyword})`, "gi");
+
+    content.innerHTML = original.replace(
+        regex,
+        `<mark class="search-highlight">$1</mark>`
+    );
+}
 
 // download helper
 function executeDownload(content, filename) {
