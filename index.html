@@ -17,6 +17,8 @@
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="canonical" href="https://onkbaonk.github.io/ben/">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0f172a">
 </head>
 <body class="p-4 md:p-8 bg-[#0f172a] text-slate-200">
 
@@ -83,5 +85,12 @@
     initApp();
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script>
+if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("./sw.js")
+        .then(() => console.log("SW registered"))
+        .catch(err => console.log("SW failed", err));
+}
+</script>
 </body>
 </html>
