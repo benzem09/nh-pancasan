@@ -14,7 +14,7 @@ header {
 
 .brand-wrapper-horizontal {
     position: sticky;
-    height: 43px;
+    height: 45px;
     display: flex;
     flex-direction: row; /* Membuat isi memanjang ke samping */
     align-items: center; /* Teks dan gambar sejajar secara vertikal */
@@ -110,33 +110,50 @@ button[onclick^="handleReaction"]:active {
 }
 
 .modal {
-    display: none;
     position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.8);
-    align-items: center;
-    justify-content: center;
+    top: 80px;      /* mulai setelah header */
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    background: rgba(0,0,0,0.75);
     backdrop-filter: blur(8px);
-    z-index: 9999;
+
+    display: none;
+    justify-content: center;
+    align-items: flex-start;
+
+    z-index: 999;
     padding: 16px;
-  
+    overflow-y: auto;
 }
 /* box popup */
 .modal-content {
     width: 100%;
     max-width: 850px;
-    max-height: 90vh;
+    margin-top: 5px;
+
+    max-height: calc(100vh - 110px);
     overflow-y: auto;
 
-    background: rgba(15, 23, 42, 0.95);
-    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(15, 23, 42, 0.96);
     border-radius: 24px;
     padding: 24px;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.4);
 }
-.hidden {
-    display: none;
+
+
   
+}
+@media (max-width: 768px) {
+    .modal {
+        top: 65px;
+        padding: 12px;
+    }
+
+    .modal-content {
+        max-height: calc(100vh - 85px);
+        padding: 18px;
+    }
 }
         /* Animasi perpindahan tab */
 .tab-content {
