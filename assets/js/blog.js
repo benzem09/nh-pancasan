@@ -285,6 +285,11 @@ ${marked.parse(post.content)}
 </html>`;
             executeDownload(htmlContent, `${fileName}.html`);
         };
+        
+        document.getElementById('dlPdf').onclick = () => {
+          downloadPDF(post.title);
+          
+        };
 
     } catch (err) {
         console.error(err);
@@ -333,6 +338,29 @@ function executeDownload(content, filename) {
     URL.revokeObjectURL(url);
 }
 
+function downloadPDF(postTitle) {
+    const element = document.querySelector(".post-body");
+
+    const options = {
+        margin: 0.5,
+        filename: `${generateSlug(postTitle)}.pdf`,
+        image: {
+            type: "jpeg",
+            quality: 0.98
+        },
+        html2canvas: {
+            scale: 2,
+            useCORS: true
+        },
+        jsPDF: {
+            unit: "in",
+            format: "a4",
+            orientation: "portrait"
+        }
+    };
+
+    html2pdf().set(options).from(element).save();
+}
 
 // popup toggle
 function toggleFabPopup(id) {
