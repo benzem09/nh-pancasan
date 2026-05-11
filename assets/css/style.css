@@ -8,7 +8,7 @@ body {
 header {
     position: sticky;
     top: 0;
-    z-index: 45;
+    z-index: 50;
     background-color: #0f172a; /* Warna background agar tidak transparan saat ditumpuk */
     padding-top: 0;
     margin-top: 0;
@@ -17,7 +17,7 @@ header {
 
 .brand-wrapper-horizontal {
     position: sticky;
-    height: 45px;
+    height: 40px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -67,8 +67,8 @@ color: #93c5fd;
 
 .flex.border-b {
 position: sticky;
-top: 70px; /* Jarak dari atas (di bawah header) */
-z-index: 30;
+top: 40px; /* Jarak dari atas (di bawah header) */
+z-index: 20;
 background-color: #0f172a;
 padding-bottom: 0.5rem;
 
