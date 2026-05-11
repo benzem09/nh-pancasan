@@ -3,12 +3,12 @@
   "short_name": "Pancasan",
   "start_url": "/ben/",
   "display": "standalone",
-  "background_color": "#020f2b",
-  "theme_color": "#020f2b",
+  "background_color": "#1E3B8A",
+  "theme_color": "#14275C",
   "orientation": "portrait",
   "icons": [
     {
-      "src": "assets/img/logo.png",
+      "src": "assets/img/app-nh.png",
       "sizes": "512x512",
       "type": "image/png"
     }
