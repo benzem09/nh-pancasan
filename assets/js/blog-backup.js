@@ -1,7 +1,8 @@
+// sudah pindah
 let EDIT_POST_ID = null;
 const availableCategories = ["Semua",  "sharaf", "Nahu", "Tauhid", "Fiqih", "Tashauf", "Hadist", "Umum"];
 
-// 1. FUNGSI PEMBANTU (Helper)
+// 1. FUNGSI PEMBANTU (Helper) sudah pindah
 function getBlogIndexPath(year = new Date().getFullYear()) {
     return `indices/index_${year}.json`;
 }
@@ -15,7 +16,7 @@ function generateSlug(title) {
         .replace(/-+/g, '-');
 }
 
-// 2. REFRESH BLOG (Menggabungkan Index dari Semua Tahun)
+// 2. REFRESH BLOG (Menggabungkan Index dari Semua Tahun) sudah pindah
 async function refreshBlog() {
     const feed = document.getElementById('blog-feed');
     feed.innerHTML = `
@@ -66,7 +67,7 @@ async function refreshBlog() {
     }
 }
 
-// 3. SUBMIT POST (Simpan Detail & Update Shard Index Tahunan)
+// 3. SUBMIT POST (Simpan Detail & Update Shard Index Tahunan) (sudah pindah)
 async function submitPost() {
     const t = document.getElementById('postTitle').value.trim();
     const c = document.getElementById('postContent').value.trim();
@@ -125,7 +126,7 @@ async function submitPost() {
     }
 }
 
-// LOAD FULL POST + SEO + TOC + DOWNLOAD + SHARE
+// LOAD FULL POST + SEO + TOC + DOWNLOAD + SHARE (sudah pindah)
 async function loadFullPost(postId) {
     openModal('viewModal');
 
@@ -298,7 +299,7 @@ ${marked.parse(post.content)}
     }
 }
 
-//search
+//search (sudah pindah)
 function highlightText(keyword) {
     const content = document.getElementById("main-post-content");
     if (!content) return;
@@ -322,7 +323,7 @@ function highlightText(keyword) {
     );
 }
 
-// download helper
+// download helper (sudah pindah)
 function executeDownload(content, filename) {
     const blob = new Blob([content], {
         type: "text/plain;charset=utf-8"
@@ -337,7 +338,7 @@ function executeDownload(content, filename) {
 
     URL.revokeObjectURL(url);
 }
-
+// pdf (sudah pindah)
 function downloadPDF(postTitle) {
     const element = document.querySelector(".post-body");
 
@@ -399,7 +400,7 @@ function downloadPDF(postTitle) {
         });
 }
 
-// popup toggle
+// popup toggle (suda pindah)
 function toggleFabPopup(id) {
     const target = document.getElementById(id);
     const isHidden = target.classList.contains('hidden');
@@ -410,13 +411,13 @@ function toggleFabPopup(id) {
     if (isHidden) target.classList.remove('hidden');
 }
 
-// slug open
+// slug open (sudah pindah)
 function openPost(slug, id) {
     history.pushState({}, '', `?post=${slug}`);
     loadFullPost(id);
 }
 
-// 5. PREPARE EDIT (Mengambil detail dari shard)
+// 5. PREPARE EDIT (Mengambil detail dari shard) (sudah pindah)
 async function prepareEdit(postId) {
     try {
         requireToken();
@@ -434,7 +435,7 @@ async function prepareEdit(postId) {
     }
 }
 
-// 6. SUBMIT EDIT (Update Detail & Shard Index Tahunan)
+// 6. SUBMIT EDIT (Update Detail & Shard Index Tahunan) (sudah pindah)
 async function submitEdit() {
     const t = document.getElementById('postTitle').value.trim();
     const c = document.getElementById('postContent').value.trim();
@@ -479,7 +480,7 @@ async function submitEdit() {
     }
 }
 
-// 7. DELETE POST (Hapus dari Shard Index Tahunan)
+// 7. DELETE POST (Hapus dari Shard Index Tahunan) (sudah pindah)
 async function deletePost(postId) {
     if (!confirm("Hapus postingan ini?")) return;
 
@@ -506,7 +507,7 @@ async function deletePost(postId) {
 }
 
 
-// 8. FUNGSI PENDUKUNG LAINNYA
+// 8. FUNGSI PENDUKUNG LAINNYA (sudah pindah)
 function resetPostModal() {
     EDIT_POST_ID = null;
     document.getElementById('postTitle').value = "";
@@ -516,7 +517,7 @@ function resetPostModal() {
     document.getElementById('btnSubmitPost').onclick = submitPost;
 }
 
-// 9. refresh
+// 9. refresh ( sudah pindah )
 function filterBlog() {
     const query = document.getElementById('searchInput').value.toLowerCase();
     const posts = document.querySelectorAll('#blog-feed > div');
@@ -526,12 +527,12 @@ function filterBlog() {
     });
 }
 
-// 10. REFRESH CATEGORIES (Mendukung Sharding Index)
+// 10. REFRESH CATEGORIES (Mendukung Sharding Index) (sudah pindah)
 async function refreshCategories(filter = "Semua") {
     const filterBar = document.getElementById('category-filter-bar');
     if (!filterBar) return;
 
-    // 1. Render tombol kategori
+    // 1. Render tombol kategori 
     filterBar.innerHTML = availableCategories.map(cat => `
         <button onclick="refreshCategories('${cat}')" 
             class="px-4 py-1 rounded-full text-[10px] whitespace-nowrap border ${filter === cat ? 'bg-blue-600 border-blue-600 text-white' : 'bg-white/5 border-white/10 text-slate-400'}">
@@ -576,7 +577,7 @@ async function refreshCategories(filter = "Semua") {
     }
 }
 
-
+// sudah pindah
 async function checkUrlPost() {
     const params = new URLSearchParams(window.location.search);
     const slug = params.get('post');
@@ -608,6 +609,7 @@ async function checkUrlPost() {
 
 checkUrlPost();
 
+// sudah pindah
 // DRAG FAB
 let isDraggingFab = false;
 let fabStartY = 0;
@@ -653,7 +655,7 @@ function doFabDrag(e) {
 document.addEventListener('mouseup', () => isDraggingFab = false);
 document.addEventListener('touchend', () => isDraggingFab = false);
 
-//11. open
+//11. open (sudah pindah)
 function openPostEditor() {
     try {
         requireToken();

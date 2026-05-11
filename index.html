@@ -29,7 +29,7 @@
 
     <div class="max-w-4xl mx-auto">
         <header id="comp-header" class="flex justify-between items-center mb-2"></header>
-        <nav id="comp-navigation" class="flex border-b border-white/10 mb-6 gap-6 overflow-x-auto sticky top-0 bg-[#0f172a] z-30"></nav>
+        <nav id="comp-navigation" class="flex border-b border-white/10 mb-6 gap-6 overflow-x-auto sticky"></nav>
 
         <main id="main-content">
             <div id="section-blog" class="tab-content"></div>
@@ -39,54 +39,65 @@
     </div>
 
 <script>
-    async function loadComponent(id, path) {
-        try {
-            const res = await fetch(path);
-            if (!res.ok) throw new Error(`Gagal muat ${path}`);
-            const html = await res.text();
-            document.getElementById(id).innerHTML = html;
-        } catch (e) { 
-            console.error(e);
-        }
+async function loadComponent(id, path) {
+    try {
+        const res = await fetch(path);
+        if (!res.ok) throw new Error(`Gagal muat ${path}`);
+        const html = await res.text();
+        document.getElementById(id).innerHTML = html;
+    } catch (e) {
+        console.error(e);
+    }
+}
+
+async function initApp() {
+    await Promise.all([
+        loadComponent('comp-modals', 'components/modals.html'),
+        loadComponent('comp-header', 'components/header.html'),
+        loadComponent('comp-navigation', 'components/navigation.html'),
+        loadComponent('section-blog', 'components/section-blog.html'),
+        loadComponent('section-categories', 'components/section-categories.html'),
+        loadComponent('section-about', 'components/section-about.html'),
+    ]);
+
+    const scripts = [
+        'assets/js/api.js',
+        'assets/js/main.js',
+
+        'assets/js/blog/config.js',
+        'assets/js/blog/helpers.js',
+        'assets/js/blog/search.js',
+        'assets/js/blog/post-viewer.js',
+        'assets/js/blog/post-crud.js',
+        'assets/js/blog/categories.js',
+        'assets/js/blog/blog-feed.js',
+        'assets/js/blog/router.js',
+        'assets/js/blog/fab.js',
+    ];
+
+    for (const src of scripts) {
+        await new Promise(resolve => {
+            const s = document.createElement('script');
+            s.src = src;
+            s.onload = resolve;
+            document.body.appendChild(s);
+        });
     }
 
-    async function initApp() {
-        // 1. Muat semua komponen HTML
-        await Promise.all([
-            loadComponent('comp-modals', 'components/modals.html'),
-            loadComponent('comp-header', 'components/header.html'),
-            loadComponent('comp-navigation', 'components/navigation.html'),
-            loadComponent('section-blog', 'components/section-blog.html'),
-            loadComponent('section-categories', 'components/section-categories.html'),
-            loadComponent('section-about', 'components/section-about.html'),
-            loadComponent('comp-about-me', 'components/about-me.html'),
-        ]);
-
-        // 2. Muat Script JS secara berurutan
-        const scripts = [
-            'assets/js/api.js',
-            'assets/js/main.js',
-            'assets/js/blog.js',
-        ];
-
-        for (const src of scripts) {
-            await new Promise(resolve => {
-                const s = document.createElement('script');
-                s.src = src;
-                s.onload = resolve;
-                document.body.appendChild(s);
-            });
-        }
-
-        
-        // Jalankan tab default
-        if (typeof switchTab === "function") {
-            switchTab('blog');
-        }
+    if (typeof switchTab === "function") {
+        switchTab('blog');
     }
-    
-    initApp();
+
+    await refreshBlog();
+    await refreshCategories();
+}
+
+initApp();
+if (typeof initBlog === "function") {
+   initBlog();
+}
 </script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script>
 if ("serviceWorker" in navigator) {
