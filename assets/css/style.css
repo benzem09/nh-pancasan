@@ -1,27 +1,30 @@
 body {
-background-color: #172554;
-color: #e2e8f0;
-font-family: sans-serif; }
+    background-color: #172554;
+    color: #e2e8f0;
+    font-family: sans-serif; 
+  
+}
 
 header {
-position: sticky;
-top: 0;
-z-index: 40;
-background-color: #0f172a; /* Warna background agar tidak transparan saat ditumpuk */
-padding-top: 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background-color: #0f172a; /* Warna background agar tidak transparan saat ditumpuk */
+    padding-top: 0;
+    margin-top: 0;
 
 }
 
 .brand-wrapper-horizontal {
-position: sticky;
-height: 40px;
-display: flex;
-flex-direction: row;
-align-items: center;
-gap: 1px; 
-text-decoration: none;
+    position: sticky;
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1px; 
+    text-decoration: none;
 
-padding-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
 
 }
 
@@ -71,8 +74,10 @@ padding-bottom: 0.5rem;
 
 }
 
-html {
-scroll-behavior: smooth;
+html, body {
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
 
 }
 
