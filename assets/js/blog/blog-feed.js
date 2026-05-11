@@ -1,5 +1,6 @@
 async function refreshBlog() {
     const feed = document.getElementById('blog-feed');
+    
     feed.innerHTML = `
         <div class="glass p-3 rounded-lg h-12 skeleton mb-2"></div>
         <div class="glass p-3 rounded-lg h-12 skeleton mb-2"></div>
@@ -25,8 +26,14 @@ async function refreshBlog() {
         if (sortedPosts.length === 0) throw new Error("Empty");
 
         feed.innerHTML = sortedPosts.map(p => {
-            const cleanTitle = sanitizeHTML(p.title);
-            const isOwner = p.author === CURRENT_USER || CURRENT_USER === 'admin';
+            const cleanTitle =
+                typeof sanitizeHTML === "function"
+                    ? sanitizeHTML(p.title)
+                    : p.title;
+
+            const isOwner =
+                typeof CURRENT_USER !== "undefined" &&
+                (p.author === CURRENT_USER || CURRENT_USER === "admin");
             
             return `
             <div class="glass p-3 rounded-xl hover:border-blue-500/30 transition-all relative group mb-2">
@@ -44,7 +51,10 @@ async function refreshBlog() {
         }).join('');
 
     } catch (e) { 
-        feed.innerHTML = "<p class='text-center opacity-30 py-10'>Belum ada postingan di sistem Sharding baru.</p>";
+        feed.innerHTML = `
+            <p class="text-red-400 text-xs p-4"> Error: ${e.message}
+            </p>
+        `;
     }
 }
 

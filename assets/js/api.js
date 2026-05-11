@@ -24,17 +24,13 @@ const atou = (str) => decodeURIComponent(escape(atob(str)));
 // READ PUBLIC FILE DARI GITHUB RAW
 
 async function getPublicFile(fileName) {
-    const url = `https://api.github.com/repos/${REPO_PATH}/contents/${fileName}?ref=${BRANCH}&t=${Date.now()}`;
-
-    const res = await fetch(url);
+    const res = await fetch(fileName + "?t=" + Date.now());
 
     if (!res.ok) {
         throw new Error(`Gagal load ${fileName}`);
     }
 
-    const data = await res.json();
-
-    return JSON.parse(atou(data.content));
+    return await res.json();
 }
 
 
