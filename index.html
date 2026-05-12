@@ -24,19 +24,21 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 </head>
 <body class="p-4 md:p-8 bg-[#0f172a] text-slate-200">
+<div id="comp-modals"></div>
 
-    <div id="comp-modals"></div>
+<div id="appContainer" class="app-container max-w-4xl mx-auto">
+    <header id="comp-header" class="flex justify-between items-center mb-2"></header>
 
-    <div class="max-w-4xl mx-auto">
-        <header id="comp-header" class="flex justify-between items-center mb-2"></header>
-        <nav id="comp-navigation" class="flex border-b border-white/10 mb-6 gap-6 overflow-x-auto sticky"></nav>
+    <nav id="comp-navigation"
+        class="flex border-b border-white/10 mb-6 gap-6 overflow-x-auto sticky">
+    </nav>
 
-        <main id="main-content">
-            <div id="section-blog" class="tab-content"></div>
-            <div id="section-categories" class="tab-content hidden"></div>
-            <div id="section-about" class="tab-content hidden"></div>
-        </main>
-    </div>
+    <main id="main-content">
+        <div id="section-blog" class="tab-content"></div>
+        <div id="section-categories" class="tab-content hidden"></div>
+        <div id="section-about" class="tab-content hidden"></div>
+    </main>
+</div>
 
 <script>
 async function loadComponent(id, path) {

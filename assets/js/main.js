@@ -47,9 +47,33 @@ async function switchTab(tabName) {
     if (tabName === 'about') await refreshAbout();
     if (tabName === 'about-me') await refreshAbout-me();
 }
+
 function toggleTOC() {
     document.querySelector('.toc-menu').classList.toggle('show');
 }
+
+function toggleWideMode() {
+    const container = document.getElementById('appContainer');
+    const toggle = document.getElementById('screenModeToggle');
+
+    container.classList.toggle('wide-mode');
+
+    const enabled = container.classList.contains('wide-mode');
+
+    localStorage.setItem('wide_mode', enabled);
+
+    toggle.classList.toggle('active', enabled);
+}
+
+
 window.onload = () => {
+    updateAuthUI();
     switchTab('blog');
+
+    const wide = localStorage.getItem('wide_mode') === 'true';
+
+    if (wide) {
+        document.getElementById('appContainer').classList.add('wide-mode');
+        document.getElementById('screenModeToggle').classList.add('active');
+    }
 };
