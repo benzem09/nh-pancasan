@@ -4,16 +4,19 @@ body {
     font-family: sans-serif; 
     height: 100vh;
     height: 100dvh; /* mobile modern */
+    overflow: hidden;
   
 }
 
 header {
     position: sticky;
     top: 0;
-    z-index: 50;
+    height: 35px;
+    z-index: 40;
     background-color: #0f172a; /* Warna background agar tidak transparan saat ditumpuk */
     padding-top: 0;
     margin-top: 0;
+    overflow: hidden;
 
 }
 
@@ -27,7 +30,7 @@ header {
 }
 
 .logo-img-wide {
-    height: 45px; /* Sesuaikan tinggi agar tidak terlalu besar */
+    height: 35px; /* Sesuaikan tinggi agar tidak terlalu besar */
     width: auto;  /* Lebar otomatis mengikuti proporsi gambar */
     object-fit: contain;
 }
@@ -65,8 +68,8 @@ color: #93c5fd;
 
 .flex.border-b {
 position: sticky;
-top: 65px; /* Jarak dari atas (di bawah header) */
-z-index: 20;
+top: 75px; /* Jarak dari atas (di bawah header) */
+z-index: 30;
 background-color: #0f172a;
 padding-bottom: 0.5rem;
 
@@ -79,7 +82,14 @@ html, body {
     scroll-behavior: smooth;
 
 }
+#main-content {
+    height: calc(100dvh - 100px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-bottom: 30px;
 
+    -webkit-overflow-scrolling: touch;
+}
 .line-clamp-3 {
 display: -webkit-box;
 -webkit-line-clamp: 3;
