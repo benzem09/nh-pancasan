@@ -11,7 +11,7 @@ body {
 header {
     position: sticky;
     top: 0;
-    height: 35px;
+    height: 33px;
     z-index: 40;
     background-color: #0f172a; /* Warna background agar tidak transparan saat ditumpuk */
     padding-top: 0;
@@ -68,7 +68,7 @@ color: #93c5fd;
 
 .flex.border-b {
 position: sticky;
-top: 75px; /* Jarak dari atas (di bawah header) */
+top: 78px; /* Jarak dari atas (di bawah header) */
 z-index: 30;
 background-color: #0f172a;
 padding-bottom: 0.5rem;
@@ -504,8 +504,8 @@ pointer-events: none;
 }
 
 #appContainer.wide-mode {
-    width: 120%;
-    max-width: 1150px !important;
+    width: 110%;
+    max-width: 1100px !important;
 }
 
 .wide-active {
