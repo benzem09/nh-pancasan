@@ -105,5 +105,21 @@ if ("serviceWorker" in navigator) {
         .catch(err => console.log("SW failed", err));
 }
 </script>
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+
+<script>
+window.OneSignalDeferred = window.OneSignalDeferred || [];
+
+OneSignalDeferred.push(async function(OneSignal) {
+    await OneSignal.init({
+        appId: "c06763a9-1a2a-481b-a836-7ae359c35da8",
+        notifyButton: {
+            enable: false
+        },
+        serviceWorkerPath: "OneSignalSDKWorker.js",
+        serviceWorkerUpdaterPath: "OneSignalSDKUpdaterWorker.js"
+    });
+});
+</script>
 </body>
 </html>

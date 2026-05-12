@@ -65,6 +65,16 @@ function toggleWideMode() {
     if (btn) btn.classList.toggle("wide-active", enabled);
 }
 
+document.getElementById("btnNotif")?.addEventListener("click", async () => {
+    const permission = await Notification.requestPermission();
+
+    if (permission === "granted") {
+        alert("Notifikasi berhasil diaktifkan 🔔");
+    } else {
+        alert("Notifikasi ditolak");
+    }
+});
+
 window.onload = () => {
     switchTab('blog');
 
