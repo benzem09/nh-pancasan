@@ -67,10 +67,10 @@ color: #93c5fd;
 
 .flex.border-b {
 position: sticky;
-top: 50px; /* Jarak dari atas (di bawah header) */
+top: 40px; /* Jarak dari atas (di bawah header) */
 z-index: 30;
 background-color: #0f172a;
-padding-bottom: 0.5rem;
+padding-bottom: 0;
 
 }
 
@@ -125,7 +125,7 @@ border: 1px solid rgba(255,255,255,0.1);
 
 .modal {
 position: fixed;
-top: 70px;      /* mulai setelah header */
+top: 73px;      /* mulai setelah header */
 left: 0;
 right: 0;
 bottom: 0;
@@ -146,7 +146,7 @@ overflow-y: auto;
 .modal-content {
 width: 100%;
 max-width: 850px;
-margin-top: 5px;
+margin-top: 0px;
 
 max-height: calc(100vh - 110px);  
 overflow-y: auto;  
