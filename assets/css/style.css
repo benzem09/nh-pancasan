@@ -497,14 +497,14 @@ pointer-events: none;
 
 /* 2 mode ui */
 #appContainer {
-    width: 92%;
+    width: 100%;
     max-width: 850px;
     margin: 0 auto;
     transition: all 0.3s ease;
 }
 
 #appContainer.wide-mode {
-    width: 94%;
+    width: 120%;
     max-width: 1150px !important;
 }
 
