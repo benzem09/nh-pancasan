@@ -53,26 +53,27 @@ function toggleTOC() {
 }
 
 function toggleWideMode() {
-    const container = document.getElementById('appContainer');
-    const toggle = document.getElementById('screenModeToggle');
+    const app = document.getElementById("appContainer");
+    const btn = document.getElementById("screenModeBtn");
 
-    container.classList.toggle('wide-mode');
+    app.classList.toggle("wide-mode");
 
-    const enabled = container.classList.contains('wide-mode');
+    const enabled = app.classList.contains("wide-mode");
 
-    localStorage.setItem('wide_mode', enabled);
+    localStorage.setItem("wide_mode", enabled);
 
-    toggle.classList.toggle('active', enabled);
+    if (btn) btn.classList.toggle("wide-active", enabled);
 }
-
 
 window.onload = () => {
     switchTab('blog');
 
-    const wide = localStorage.getItem('wide_mode') === 'true';
+    const wide = localStorage.getItem("wide_mode") === "true";
 
     if (wide) {
-        document.getElementById('appContainer').classList.add('wide-mode');
-        document.getElementById('screenModeToggle').classList.add('active');
+        document.getElementById("appContainer").classList.add("wide-mode");
+
+        const btn = document.getElementById("screenModeBtn");
+        if (btn) btn.classList.add("wide-active");
     }
 };

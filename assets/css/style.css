@@ -7,17 +7,6 @@ body {
     overflow: hidden;
   
 }
-.app-container {
-    width: 100%;
-    max-width: 850px;
-    margin: 0 auto;
-    transition: max-width 0.3s ease;
-    padding: 0 12px;
-}
-
-.app-container.wide-mode {
-    max-width: 1200px;
-}
 
 header {
     position: sticky;
@@ -504,4 +493,22 @@ filter: brightness(0) invert(1);
 button .icon,
 a .icon {
 pointer-events: none;
+}
+
+/* 2 mode ui */
+#appContainer {
+    width: 92%;
+    max-width: 850px;
+    margin: 0 auto;
+    transition: all 0.3s ease;
+}
+
+#appContainer.wide-mode {
+    width: 94%;
+    max-width: 1150px !important;
+}
+
+.wide-active {
+    border: 1px solid rgba(96,165,250,0.6);
+    box-shadow: 0 0 18px rgba(59,130,246,0.25);
 }
