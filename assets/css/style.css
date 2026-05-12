@@ -22,16 +22,15 @@ header {
 
 .brand-wrapper-horizontal {
     display: flex;
-    flex-direction: row; /* Membuat isi memanjang ke samping */
-    align-items: center; /* Teks dan gambar sejajar secara vertikal */
-    gap: 1px; /* Jarak antara gambar logo dan teks */
+    flex-direction: row;
+    align-items: center;
+    gap: 1px;
     text-decoration: none;
-    padding: 10px;
 }
 
 .logo-img-wide {
-    height: 35px; /* Sesuaikan tinggi agar tidak terlalu besar */
-    width: auto;  /* Lebar otomatis mengikuti proporsi gambar */
+    height: 35px;
+    width: auto;
     object-fit: contain;
 }
 
@@ -68,7 +67,7 @@ color: #93c5fd;
 
 .flex.border-b {
 position: sticky;
-top: 78px; /* Jarak dari atas (di bawah header) */
+top: 50px; /* Jarak dari atas (di bawah header) */
 z-index: 30;
 background-color: #0f172a;
 padding-bottom: 0.5rem;
