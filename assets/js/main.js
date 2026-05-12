@@ -67,7 +67,6 @@ function toggleWideMode() {
 
 
 window.onload = () => {
-    updateAuthUI();
     switchTab('blog');
 
     const wide = localStorage.getItem('wide_mode') === 'true';
