@@ -8,6 +8,7 @@ body {
     color: #e2e8f0;
     font-family: sans-serif;
     min-height: 100vh;
+    overflow: hidden;
 }
 
 header {
