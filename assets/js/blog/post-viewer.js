@@ -162,6 +162,12 @@ ${marked.parse(post.content)}
           downloadPDF(post.title);
           
         };
+        
+        // Inisialisasi sistem sembunyi otomatis
+        setTimeout(() => {
+            initFabAutoHide(); 
+            showFab(); // Munculkan sekali saat awal buka post
+        }, 400);
 
     } catch (err) {
         console.error(err);
