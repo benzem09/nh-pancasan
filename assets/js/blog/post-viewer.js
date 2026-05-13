@@ -46,6 +46,7 @@ async function loadFullPost(postId) {
 
                 <div id="main-post-content">
                     ${marked.parse(post.content || "")}
+                    <div style="height: 100px; width: 100%;"></div> </div>
                 </div>
             </div>
         `;
