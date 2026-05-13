@@ -75,6 +75,21 @@ document.getElementById("btnNotif")?.addEventListener("click", async () => {
     }
 });
 
+document.getElementById("btnRefresh")?.addEventListener("click", async () => {
+    if ("caches" in window) {
+        const keys = await caches.keys();
+        await Promise.all(keys.map(key => caches.delete(key)));
+    }
+
+    location.reload();
+});
+
+document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) {
+        location.reload();
+    }
+});
+
 window.onload = () => {
     switchTab('blog');
 
