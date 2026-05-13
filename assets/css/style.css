@@ -1,11 +1,13 @@
 body {
-    background-color: #172554;
+    background: linear-gradient(
+        180deg,
+        #172554 0%,
+        #1e3a8a 35%,
+        #1e293b 100%
+    );
     color: #e2e8f0;
-    font-family: sans-serif; 
-    height: 100vh;
-    height: 100dvh; /* mobile modern */
-    overflow: hidden;
-  
+    font-family: sans-serif;
+    min-height: 100vh;
 }
 
 header {
@@ -13,7 +15,8 @@ header {
     top: 0;
     height: 33px;
     z-index: 40;
-    background-color: #0f172a; /* Warna background agar tidak transparan saat ditumpuk */
+    background: rgba(23, 37, 84, 0.88);
+    backdrop-filter: blur(14px);
     padding-top: 0;
     margin-top: 0;
     overflow: hidden;
@@ -35,43 +38,43 @@ header {
 }
 
 .brand-info {
-display: flex;
-flex-direction: column;
-justify-content: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .brand-title {
-margin: 0;
-font-size: 1.35rem;
-font-weight: 700;
-color: #93c5fd;
-line-height: 1.2;
+    margin: 0;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #93c5fd;
+    line-height: 1.2;
 }
 
 .brand-subtitle {
-margin-top: 4px;
-font-size: 12px;
-color: #94a3b8;
-font-style: italic;
+    margin-top: 4px;
+    font-size: 12px;
+    color: #cbd5e1;
+    font-style: italic;
 }
 
 .brand-subtitle a {
-color: #60a5fa;
-text-decoration: none;
-font-weight: 600;
+    color: #60a5fa;
+    text-decoration: none;
+    font-weight: 600;
 }
 
 .brand-subtitle a:hover {
-color: #93c5fd;
+    color: #93c5fd;
 }
 
 .flex.border-b {
-position: sticky;
-top: 35px; /* Jarak dari atas (di bawah header) */
-z-index: 30;
-background-color: #0f172a;
-padding-bottom: 0;
-
+    position: sticky;
+    top: 35px; /* Jarak dari atas (di bawah header) */
+    z-index: 30;
+    background: rgba(30, 58, 138, 0.75);
+    backdrop-filter: blur(12px);
+    padding-bottom: 0;
 }
 
 html, body {
@@ -90,26 +93,23 @@ html, body {
     -webkit-overflow-scrolling: touch;
 }
 .line-clamp-3 {
-display: -webkit-box;
--webkit-line-clamp: 3;
--webkit-box-orient: vertical;
-overflow: hidden;
-
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 button[onclick^="deletePost"] {
-background: rgba(239, 68, 68, 0.1);
-border-radius: 8px;
-backdrop-filter: blur(4px);
-
+    background: rgba(239, 68, 68, 0.1);
+    border-radius: 8px;
+    backdrop-filter: blur(4px);
 }
 
 button[onclick^="handleReaction"] {
-background: rgba(255, 255, 255, 0.05);
-padding: 4px 10px;
-border-radius: 20px;
-border: 1px solid rgba(255, 255, 255, 0.1);
-
+    background: rgba(255, 255, 255, 0.05);
+    padding: 4px 10px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 button[onclick^="handleReaction"]:active {
@@ -118,76 +118,75 @@ transform: scale(0.9);
 }
 
 .glass {
-background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px);
-border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(255,255,255,0.1);
 
 }
 
 .modal {
-position: fixed;
-top: 74px;      /* mulai setelah header */
-left: 0;
-right: 0;
-bottom: 0;
+    position: fixed;
+    top: 74px;      /* mulai setelah header */
+    left: 0;
+    right: 0;
+    bottom: 0;
 
-background: rgba(0,0,0,0.75);  
-backdrop-filter: blur(8px);  
+    background: rgba(0,0,0,0.75);  
+    backdrop-filter: blur(8px);  
 
-display: none;  
-justify-content: center;  
-align-items: flex-start;  
+    display: none;  
+    justify-content: center;  
+    align-items: flex-start;  
 
-z-index: 999;  
-padding: 16px;  
-overflow-y: auto;
-
+    z-index: 999;  
+    padding: 16px;  
+    overflow-y: auto;
 }
 /* box popup */
 .modal-content {
-width: 100%;
-max-width: 850px;
-margin-top: 0px;
+    width: 100%;
+    max-width: 850px;
+    margin-top: 0px;
 
-max-height: calc(100vh - 110px);  
-overflow-y: auto;  
+    max-height: calc(100vh - 110px);  
+    overflow-y: auto;  
 
-background: rgba(15, 23, 42, 0.96);  
-border-radius: 24px;  
-padding: 24px;
-
+    background: rgba(30, 41, 59, 0.96);
+    border-radius: 24px;  
+    padding: 24px;
 }
 
-}
 @media (max-width: 768px) {
-.modal {
-top: 65px;
-padding: 12px;
-}
+        .modal {
+          top: 65px;
+          padding: 12px;
+          
+        }
 
-.modal-content {  
-    max-height: calc(100vh - 85px);  
-    padding: 18px;  
-}
-
+        .modal-content {  
+          max-height: calc(100vh - 85px);  
+          padding: 18px;  
+          
+        }
+  
 }
 /* Animasi perpindahan tab */
 .tab-content {
-animation: fadeIn 0.3s ease;
+    animation: fadeIn 0.3s ease;
 
 }
 
 @keyframes fadeIn {
-from {
-opacity: 0;
-transform: translateY(5px);
-
-}  
-  
-to {  
-    opacity: 1;  
-    transform: translateY(0);  
-    
-}
+      from {
+        opacity: 0;
+        transform: translateY(5px);
+        
+      }
+      to {  
+        opacity: 1;  
+        transform: translateY(0);  
+        
+      }
 
 }
 
@@ -281,13 +280,13 @@ border-radius: 10px;
 }
 
 .fab-btn {
-background: rgba(30, 41, 59, 0.82);
-backdrop-filter: blur(10px);
-border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(59, 130, 246, 0.18);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.08);
 
-width: 40px;  
-height: 40px;  
-border-radius: 40%;  
+    width: 40px;  
+    height: 40px;  
+    border-radius: 40%;  
 
 display: flex;  
 align-items: center;  
@@ -300,57 +299,85 @@ padding: 0;
 }
 
 .fab-popup {
-position: fixed;
-right: 62px;
-bottom: 110px;
-z-index: 10000;
+    position: fixed;
+    right: 62px;
+    bottom: 110px;
+    z-index: 10000;
 }
+/* PENYEMPURNAAN AKHIR POPUP FAB */
 .fab-popup-inner {
-background: rgba(15, 23, 42, 0.98);
-backdrop-filter: blur(15px);
-border: 1px solid rgba(59, 130, 246, 0.4);
-border-radius: 14px;
-padding: 12px;
-min-width: 230px;
-box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    background: linear-gradient(
+        165deg, 
+        rgba(23, 37, 84, 0.98) 0%, 
+        rgba(30, 58, 138, 0.92) 100%
+    );
+    /* Blur diperkuat sedikit agar teks di belakang tidak mengganggu pembacaan menu */
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    
+    border: 1px solid rgba(96, 165, 250, 0.15); 
+    border-radius: 20px;
+    padding: 18px; /* Tambah padding agar isi popup bernafas */
+    min-width: 250px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
 }
+
 .popup-title {
-color: #60a5fa;
-font-size: 11px;
-font-weight: bold;
-margin-bottom: 8px;
-text-transform: uppercase;
-border-bottom: 1px solid rgba(255,255,255,0.1);
-
-}
-.popup-item {
-width: 100%;
-text-align:
-left; padding: 8px;
-font-size: 11px;
-color: #cbd5e1;
-border-radius: 6px;
-display: block; }
-.popup-item:hover {
-background: rgba(59, 130, 246, 0.15);
-color: #60a5fa;
-
-}
-.popup-url { 
-    display: 
-    flex; gap: 5px;
-
-}
-.popup-url input {
-    flex: 1;
-    background: #0f172a;
-    border: 1px solid #1e293b;
-    padding: 5px;
+    color: #93c5fd;
     font-size: 10px;
-    border-radius: 4px;
-    color: #94a3b8; 
-  
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 8px;
+    opacity: 0.8;
 }
+
+.popup-item {
+    width: 100%;
+    text-align: left;
+    padding: 12px 16px; /* Padding lebih luas agar target klik lebih besar */
+    font-size: 13px;
+    color: #e2e8f0;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px; /* Tambah jarak antar item menu */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+/* Efek Hover/Aktif yang lebih tegas */
+.popup-item:hover, .popup-item:active {
+    background: rgba(59, 130, 246, 0.25);
+    color: #ffffff;
+    border-color: rgba(96, 165, 250, 0.4);
+    transform: translateX(6px); /* Geser ke kanan sedikit saat ditekan */
+}
+
+/* Styling Khusus Daftar Isi agar tidak berantakan */
+#tocContainer ul li {
+    margin-bottom: 4px;
+}
+
+#tocContainer a {
+    color: #94a3b8;
+    font-size: 12.5px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    transition: 0.2s;
+    display: block;
+}
+
+#tocContainer a:hover {
+    background: rgba(96, 165, 250, 0.1);
+    color: #60a5fa;
+    text-decoration: none;
+}
+
 
 .floating-actions{
     animation: slideUp .35s ease;
