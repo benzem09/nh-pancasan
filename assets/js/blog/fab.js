@@ -42,50 +42,43 @@ function doFabDrag(e) {
 document.addEventListener('mouseup', () => isDraggingFab = false);
 document.addEventListener('touchend', () => isDraggingFab = false);
 
-// --- LOGIKA SHOW/HIDE KHUSUS ---
+// --- LOGIKA MANUAL TOGGLE (KETUK) ---
 
 function showFab() {
     if (!fabContainer) return;
-    
-    // Munculkan FAB
     fabContainer.classList.remove("fab-hidden");
-    
-    // Reset timer: FAB akan otomatis sembunyi dalam 2 detik jika tidak ada interaksi
-    clearTimeout(fabTimeout);
-    fabTimeout = setTimeout(() => {
-        if (!isDraggingFab) hideFab();
-    }, 2000); 
 }
 
 function hideFab() {
     if (!fabContainer || isDraggingFab) return;
     fabContainer.classList.add("fab-hidden");
     
-    // Tutup popup juga saat FAB sembunyi agar tidak melayang sendirian
+    // Tutup popup juga saat FAB disembunyikan
     document.querySelectorAll(".fab-popup").forEach(popup => {
         popup.classList.add("hidden");
     });
 }
 
 function initFabAutoHide() {
-    // Elemen tempat konten dibaca
+    // Ambil elemen pembungkus konten di modal
     const modalWrapper = document.querySelector("#viewModal .glass") || document.getElementById("viewModal");
 
     if (!modalWrapper) return;
 
-    // 1. Jika layar diketuk/diklik -> Tampilkan FAB
-    modalWrapper.addEventListener("click", (e) => {
-        // Jangan sembunyikan jika yang diklik adalah tombol FAB itu sendiri
-        if (e.target.closest('.fab-btn')) return;
+    // Hapus event listener lama jika ada (mencegah double event)
+    modalWrapper.removeEventListener("click", handleManualToggle);
+    
+    // Pasang event klik baru
+    modalWrapper.addEventListener("click", handleManualToggle);
+}
+
+function handleManualToggle(e) {
+    // JANGAN sembunyikan jika yang diketuk adalah tombol FAB itu sendiri
+    if (e.target.closest('#floatingAction')) return;
+
+    if (fabContainer.classList.contains("fab-hidden")) {
         showFab();
-    });
-
-    // 2. Jika layar disentuh (Mobile) -> Tampilkan FAB
-    modalWrapper.addEventListener("touchstart", showFab, { passive: true });
-
-    // 3. Jika sedang scroll -> LANGSUNG SEMBUNYIKAN (Hide)
-    // Ini menjawab permintaan Anda: selain diklik, FAB harus sembunyi
-    modalWrapper.addEventListener("scroll", () => {
-        hideFab(); 
-    }, { passive: true });
+    } else {
+        hideFab();
+    }
 }

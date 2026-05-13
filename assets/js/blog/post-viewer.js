@@ -163,11 +163,11 @@ ${marked.parse(post.content)}
           
         };
         
-        // Inisialisasi sistem sembunyi otomatis
+        // Inisialisasi sistem sembunyi
         setTimeout(() => {
             initFabAutoHide(); 
             showFab(); // Munculkan sekali saat awal buka post
-        }, 400);
+        }, 500);
 
     } catch (err) {
         console.error(err);
