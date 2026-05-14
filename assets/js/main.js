@@ -29,9 +29,7 @@ function toggleSearch() {
 
 async function switchTab(tabName) {
     document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-    
-    const targetSection = document.getElementById('section-' + tabName);
-    if (targetSection) targetSection.classList.remove('hidden');
+    document.getElementById('section-' + tabName).classList.remove('hidden');
     
     const tabs = ['blog', 'categories', 'about', 'about-me'];
     tabs.forEach(t => {
@@ -45,23 +43,10 @@ async function switchTab(tabName) {
         }
     });
 
-    // Pemicu refresh data otomatis saat tab aktif
-    if (tabName === 'blog') {
-        await refreshBlog();
-    }
-    if (tabName === 'categories') {
-        // Melemparkan string 'semua' (huruf kecil) agar data langsung ter-render otomatis
-        await refreshCategories('semua'); 
-    }
-    if (tabName === 'about') {
-        await refreshAbout();
-    }
-    if (tabName === 'about-me') {
-        // PERBAIKAN BUG: Mengganti refreshAbout-me() menjadi format camelCase refreshAboutMe()
-        if (typeof refreshAboutMe === "function") {
-            await refreshAboutMe();
-        }
-    }
+    if (tabName === 'blog') await refreshBlog();
+    if (tabName === 'categories') await refreshCategories(); // Memanggil fungsi kategori baru
+    if (tabName === 'about') await refreshAbout();
+    if (tabName === 'about-me') if (typeof refreshAboutMe === 'function') await refreshAboutMe();
 }
 
 
