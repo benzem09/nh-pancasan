@@ -82,39 +82,55 @@ async function submitPost() {
     }
 }
 
+// --- FUNGSI EDIT ---
+
 async function prepareEdit(postId) {
     try {
         requireToken();
-        const post = await getPublicFile(`posts/post_${postId}.json`);
+        
+        // 1. Cari data meta untuk tahu lokasi filenya (Year/Month)
+        const post = await findPostById(postId); 
+        
+        // 2. Isi Form Modal dengan data yang ada
         document.getElementById('postTitle').value = post.title || "";
         document.getElementById('postContent').value = post.content || "";
         document.getElementById('postCategory').value = post.category || "Umum";
+        
+        // 3. Ubah UI Modal menjadi mode Edit
         document.querySelector('#postModal h2').innerText = "✏️ Edit Postingan";
-        document.getElementById('btnSubmitPost').innerText = "Simpan Perubahan";
-        document.getElementById('btnSubmitPost').onclick = submitEdit;
+        const btn = document.getElementById('btnSubmitPost');
+        btn.innerText = "Simpan Perubahan";
+        btn.onclick = submitEdit; // Arahkan ke fungsi submitEdit
+        
         EDIT_POST_ID = postId;
         openModal('postModal');
     } catch (e) {
+        console.error(e);
         alert("Gagal mengambil data postingan.");
     }
 }
-
-// SUBMIT EDIT (Update Detail & Shard Index Tahunan)
 
 async function submitEdit() {
     const t = document.getElementById('postTitle').value.trim();
     const c = document.getElementById('postContent').value.trim();
     const cat = document.getElementById('postCategory').value;
+    
     if (!t || !c) return alert("Isi judul & konten!");
 
     const btn = document.getElementById('btnSubmitPost');
+    const originalText = btn.innerText;
     btn.innerText = "Saving...";
+    btn.disabled = true;
 
     try {
-        // 1. Ambil data lama untuk mendapatkan Year dan Month
-        const oldPost = await findPostById(EDIT_POST_ID);
-        const postYear = oldPost.year;
-        const postMonth = oldPost.month;
+        // 1. Ambil meta data lama untuk mendapatkan Year dan Month
+        const allPosts = await loadAllIndexes();
+        const meta = allPosts.find(p => p.id === EDIT_POST_ID);
+        
+        if (!meta) throw new Error("Post tidak ditemukan di index");
+
+        const postYear = meta.year;
+        const postMonth = meta.month;
 
         // 2. Update File Detail di posts/YYYY/MM/post_ID.json
         const postPath = getPostPath(EDIT_POST_ID, postYear, postMonth);
@@ -127,7 +143,7 @@ async function submitEdit() {
 
         await updateGithubFile(postPath, file.content, file.sha, `Edit post ${EDIT_POST_ID}`);
 
-        // 3. Update Index Bulanan (indices/YYYY/index_MM.json)
+        // 3. Update Index Bulanan (indices/YYYY/MM/index_MM.json)
         const indexPath = getIndexPath(postYear, postMonth);
         const index = await getGithubFile(indexPath);
         const idx = index.content.findIndex(p => p.id === EDIT_POST_ID);
@@ -139,21 +155,25 @@ async function submitEdit() {
             await updateGithubFile(indexPath, index.content, index.sha, `Update Index ${postMonth}-${postYear}`);
         }
 
-        await new Promise(resolve => setTimeout(resolve, 1500));
+        // 4. Selesai
+        await new Promise(resolve => setTimeout(resolve, 2000));
         resetPostModal();
         closeModal('postModal');
         refreshBlog();
+        alert("Postingan berhasil diperbarui!");
     } catch (e) {
         console.error(e);
         alert("Gagal menyimpan perubahan!");
     } finally {
-        btn.innerText = "Simpan Perubahan";
+        btn.innerText = originalText;
+        btn.disabled = false;
     }
 }
 
-// 2. Perbaikan Fungsi `deletePost`
+// --- FUNGSI HAPUS ---
+
 async function deletePost(postId) {
-    if (!confirm("Hapus postingan ini?")) return;
+    if (!confirm("Hapus postingan ini secara permanen?")) return;
 
     try {
         requireToken();
@@ -167,31 +187,38 @@ async function deletePost(postId) {
         const postYear = meta.year;
         const postMonth = meta.month;
 
-        // 2. Hapus dari Index Bulanan
+        // 2. Hapus dari Index Bulanan (indices/YYYY/MM/index_MM.json)
         const indexPath = getIndexPath(postYear, postMonth);
         const index = await getGithubFile(indexPath);
         
         index.content = index.content.filter(post => post.id !== postId);
         await updateGithubFile(indexPath, index.content, index.sha, `Delete post ${postId} from index`);
 
-        // 3. (Opsional namun disarankan) Hapus file detail aslinya
+        // 3. Hapus File Detail (posts/YYYY/MM/post_ID.json)
+        // Catatan: Di GitHub API, menghapus file dilakukan dengan mengirim sha file tersebut.
         const postPath = getPostPath(postId, postYear, postMonth);
         try {
             const fileDetail = await getGithubFile(postPath);
-            // Anda perlu fungsi deleteGithubFile atau mengirim content null/empty tergantung library API Anda
-            // Jika updateGithubFile mendukung penghapusan, gunakan di sini.
+            // Mengirim null atau menggunakan fungsi delete khusus jika tersedia di api.js Anda
+            if(typeof deleteGithubFile === "function") {
+                await deleteGithubFile(postPath, fileDetail.sha, `Permanent delete post ${postId}`);
+            } else {
+                console.warn("Fungsi delete file detail tidak tersedia, hanya index yang dihapus.");
+            }
         } catch (err) {
-            console.warn("File fisik tidak ditemukan, tapi index sudah dibersihkan.");
+            console.warn("File fisik tidak ditemukan, kemungkinan sudah terhapus.");
         }
         
-        await new Promise(resolve => setTimeout(resolve, 1500));
+        // 4. Refresh UI
+        await new Promise(resolve => setTimeout(resolve, 2000));
         refreshBlog();
         alert("Postingan berhasil dihapus!");
     } catch (e) {
         console.error(e);
-        alert("Gagal menghapus postingan");
+        alert("Gagal menghapus postingan.");
     }
 }
+
 
 // FUNGSI PENDUKUNG LAINNYA
 function resetPostModal() {
