@@ -12,7 +12,7 @@ async function loadFullPost(postId) {
     document.querySelectorAll('.fab-popup').forEach(p => p.classList.add('hidden'));
 
     try {
-        const post = await getPublicFile(`posts/post_${postId}.json`);
+        const post = await findPostById(postId);
 
         // title
         titleElem.innerText = post.title || "Tanpa Judul";

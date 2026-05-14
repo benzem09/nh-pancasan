@@ -11,45 +11,71 @@ async function submitPost() {
     btn.disabled = true;
 
     const postId = Date.now();
-    const slug = generateSlug(t);
-    const now = new Date();
-    const year = now.getFullYear();
-    const dateStr = now.toISOString().split('T')[0];
+    const { year, month, date } = getDateParts();
+    const slug = generateSlug(t); // PERBAIKAN 1: Definisi slug
 
     try {
-        // A. Simpan Detail ke posts/post_ID.json (Level 1)
-        const detailedData = { id: postId, slug, title: t, content: c, category: cat, author: CURRENT_USER, date: dateStr, reactions: {}, comments: [] };
-        await updateGithubFile(`posts/post_${postId}.json`, detailedData, null, `Create post ${postId}`);
+        // A. Simpan Detail ke posts/YYYY/MM/post_ID.json
+        const detailedData = {
+          id: postId,
+          slug: slug,
+          title: t,
+          content: c,
+          category: cat,
+          author: CURRENT_USER,
+          date,
+          year,
+          month,
+          reactions: {},
+          comments: [] 
+        };
+        const postPath = getPostPath(postId, year, month);
+        await updateGithubFile(postPath, detailedData, null, `Create post ${postId}`);
 
         // B. Update Daftar Tahun (indices/years.json)
         let yearsRes;
         try { 
-            const data = await getGithubFile('indices/years.json');
+            const data = await getGithubFile("indices/years.json");
             yearsRes = { content: data.content, sha: data.sha };
-        } catch (e) { yearsRes = { content: [], sha: null }; }
-
-        if (!yearsRes.content.includes(year)) {
-            yearsRes.content.push(year);
-            await updateGithubFile('indices/years.json', yearsRes.content, yearsRes.sha, "Update Year List");
+        } catch (e) {
+            yearsRes = { content: { years: [] }, sha: null };
         }
 
-        // C. Update Index Tahunan (indices/index_YYYY.json) (Level 2)
-        const indexPath = getBlogIndexPath(year);
+        if (!yearsRes.content.years.includes(year)) {
+            yearsRes.content.years.push(year);
+            await updateGithubFile("indices/years.json", yearsRes.content, yearsRes.sha, "Update Year List");
+        }
+
+        // C. Update Index Bulanan (indices/YYYY/index_MM.json)
+        const indexPath = getIndexPath(year, month);
         let indexRes;
         try {
             const data = await getGithubFile(indexPath);
             indexRes = { content: data.content, sha: data.sha };
-        } catch (e) { indexRes = { content: [], sha: null }; }
+        } catch (e) { 
+            indexRes = { content: [], sha: null }; 
+        }
 
-        indexRes.content.push({ id: postId, slug, title: t, author: CURRENT_USER, category: cat, date: dateStr });
-        await updateGithubFile(indexPath, indexRes.content, indexRes.sha, `Update Index ${year}`);
+        indexRes.content.push({
+          id: postId,
+          slug: slug,
+          title: t,
+          author: CURRENT_USER,
+          category: cat,
+          date,
+          year,
+          month 
+        });
+        await updateGithubFile(indexPath, indexRes.content, indexRes.sha, `Update Index ${month}-${year}`);
         
         closeModal('postModal');
         resetPostModal();
-        await new Promise(r => setTimeout(r, 1500));
+        // Beri jeda sedikit agar GitHub memproses commit sebelum refresh
+        await new Promise(r => setTimeout(r, 2000));
         refreshBlog();
     } catch (e) {
-        alert("Gagal mengirim!");
+        console.error(e); // Cek konsol browser untuk detail error
+        alert("Gagal mengirim! Periksa koneksi atau token.");
     } finally {
         btn.innerText = originalText;
         btn.disabled = false;
@@ -74,6 +100,7 @@ async function prepareEdit(postId) {
 }
 
 // SUBMIT EDIT (Update Detail & Shard Index Tahunan)
+
 async function submitEdit() {
     const t = document.getElementById('postTitle').value.trim();
     const c = document.getElementById('postContent').value.trim();
@@ -84,19 +111,24 @@ async function submitEdit() {
     btn.innerText = "Saving...";
 
     try {
-        // A. Update File Detail di posts/
-        const file = await getGithubFile(`posts/post_${EDIT_POST_ID}.json`);
-        const postYear = new Date(file.content.date).getFullYear(); // Ambil tahun dari data asli
+        // 1. Ambil data lama untuk mendapatkan Year dan Month
+        const oldPost = await findPostById(EDIT_POST_ID);
+        const postYear = oldPost.year;
+        const postMonth = oldPost.month;
+
+        // 2. Update File Detail di posts/YYYY/MM/post_ID.json
+        const postPath = getPostPath(EDIT_POST_ID, postYear, postMonth);
+        const file = await getGithubFile(postPath);
 
         file.content.title = t;
         file.content.slug = generateSlug(t);
         file.content.content = c;
         file.content.category = cat;
 
-        await updateGithubFile(`posts/post_${EDIT_POST_ID}.json`, file.content, file.sha, `Edit post ${EDIT_POST_ID}`);
+        await updateGithubFile(postPath, file.content, file.sha, `Edit post ${EDIT_POST_ID}`);
 
-        // B. Update Index Tahunan yang Sesuai di indices/
-        const indexPath = `indices/index_${postYear}.json`;
+        // 3. Update Index Bulanan (indices/YYYY/index_MM.json)
+        const indexPath = getIndexPath(postYear, postMonth);
         const index = await getGithubFile(indexPath);
         const idx = index.content.findIndex(p => p.id === EDIT_POST_ID);
 
@@ -104,7 +136,7 @@ async function submitEdit() {
             index.content[idx].title = t;
             index.content[idx].slug = generateSlug(t);
             index.content[idx].category = cat;
-            await updateGithubFile(indexPath, index.content, index.sha, `Update Index ${postYear}`);
+            await updateGithubFile(indexPath, index.content, index.sha, `Update Index ${postMonth}-${postYear}`);
         }
 
         await new Promise(resolve => setTimeout(resolve, 1500));
@@ -112,38 +144,54 @@ async function submitEdit() {
         closeModal('postModal');
         refreshBlog();
     } catch (e) {
-        alert("Gagal menyimpan!");
+        console.error(e);
+        alert("Gagal menyimpan perubahan!");
     } finally {
         btn.innerText = "Simpan Perubahan";
     }
 }
 
-// DELETE POST (Hapus dari Shard Index Tahunan)
+// 2. Perbaikan Fungsi `deletePost`
 async function deletePost(postId) {
     if (!confirm("Hapus postingan ini?")) return;
 
     try {
         requireToken();
-        // Ambil info post dulu untuk tahu tahunnya sebelum dihapus
-        const postDetail = await getPublicFile(`posts/post_${postId}.json`);
-        const postYear = new Date(postDetail.date).getFullYear();
-        const indexPath = `indices/index_${postYear}.json`;
+        
+        // 1. Cari meta data post (untuk tahu tahun & bulan)
+        const allPosts = await loadAllIndexes();
+        const meta = allPosts.find(p => p.id === postId);
+        
+        if (!meta) throw new Error("Post tidak ditemukan di index");
 
-        // Update Index Tahunan
+        const postYear = meta.year;
+        const postMonth = meta.month;
+
+        // 2. Hapus dari Index Bulanan
+        const indexPath = getIndexPath(postYear, postMonth);
         const index = await getGithubFile(indexPath);
+        
         index.content = index.content.filter(post => post.id !== postId);
         await updateGithubFile(indexPath, index.content, index.sha, `Delete post ${postId} from index`);
 
-        // (Opsional) Kamu bisa menghapus file di posts/post_ID.json juga jika ingin benar-benar bersih
+        // 3. (Opsional namun disarankan) Hapus file detail aslinya
+        const postPath = getPostPath(postId, postYear, postMonth);
+        try {
+            const fileDetail = await getGithubFile(postPath);
+            // Anda perlu fungsi deleteGithubFile atau mengirim content null/empty tergantung library API Anda
+            // Jika updateGithubFile mendukung penghapusan, gunakan di sini.
+        } catch (err) {
+            console.warn("File fisik tidak ditemukan, tapi index sudah dibersihkan.");
+        }
         
         await new Promise(resolve => setTimeout(resolve, 1500));
         refreshBlog();
-        alert("Postingan dihapus!");
+        alert("Postingan berhasil dihapus!");
     } catch (e) {
+        console.error(e);
         alert("Gagal menghapus postingan");
     }
 }
-
 
 // FUNGSI PENDUKUNG LAINNYA
 function resetPostModal() {
