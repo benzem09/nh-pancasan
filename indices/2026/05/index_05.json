@@ -1,40 +1,53 @@
 [
     {
         "id": 1777784036729,
+        "slug": "Welcome",
         "title": "Welcome",
         "author": "admin",
         "category": "Umum",
-        "date": "2026-05-03"
+        "date": "2026-05-03",
+        "year": "2026",
+        "month": "05"
     },
     {
         "id": 1777994060821,
+        "slug": "Betapa Berharganya Waktu",
         "title": "Betapa Berharganya Waktu",
         "author": "admin",
         "category": "Umum",
-        "date": "2026-05-05"
+        "date": "2026-05-05",
+        "year": "2026",
+        "month": "05"
     },
     {
         "id": 1778036307513,
+        "slug": "Terminilogi manusia",
         "title": "Terminilogi manusia",
         "author": "admin",
         "category": "Umum",
-        "date": "2026-05-06"
+        "date": "2026-05-06",
+        "year": "2026",
+        "month": "05"
     },
     {
         "id": 1778037417006,
+        "slug": "Sharaf Dasar bgn-1",
         "title": "Sharaf Dasar bgn-1",
         "author": "admin",
-        "category": "",
+        "category": "Sharaf",
         "date": "2026-05-06",
-        "slug": "sharaf-dasar-bgn-1"
+        "year": "2026",
+        "month": "05"
     },
     {
         "id": 1778138620778,
+        "slug": "prolog-nahu"
         "title": "Prolog nahu",
         "author": "admin",
         "category": "Nahu",
         "date": "2026-05-07",
-        "slug": "prolog-nahu"
+        "year": "2026",
+        "month": "05"
     },
     {
         "id": 1778426402349,
@@ -42,7 +55,9 @@
         "title": "Nahu Ibtida  2",
         "author": "admin",
         "category": "Nahu",
-        "date": "2026-05-10"
+        "date": "2026-05-10",
+        "year": "2026",
+        "month": "05"
     },
     {
         "id": 1778431279353,
@@ -50,7 +65,9 @@
         "title": "Iman Menuju Mahabbah",
         "author": "admin",
         "category": "Tashauf",
-        "date": "2026-05-10"
+        "date": "2026-05-10",
+        "year": "2026",
+        "month": "05"
     },
     {
         "id": 1778573509178,
@@ -58,6 +75,8 @@
         "title": "قد اصبحتم",
         "author": "admin",
         "category": "Hadist",
-        "date": "2026-05-12"
+        "date": "2026-05-12",
+        "year": "2026",
+        "month": "05"
     }
 ]
