@@ -1,3 +1,5 @@
+// post-crud.js
+
 async function submitPost() {
     const t = document.getElementById('postTitle').value.trim();
     const c = document.getElementById('postContent').value.trim();
