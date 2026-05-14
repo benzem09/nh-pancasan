@@ -61,6 +61,10 @@ async function refreshBlog(targetData = null, action = null) {
             </div>
             `;
         }).join("");
+      if (typeof refreshCategories === "function") {
+        refreshCategories("Semua"); 
+        
+      }
 
     } catch (e) {
         console.error(e);
