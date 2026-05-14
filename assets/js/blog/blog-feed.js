@@ -61,26 +61,29 @@ async function refreshBlog() {
 
 async function loadAllIndexes() {
     const yearsData = await getPublicFile("indices/years.json");
+
+    const years = Array.isArray(yearsData.years)
+        ? yearsData.years
+        : [];
+
     let allPosts = [];
 
-    for (const year of yearsData.years) {
-        const months = Array.from({ length: 12 }, (_, i) => String(i + 1).padStart(2, "0"));
-        
-        // Ambil semua bulan secara paralel
-        const requests = months.map(month => 
-            getPublicFile(`indices/${year}/index_${month}.json`).catch(() => null)
-        );
+    for (const year of years) {
+        for (let m = 1; m <= 12; m++) {
+            const month = String(m).padStart(2, "0");
 
-        const results = await Promise.all(requests);
-        results.forEach(posts => {
-            if (posts && Array.isArray(posts)) {
+            try {
+                const posts = await getPublicFile(
+                    `indices/${year}/index_${month}.json`
+                );
+
                 allPosts.push(...posts);
-            }
-        });
+            } catch {}
+        }
     }
+
     return allPosts;
 }
-
 
 function filterBlog() {
     const query = document.getElementById('searchInput').value.toLowerCase();
