@@ -1,5 +1,66 @@
 [
     {
+        "id": 1777784036729,
+        "title": "Welcome",
+        "author": "admin",
+        "category": "Umum",
+        "date": "2026-05-03"
+    },
+    {
+        "id": 1777994060821,
+        "title": "Betapa Berharganya Waktu",
+        "author": "admin",
+        "category": "Umum",
+        "date": "2026-05-05"
+    },
+    {
+        "id": 1778036307513,
+        "title": "Terminilogi manusia",
+        "author": "admin",
+        "category": "Umum",
+        "date": "2026-05-06"
+    },
+    {
+        "id": 1778037417006,
+        "title": "Sharaf Dasar bgn-1",
+        "author": "admin",
+        "category": "",
+        "date": "2026-05-06",
+        "slug": "sharaf-dasar-bgn-1"
+    },
+    {
+        "id": 1778138620778,
+        "title": "Prolog nahu",
+        "author": "admin",
+        "category": "Nahu",
+        "date": "2026-05-07",
+        "slug": "prolog-nahu"
+    },
+    {
+        "id": 1778426402349,
+        "slug": "nahu-ibtida-2",
+        "title": "Nahu Ibtida  2",
+        "author": "admin",
+        "category": "Nahu",
+        "date": "2026-05-10"
+    },
+    {
+        "id": 1778431279353,
+        "slug": "iman-menuju-mahabbah",
+        "title": "Iman Menuju Mahabbah",
+        "author": "admin",
+        "category": "Tashauf",
+        "date": "2026-05-10"
+    },
+    {
+        "id": 1778573509178,
+        "slug": "-",
+        "title": "قد اصبحتم",
+        "author": "admin",
+        "category": "Hadist",
+        "date": "2026-05-12"
+    },
+    {
         "id": 1778736298874,
         "slug": "oke",
         "title": "Oke",
