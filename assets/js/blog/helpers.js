@@ -30,17 +30,25 @@ function getIndexPath(year, month) {
 }
 
 async function findPostById(postId) {
+    // 1. Ambil semua index untuk mencari meta data (Year & Month)
     const allPosts = await loadAllIndexes();
-    const meta = allPosts.find(post => post.id === postId);
+    
+    // Pastikan perbandingan ID menggunakan String/Number yang konsisten
+    const meta = allPosts.find(p => String(p.id) === String(postId));
 
     if (!meta) {
-        throw new Error("Post tidak ditemukan");
+        console.error("ID tidak ditemukan di index:", postId);
+        throw new Error("Postingan tidak terdaftar di index.");
     }
 
-    return await getPublicFile(
-        getPostPath(postId, meta.year, meta.month)
-    );
+    // 2. Gunakan year dan month dari index untuk mengambil file asli
+    const path = getPostPath(meta.id, meta.year, meta.month);
+    
+    console.log("Mencoba mengambil file dari:", path); // Untuk debugging di console
+
+    return await getPublicFile(path);
 }
+
 
 function executeDownload(content, filename) {
     const blob = new Blob([content], { type: "text/plain;charset=utf-8" });

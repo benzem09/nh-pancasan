@@ -5,48 +5,35 @@ async function loadFullPost(postId) {
     const titleElem = document.getElementById('viewTitle');
     const fab = document.getElementById("floatingAction");
 
+    // Reset UI & Loading state
     container.innerHTML = "<div class='skeleton h-32 w-full'></div>";
     titleElem.innerText = "Memuat...";
-
-    fab.classList.add("hidden");
-    document.querySelectorAll('.fab-popup').forEach(p => p.classList.add('hidden'));
+    fab?.classList.add("hidden");
 
     try {
+        // Memanggil fungsi pencari yang sudah diperbaiki
         const post = await findPostById(postId);
 
-        // title
+        if (!post) throw new Error("Data postingan kosong");
+
+        // Render Judul & SEO
         titleElem.innerText = post.title || "Tanpa Judul";
+        document.title = `${post.title} - Blog`;
 
-        // SEO
-        document.title = `${post.title} - NH Pancasan`;
-
-        const metaDesc = document.querySelector('meta[name="description"]');
-        if (metaDesc) {
-            metaDesc.setAttribute(
-                "content",
-                (post.content || "")
-                .replace(/[#>*`]/g, "")
-                .slice(0, 150)
-            );
-        }
-
-        const canonical = document.querySelector('link[rel="canonical"]');
-        if (canonical) canonical.href = window.location.href;
-
-        // render content
+        // Render Konten
         container.innerHTML = `
             <div class="post-body text-slate-300 leading-relaxed">
-                <div class="flex items-center gap-2 mb-6 opacity-60">
-                    <span class="text-[10px] bg-blue-600/20 text-blue-400 px-2 py-1 rounded border border-blue-600/30">
+                <div class="flex items-center gap-2 mb-6 opacity-60 text-[10px]">
+                    <span class="bg-blue-600/20 text-blue-400 px-2 py-1 rounded border border-blue-600/30">
                         ${post.category || 'Umum'}
                     </span>
-                    <span class="text-[10px]">👤 @${post.author || "admin"}</span>
-                    <span class="text-[10px]">📅 ${post.date || "-"}</span>
+                    <span>👤 @${post.author || "admin"}</span>
+                    <span>📅 ${post.date || "-"}</span>
                 </div>
 
                 <div id="main-post-content">
                     ${marked.parse(post.content || "")}
-                    <div style="height: 100px; width: 100%;"></div> </div>
+                    <div style="height: 100px; width: 100%;"></div>
                 </div>
             </div>
         `;
@@ -171,9 +158,15 @@ ${marked.parse(post.content)}
         }, 500);
 
     } catch (err) {
-        console.error(err);
-        titleElem.innerText = "Error";
-        container.innerHTML = "Gagal memuat detail postingan.";
+        console.error("Detail Error:", err);
+        titleElem.innerText = "Gagal Memuat";
+        container.innerHTML = `
+            <div class="text-center p-8">
+                <p class="text-red-400 mb-2">⚠️ File tidak ditemukan atau path salah.</p>
+                <p class="text-xs opacity-50">ID: ${postId}</p>
+                <button onclick="closeModal('viewModal')" class="mt-4 text-xs bg-white/10 px-4 py-2 rounded">Kembali</button>
+            </div>
+        `;
     }
 }
 
