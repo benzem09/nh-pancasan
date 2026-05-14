@@ -1,4 +1,4 @@
-async function refreshBlog() {
+async function refreshBlog(targetData = null, action = null) {
     const feed = document.getElementById("blog-feed");
 
     feed.innerHTML = `
@@ -7,8 +7,32 @@ async function refreshBlog() {
     `;
 
     try {
-        const allPosts = await loadAllIndexes();
-        const sortedPosts = allPosts.sort((a, b) => b.id - a.id);
+        let sortedPosts = [];
+
+        // JIKA ADA MANIPULASI DATA LOKAL INSTAN
+        if (targetData && action) {
+            const currentIndexes = await loadAllIndexes(); 
+            
+            if (action === 'create') {
+                if (!currentIndexes.some(p => p.id === targetData.id)) {
+                    currentIndexes.push(targetData);
+                }
+            } else if (action === 'edit') {
+                const idx = currentIndexes.findIndex(p => p.id === targetData.id);
+                if (idx !== -1) {
+                    currentIndexes[idx] = { ...currentIndexes[idx], ...targetData };
+                }
+            } else if (action === 'delete') {
+                // targetData di sini berisi ID dari postingan yang dihapus
+                currentIndexes = currentIndexes.filter(p => p.id !== targetData);
+            }
+            
+            sortedPosts = currentIndexes.sort((a, b) => b.id - a.id);
+        } else {
+            // Jalur normal saat halaman web dibuka pertama kali
+            const allPosts = await loadAllIndexes();
+            sortedPosts = allPosts.sort((a, b) => b.id - a.id);
+        }
 
         if (!sortedPosts.length) {
             feed.innerHTML = "<p class='opacity-50 text-xs'>Belum ada postingan</p>";
@@ -24,19 +48,14 @@ async function refreshBlog() {
             <div class="glass p-3 rounded-xl mb-2">
                 <div onclick="openPost('${p.slug}', ${p.id})" class="cursor-pointer">
                     <h3 class="font-bold text-sm text-blue-400">${sanitizeHTML(p.title)}</h3>
-
                     <div class="flex justify-between mt-2 text-[9px] opacity-50">
                         <span>${p.date} • ${p.category}</span>
-                        ${
-                            isOwner
-                            ? `
+                        ${isOwner ? `
                             <span>
                                 <button onclick="event.stopPropagation(); prepareEdit(${p.id})">✏️</button>
                                 <button onclick="event.stopPropagation(); deletePost(${p.id})">🗑️</button>
                             </span>
-                            `
-                            : ""
-                        }
+                        ` : ""}
                     </div>
                 </div>
             </div>

@@ -1,5 +1,4 @@
 // post-crud.js
-
 async function submitPost() {
     const t = document.getElementById('postTitle').value.trim();
     const c = document.getElementById('postContent').value.trim();
@@ -14,7 +13,7 @@ async function submitPost() {
 
     const postId = Date.now();
     const { year, month, date } = getDateParts();
-    const slug = generateSlug(t); // Definisi slug di awal
+    const slug = generateSlug(t);
 
     try {
         // A. Simpan Detail ke posts/YYYY/MM/post_ID.json
@@ -59,7 +58,7 @@ async function submitPost() {
             indexRes = { content: [], sha: null }; 
         }
 
-        indexRes.content.push({
+        const newIndexItem = {
           id: postId,
           slug: slug,
           title: t,
@@ -68,13 +67,17 @@ async function submitPost() {
           date,
           year,
           month 
-        });
+        };
+        indexRes.content.push(newIndexItem);
         await updateGithubFile(indexPath, indexRes.content, indexRes.sha, `Update Index ${month}-${year}`);
         
+        // PEMBERSIHAN FORM & PROSES SELESAI
         closeModal('postModal');
         resetPostModal();
-        await new Promise(r => setTimeout(r, 2000));
-        refreshBlog();
+        
+        // LANGSUNG DI-REFRESH SECARA INSTAN MENGGUNAKAN DATA BARU
+        refreshBlog(newIndexItem);
+
     } catch (e) {
         console.error(e);
         alert("Gagal mengirim! Periksa koneksi atau token.");
@@ -133,13 +136,14 @@ async function submitEdit() {
 
         const postYear = meta.year;
         const postMonth = meta.month;
+        const newSlug = generateSlug(t);
 
         // 2. Update File Detail di posts/YYYY/MM/post_ID.json
         const postPath = getPostPath(EDIT_POST_ID, postYear, postMonth);
         const file = await getGithubFile(postPath);
 
         file.content.title = t;
-        file.content.slug = generateSlug(t);
+        file.content.slug = newSlug;
         file.content.content = c;
         file.content.category = cat;
 
@@ -152,16 +156,25 @@ async function submitEdit() {
 
         if (idx !== -1) {
             index.content[idx].title = t;
-            index.content[idx].slug = generateSlug(t);
+            index.content[idx].slug = newSlug;
             index.content[idx].category = cat;
             await updateGithubFile(indexPath, index.content, index.sha, `Update Index ${postMonth}-${postYear}`);
         }
 
-        // 4. Selesai
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        // Object data baru untuk memanipulasi feed UI secara lokal
+        const updatedIndexItem = {
+            id: EDIT_POST_ID,
+            title: t,
+            slug: newSlug,
+            category: cat
+        };
+
+        // 4. Selesai (Penundaan dihapus)
         resetPostModal();
         closeModal('postModal');
-        refreshBlog();
+        
+        // Perbarui feed secara instan tanpa menunggu cache CDN GitHub
+        refreshBlog(updatedIndexItem, 'edit');
         alert("Postingan berhasil diperbarui!");
     } catch (e) {
         console.error(e);
@@ -171,8 +184,6 @@ async function submitEdit() {
         btn.disabled = false;
     }
 }
-
-// --- FUNGSI HAPUS ---
 
 async function deletePost(postId) {
     if (!confirm("Hapus postingan ini secara permanen?")) return;
@@ -197,11 +208,9 @@ async function deletePost(postId) {
         await updateGithubFile(indexPath, index.content, index.sha, `Delete post ${postId} from index`);
 
         // 3. Hapus File Detail (posts/YYYY/MM/post_ID.json)
-        // Catatan: Di GitHub API, menghapus file dilakukan dengan mengirim sha file tersebut.
         const postPath = getPostPath(postId, postYear, postMonth);
         try {
             const fileDetail = await getGithubFile(postPath);
-            // Mengirim null atau menggunakan fungsi delete khusus jika tersedia di api.js Anda
             if(typeof deleteGithubFile === "function") {
                 await deleteGithubFile(postPath, fileDetail.sha, `Permanent delete post ${postId}`);
             } else {
@@ -211,9 +220,8 @@ async function deletePost(postId) {
             console.warn("File fisik tidak ditemukan, kemungkinan sudah terhapus.");
         }
         
-        // 4. Refresh UI
-        await new Promise(resolve => setTimeout(resolve, 2000));
-        refreshBlog();
+        // 4. Refresh UI secara instan (Penundaan dihapus)
+        refreshBlog(postId, 'delete');
         alert("Postingan berhasil dihapus!");
     } catch (e) {
         console.error(e);
