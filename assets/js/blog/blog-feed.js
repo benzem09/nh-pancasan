@@ -49,7 +49,7 @@ async function refreshBlog(targetData = null, action = null) {
                 <div onclick="openPost('${p.slug}', ${p.id})" class="cursor-pointer">
                     <h3 class="font-bold text-sm text-blue-400">${sanitizeHTML(p.title)}</h3>
                     <div class="flex justify-between mt-2 text-[9px] opacity-50">
-                        <span>${p.date} • ${p.category}</span>
+                        <span>👤 ${p.author.toUpperCase()} | 🏷 ${p.category || 'Umum'} | 📅 ${p.date}</span>
                         ${isOwner ? `
                             <span>
                                 <button onclick="event.stopPropagation(); prepareEdit(${p.id})">✏️</button>
