@@ -12,7 +12,7 @@ async function submitPost() {
 
     const postId = Date.now();
     const { year, month, date } = getDateParts();
-    const slug = generateSlug(t); // PERBAIKAN 1: Definisi slug
+    const slug = generateSlug(t); // Definisi slug di awal
 
     try {
         // A. Simpan Detail ke posts/YYYY/MM/post_ID.json
@@ -22,7 +22,7 @@ async function submitPost() {
           title: t,
           content: c,
           category: cat,
-          author: CURRENT_USER,
+          author: typeof CURRENT_USER !== "undefined" ? CURRENT_USER : "admin",
           date,
           year,
           month,
@@ -43,10 +43,11 @@ async function submitPost() {
 
         if (!yearsRes.content.years.includes(year)) {
             yearsRes.content.years.push(year);
+            yearsRes.content.years.sort((a, b) => b - a);
             await updateGithubFile("indices/years.json", yearsRes.content, yearsRes.sha, "Update Year List");
         }
 
-        // C. Update Index Bulanan (indices/YYYY/index_MM.json)
+        // C. Update Index Bulanan (indices/YYYY/MM/index_MM.json)
         const indexPath = getIndexPath(year, month);
         let indexRes;
         try {
@@ -60,7 +61,7 @@ async function submitPost() {
           id: postId,
           slug: slug,
           title: t,
-          author: CURRENT_USER,
+          author: detailedData.author,
           category: cat,
           date,
           year,
@@ -70,11 +71,10 @@ async function submitPost() {
         
         closeModal('postModal');
         resetPostModal();
-        // Beri jeda sedikit agar GitHub memproses commit sebelum refresh
         await new Promise(r => setTimeout(r, 2000));
         refreshBlog();
     } catch (e) {
-        console.error(e); // Cek konsol browser untuk detail error
+        console.error(e);
         alert("Gagal mengirim! Periksa koneksi atau token.");
     } finally {
         btn.innerText = originalText;

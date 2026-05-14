@@ -1,5 +1,5 @@
 async function refreshBlog() {
-    const feed = document.getElementById('blog-feed');
+    const feed = document.getElementById("blog-feed");
 
     feed.innerHTML = `
         <div class="glass p-3 rounded-lg h-12 skeleton mb-2"></div>
@@ -8,81 +8,75 @@ async function refreshBlog() {
 
     try {
         const allPosts = await loadAllIndexes();
-
         const sortedPosts = allPosts.sort((a, b) => b.id - a.id);
 
-        if (!sortedPosts.length) throw new Error("Belum ada postingan");
+        if (!sortedPosts.length) {
+            feed.innerHTML = "<p class='opacity-50 text-xs'>Belum ada postingan</p>";
+            return;
+        }
 
         feed.innerHTML = sortedPosts.map(p => {
-            const cleanTitle =
-                typeof sanitizeHTML === "function"
-                    ? sanitizeHTML(p.title)
-                    : p.title;
-
             const isOwner =
                 typeof CURRENT_USER !== "undefined" &&
                 (p.author === CURRENT_USER || CURRENT_USER === "admin");
 
             return `
-            <div class="glass p-3 rounded-xl hover:border-blue-500/30 transition-all relative group mb-2">
-                <div class="cursor-pointer" onclick="openPost('${p.slug || generateSlug(p.title)}', ${p.id})">
-                    <h3 class="font-bold text-sm text-blue-400 pr-12 line-clamp-1">${cleanTitle}</h3>
+            <div class="glass p-3 rounded-xl mb-2">
+                <div onclick="openPost('${p.slug}', ${p.id})" class="cursor-pointer">
+                    <h3 class="font-bold text-sm text-blue-400">${sanitizeHTML(p.title)}</h3>
 
-                    <div class="flex justify-between mt-2 pt-2 border-t border-white/5 opacity-40 text-[8px]">
-                        <span>
-                            👤 ${p.author.toUpperCase()} |
-                            🏷 ${p.category || 'Umum'} |
-                            📅 ${p.date}
-                        </span>
-
-                        <span>
-                            ${isOwner ? `
-                                <button onclick="event.stopPropagation(); prepareEdit(${p.id})"
-                                    class="text-blue-500 opacity-40 hover:opacity-100 p-1 text-xs">✏️</button>
-
-                                <button onclick="event.stopPropagation(); deletePost(${p.id})"
-                                    class="text-red-500 opacity-40 hover:opacity-100 p-1 text-xs">🗑️</button>
-                            ` : ''}
-                        </span>
+                    <div class="flex justify-between mt-2 text-[9px] opacity-50">
+                        <span>${p.date} • ${p.category}</span>
+                        ${
+                            isOwner
+                            ? `
+                            <span>
+                                <button onclick="event.stopPropagation(); prepareEdit(${p.id})">✏️</button>
+                                <button onclick="event.stopPropagation(); deletePost(${p.id})">🗑️</button>
+                            </span>
+                            `
+                            : ""
+                        }
                     </div>
                 </div>
             </div>
             `;
-        }).join('');
+        }).join("");
 
     } catch (e) {
-        feed.innerHTML = `
-            <p class="text-red-400 text-xs p-4">
-                Error: ${e.message}
-            </p>
-        `;
+        console.error(e);
+        feed.innerHTML = `<p>Error: ${e.message}</p>`;
     }
 }
 
 async function loadAllIndexes() {
-    const yearsData = await getPublicFile("indices/years.json");
+    try {
+        const yearsData = await getPublicFile("indices/years.json");
+        const years = Array.isArray(yearsData.years) ? yearsData.years : [];
+        let allPosts = [];
 
-    const years = Array.isArray(yearsData.years)
-        ? yearsData.years
-        : [];
+        for (const year of years) {
+            // List bulan 01 s/d 12
+            const months = Array.from({ length: 12 }, (_, i) => String(i + 1).padStart(2, "0"));
+            
+            // Mencari di folder: indices/YYYY/MM/index_MM.json
+            const requests = months.map(month => 
+                getPublicFile(`indices/${year}/${month}/index_${month}.json`).catch(() => null)
+            );
 
-    let allPosts = [];
-
-    for (const year of years) {
-        for (let m = 1; m <= 12; m++) {
-            const month = String(m).padStart(2, "0");
-
-            try {
-                const posts = await getPublicFile(
-                    `indices/${year}/index_${month}.json`
-                );
-
-                allPosts.push(...posts);
-            } catch {}
+            const results = await Promise.all(requests);
+            
+            results.forEach(posts => {
+                if (posts && Array.isArray(posts)) {
+                    allPosts.push(...posts);
+                }
+            });
         }
+        return allPosts;
+    } catch (err) {
+        console.error("Gagal memuat index:", err);
+        return [];
     }
-
-    return allPosts;
 }
 
 function filterBlog() {
