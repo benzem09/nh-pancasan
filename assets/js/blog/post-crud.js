@@ -47,8 +47,27 @@ async function submitPost() {
             yearsRes.content.years.sort((a, b) => b - a);
             await updateGithubFile("indices/years.json", yearsRes.content, yearsRes.sha, "Update Year List");
         }
+        
+        // C. Update daftar bulan per tahun
+        let monthsRes;
+        try {
+            const data = await getGithubFile(`indices/${year}/months.json`);
+            monthsRes = { content: data.content, sha: data.sha };
+        } catch {
+            monthsRes = { content: { months: [] }, sha: null };
+        }
 
-        // C. Update Index Bulanan (indices/YYYY/MM/index_MM.json)
+        if (!monthsRes.content.months.includes(month)) {
+            monthsRes.content.months.push(month);
+            await updateGithubFile(
+                `indices/${year}/months.json`,
+                monthsRes.content,
+                monthsRes.sha,
+                `Update months ${year}`
+            );
+        }
+
+        // D. Update Index Bulanan (indices/YYYY/MM/index_MM.json)
         const indexPath = getIndexPath(year, month);
         let indexRes;
         try {

@@ -31,7 +31,7 @@ async function refreshBlog(targetData = null, action = null) {
         } else {
             // Jalur normal saat halaman web dibuka pertama kali
             const allPosts = await loadAllIndexes();
-            sortedPosts = allPosts.sort((a, b) => b.id - a.id);
+            renderPosts(allPosts);
         }
 
         if (!sortedPosts.length) {
@@ -73,32 +73,85 @@ async function refreshBlog(targetData = null, action = null) {
 }
 
 async function loadAllIndexes() {
-    try {
-        const yearsData = await getPublicFile("indices/years.json");
-        const years = Array.isArray(yearsData.years) ? yearsData.years : [];
-        let allPosts = [];
+    const yearsData = await getPublicFile("indices/years.json");
 
-        for (const year of years) {
-            // List bulan 01 s/d 12
-            const months = Array.from({ length: 12 }, (_, i) => String(i + 1).padStart(2, "0"));
-            
-            // Mencari di folder: indices/YYYY/MM/index_MM.json
-            const requests = months.map(month => 
-                getPublicFile(`indices/${year}/${month}/index_${month}.json`).catch(() => null)
+    const years = yearsData.years || [];
+    let allPosts = [];
+
+    for (const year of years) {
+        try {
+            const monthsData = await getPublicFile(
+                `indices/${year}/months.json`
             );
 
-            const results = await Promise.all(requests);
-            
-            results.forEach(posts => {
-                if (posts && Array.isArray(posts)) {
+            const months = monthsData.months || [];
+
+            for (const month of months) {
+                try {
+                    const posts = await getPublicFile(
+                        `indices/${year}/${month}/index_${month}.json`
+                    );
                     allPosts.push(...posts);
+                } catch {}
+            }
+        } catch {}
+    }
+
+    return allPosts;
+}
+
+async function renderArchive() {
+    const archive = document.getElementById("archiveList");
+    if (!archive) return;
+
+    archive.innerHTML = "Loading...";
+
+    try {
+        const yearsData = await getPublicFile("indices/years.json");
+        const years = yearsData.years || [];
+
+        let html = "";
+
+        for (const year of years.sort((a,b)=>b-a)) {
+            html += `<div class="mb-4">
+                <h3 class="font-bold text-blue-400">${year}</h3>`;
+
+            try {
+                const monthsData = await getPublicFile(
+                    `indices/${year}/months.json`
+                );
+
+                for (const month of monthsData.months) {
+                    html += `
+                        <button
+                            onclick="filterArchive('${year}','${month}')"
+                            class="block text-xs opacity-70 hover:text-blue-400 ml-3 mt-1">
+                            📁 ${month}
+                        </button>
+                    `;
                 }
-            });
+            } catch {}
+
+            html += `</div>`;
         }
-        return allPosts;
-    } catch (err) {
-        console.error("Gagal memuat index:", err);
-        return [];
+
+        archive.innerHTML = html;
+    } catch {
+        archive.innerHTML = "Archive kosong";
+    }
+}
+
+async function filterArchive(year, month) {
+    const feed = document.getElementById("blog-feed");
+
+    try {
+        const posts = await getPublicFile(
+            `indices/${year}/${month}/index_${month}.json`
+        );
+
+        renderPosts(posts);
+    } catch {
+        feed.innerHTML = "Tidak ada postingan.";
     }
 }
 

@@ -49,6 +49,22 @@ async function findPostById(postId) {
     return await getPublicFile(path);
 }
 
+function renderPosts(posts) {
+    const feed = document.getElementById("blog-feed");
+
+    const sortedPosts = posts.sort((a,b)=>b.id-a.id);
+
+    feed.innerHTML = sortedPosts.map(p => `
+        <div class="glass p-3 rounded-xl mb-2">
+            <div onclick="openPost('${p.slug}', ${p.id})">
+                <h3 class="font-bold text-sm text-blue-400">${p.title}</h3>
+                <div class="text-[10px] opacity-50 mt-2">
+                    ${p.date} • ${p.category}
+                </div>
+            </div>
+        </div>
+    `).join("");
+}
 
 function executeDownload(content, filename) {
     const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
