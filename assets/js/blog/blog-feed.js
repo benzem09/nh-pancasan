@@ -7,37 +7,36 @@ async function refreshBlog(targetData = null, action = null) {
     `;
 
     try {
-        let sortedPosts = [];
+        let posts = await loadAllIndexes();
 
         // JIKA ADA MANIPULASI DATA LOKAL INSTAN
         if (targetData && action) {
-            const currentIndexes = await loadAllIndexes(); 
-            
-            if (action === 'create') {
-                if (!currentIndexes.some(p => p.id === targetData.id)) {
-                    currentIndexes.push(targetData);
+            if (action === "create") {
+                if (!posts.some(p => p.id === targetData.id)) {
+                    posts.push(targetData);
                 }
-            } else if (action === 'edit') {
-                const idx = currentIndexes.findIndex(p => p.id === targetData.id);
-                if (idx !== -1) {
-                    currentIndexes[idx] = { ...currentIndexes[idx], ...targetData };
-                }
-            } else if (action === 'delete') {
-                // targetData di sini berisi ID dari postingan yang dihapus
-                currentIndexes = currentIndexes.filter(p => p.id !== targetData);
             }
-            
-            sortedPosts = currentIndexes.sort((a, b) => b.id - a.id);
-        } else {
-            // Jalur normal saat halaman web dibuka pertama kali
-            const allPosts = await loadAllIndexes();
-            renderPosts(allPosts);
+
+            if (action === "edit") {
+                const idx = posts.findIndex(p => p.id === targetData.id);
+                if (idx !== -1) {
+                    posts[idx] = { ...posts[idx], ...targetData };
+                }
+            }
+
+            if (action === "delete") {
+                posts = posts.filter(p => p.id !== targetData);
+            }
         }
 
+        const sortedPosts = posts.sort((a, b) => b.id - a.id);
+
         if (!sortedPosts.length) {
-            feed.innerHTML = "<p class='opacity-50 text-xs'>Belum ada postingan</p>";
+            feed.innerHTML =
+                "<p class='opacity-50 text-xs'>Belum ada postingan</p>";
             return;
         }
+        renderPosts(sortedPosts);
 
         feed.innerHTML = sortedPosts.map(p => {
             const isOwner =
@@ -62,9 +61,8 @@ async function refreshBlog(targetData = null, action = null) {
             `;
         }).join("");
       if (typeof refreshCategories === "function") {
-        refreshCategories("Semua"); 
-        
-      }
+            refreshCategories("Semua");
+        }
 
     } catch (e) {
         console.error(e);
@@ -74,6 +72,7 @@ async function refreshBlog(targetData = null, action = null) {
 
 async function loadAllIndexes() {
     const yearsData = await getPublicFile("indices/years.json");
+    console.log("YEARS:", yearsData);
 
     const years = yearsData.years || [];
     let allPosts = [];
@@ -84,6 +83,8 @@ async function loadAllIndexes() {
                 `indices/${year}/months.json`
             );
 
+            console.log("MONTHS:", monthsData);
+
             const months = monthsData.months || [];
 
             for (const month of months) {
@@ -91,10 +92,17 @@ async function loadAllIndexes() {
                     const posts = await getPublicFile(
                         `indices/${year}/${month}/index_${month}.json`
                     );
+
+                    console.log("POSTS:", posts);
+
                     allPosts.push(...posts);
-                } catch {}
+                } catch (e) {
+                    console.log("INDEX ERROR:", e);
+                }
             }
-        } catch {}
+        } catch (e) {
+            console.log("MONTH ERROR:", e);
+        }
     }
 
     return allPosts;
