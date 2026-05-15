@@ -8,7 +8,7 @@
   "orientation": "portrait",
   "icons": [
     {
-      "src": "assets/img/nh_p.png",
+      "src": "assets/img/nh-p.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
