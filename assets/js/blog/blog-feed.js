@@ -71,42 +71,56 @@ async function refreshBlog(targetData = null, action = null) {
 }
 
 async function loadAllIndexes() {
-    const yearsData = await getPublicFile("indices/years.json");
-    console.log("YEARS:", yearsData);
+    try {
+        const yearsData = await getPublicFile("indices/years.json");
+        const years = yearsData.years || [];
+        let allPosts = [];
 
-    const years = yearsData.years || [];
-    let allPosts = [];
-
-    for (const year of years) {
-        try {
-            const monthsData = await getPublicFile(
-                `indices/${year}/months.json`
-            );
-
-            console.log("MONTHS:", monthsData);
-
-            const months = monthsData.months || [];
-
-            for (const month of months) {
-                try {
-                    const posts = await getPublicFile(
-                        `indices/${year}/${month}/index_${month}.json`
-                    );
-
-                    console.log("POSTS:", posts);
-
-                    allPosts.push(...posts);
-                } catch (e) {
-                    console.log("INDEX ERROR:", e);
-                }
+        // 1. Ambil semua data months.json secara paralel untuk setiap tahun
+        const monthPromises = years.map(async (year) => {
+            try {
+                const monthsData = await getPublicFile(`indices/${year}/months.json`);
+                const months = monthsData.months || [];
+                
+                // Kembalikan objek yang memasangkan tahun dengan bulan-bulannya
+                return { year, months };
+            } catch (e) {
+                console.error(`Gagal memuat bulan untuk tahun ${year}:`, e);
+                return { year, months: [] };
             }
-        } catch (e) {
-            console.log("MONTH ERROR:", e);
-        }
-    }
+        });
 
-    return allPosts;
+        const yearsWithMonths = await Promise.all(monthPromises);
+
+        // 2. Kumpulkan semua target URL file indeks bulanan yang harus diunduh
+        const indexPromises = [];
+        
+        yearsWithMonths.forEach(({ year, months }) => {
+            months.forEach(month => {
+                const fetchPromise = getPublicFile(`indices/${year}/${month}/index_${month}.json`)
+                    .then(posts => {
+                        if (Array.isArray(posts)) {
+                            allPosts.push(...posts);
+                        }
+                    })
+                    .catch(e => {
+                        console.error(`Gagal memuat file indeks indices/${year}/${month}/index_${month}.json :`, e);
+                    });
+                
+                indexPromises.push(fetchPromise);
+            });
+        });
+
+        // 3. Unduh seluruh file indeks bulanan secara bersamaan (paralel)
+        await Promise.all(indexPromises);
+
+        return allPosts;
+    } catch (err) {
+        console.error("Gagal total memuat seluruh indeks blog:", err);
+        return [];
+    }
 }
+
 
 async function renderArchive() {
     const archive = document.getElementById("archiveList");
