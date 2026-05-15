@@ -8,9 +8,10 @@
   "orientation": "portrait",
   "icons": [
     {
-      "src": "assets/img/logo.png",
+      "src": "assets/img/nh-p.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }
