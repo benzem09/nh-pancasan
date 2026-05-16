@@ -25,6 +25,10 @@
     <meta name="google-site-verification" content="QBGUfNs-2R61f3xbHBvTtUWget5sfAQFMz6tZaBaQ40" />
 </head>
 <body class="p-4 md:p-8 text-slate-200">
+  <div id="splash-screen" class="fixed inset-0 bg-[#1E3B8A] flex flex-col items-center justify-center z-[9999]">
+    <img src="assets/img/logo.png" alt="Splash Logo" class="w-28 h-28 object-contain">
+    <h1 class="text-white text-2xl mt-6">NH Pancasan</h1>
+</div>
 <div id="comp-modals"></div>
 
 <div id="appContainer">
@@ -120,6 +124,14 @@ OneSignalDeferred.push(async function(OneSignal) {
         serviceWorkerPath: "OneSignalSDKWorker.js",
         serviceWorkerUpdaterPath: "OneSignalSDKUpdaterWorker.js"
     });
+});
+</script>
+<script>
+window.addEventListener("load", () => {
+    setTimeout(() => {
+        const splash = document.getElementById("splash-screen");
+        if (splash) splash.style.display = "none";
+    }, 1500);
 });
 </script>
 </body>
