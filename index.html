@@ -34,6 +34,7 @@
     <main id="main-content">
         <div id="section-blog" class="tab-content"></div>
         <div id="section-categories" class="tab-content hidden"></div>
+        <div id="section-archive" class="tab-content hidden"></div>
         <div id="section-about" class="tab-content hidden"></div>
     </main>
 </div>
@@ -57,6 +58,7 @@ async function initApp() {
         loadComponent('comp-navigation', 'components/navigation.html'),
         loadComponent('section-blog', 'components/section-blog.html'),
         loadComponent('section-categories', 'components/section-categories.html'),
+        loadComponent('section-archive', 'components/section-archive.html'),
         loadComponent('section-about', 'components/section-about.html'),
     ]);
 
@@ -70,6 +72,7 @@ async function initApp() {
         'assets/js/blog/post-viewer.js',
         'assets/js/blog/post-crud.js',
         'assets/js/blog/categories.js',
+        'assets/js/blog/archive.js',
         'assets/js/blog/blog-feed.js',
         'assets/js/blog/router.js',
         'assets/js/blog/fab.js',

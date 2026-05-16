@@ -31,7 +31,7 @@ async function switchTab(tabName) {
     document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
     document.getElementById('section-' + tabName).classList.remove('hidden');
     
-    const tabs = ['blog', 'categories', 'about', 'about-me'];
+    const tabs = ['blog', 'categories', 'archive', 'about', 'about-me'];
     tabs.forEach(t => {
         const el = document.getElementById('tab-' + t);
         if (el) {
@@ -45,10 +45,23 @@ async function switchTab(tabName) {
 
     if (tabName === 'blog') await refreshBlog();
     if (tabName === 'categories') await refreshCategories(); // Memanggil fungsi kategori baru
+    if (tabName === 'archive') await refreshArchive();
     if (tabName === 'about') await refreshAbout();
     if (tabName === 'about-me') if (typeof refreshAboutMe === 'function') await refreshAboutMe();
 }
 
+function toggleWideMode() {
+    const app = document.getElementById("appContainer");
+    const btn = document.getElementById("screenModeBtn");
+
+    app.classList.toggle("wide-mode");
+
+    const enabled = app.classList.contains("wide-mode");
+
+    localStorage.setItem("wide_mode", enabled);
+
+    if (btn) btn.classList.toggle("wide-active", enabled);
+}
 
 document.getElementById("btnNotif")?.addEventListener("click", async () => {
     const permission = await Notification.requestPermission();
