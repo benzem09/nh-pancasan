@@ -67,24 +67,57 @@ Project ini dibuat untuk:
 
 ---
 
-# Project Structure
+# Project Structure update 2.2
 
 ```bash
 project/
-│
+├── OneSignalSDKUpdaterWorker.js
+├── OneSignalSDKWorker.js
 ├── README.md
-│
 ├── assets
 │   ├── css
 │   │   └── style.css
 │   │
+│   ├── icons
+│   │   ├── article.svg
+│   │   ├── bell.svg
+│   │   ├── close.svg
+│   │   ├── download.svg
+│   │   ├── github.svg
+│   │   ├── home.svg
+│   │   ├── menu.svg
+│   │   ├── refresh.svg
+│   │   ├── search.svg
+│   │   └── share.svg
+│   │
+│   ├── img
+│   │   ├── articel.jpg
+│   │   ├── file1.jpg
+│   │   ├── file2.jpg
+│   │   ├── file3.jpg
+│   │   ├── hompage.jpg
+│   │   ├── logo.png
+│   │   ├── logo1.png
+│   │   ├── preview.png
+│   │   └── toc.jpg
+│   │
 │   └── js
 │       ├── api.js
 │       ├── auth.js
-│       ├── blog.js
+│       ├── blog
+│       │   ├── archive.js
+│       │   ├── blog-feed.js
+│       │   ├── categories.js
+│       │   ├── config.js
+│       │   ├── fab.js
+│       │   ├── helpers.js
+│       │   ├── init.js
+│       │   ├── post-crud.js
+│       │   ├── post-viewer.js
+│       │   ├── router.js
+│       │   └── search.js
+│       │
 │       └── main.js
-│
-├── blog_index.json
 │
 ├── components
 │   ├── about-me.html
@@ -92,18 +125,33 @@ project/
 │   ├── modals.html
 │   ├── navigation.html
 │   ├── section-about.html
+│   ├── section-archive.html
 │   ├── section-blog.html
 │   └── section-categories.html
 │
+├── google6dd966dc7e3abdd5.html
 ├── index.html
+├── indices
+│   │
+│   ├── 2026
+│   │   ├── 05
+│   │   │   └── index_05.json
+│   │   └── months.json
+│   │
+│   └── years.json
 │
+├── manifest.json
 ├── posts
-│   ├── post_1777648331660.json
-│   ├── post_1777648388895.json
+│   └── 2026
+│       └── 05
+│           ├── post.json
 │
+├── robots.txt
+├── sitemap.xml
+├── sw.js
 └── users.json
 
-5 directories, 18 files
+5 => 14 directories, 18 => 58 files
 ```
 
 ---
@@ -219,82 +267,151 @@ Tidak perlu:
 
 ---
 
-## New Updates
+## New Updates (v2.2)
 
-### SEO Optimization
-- Dynamic canonical URL
-- Dynamic page title
-- Dynamic meta description
-- Slug URL support
+### Archive System
+Blog kini menggunakan sistem archive bertingkat:
 
-Contoh URL artikel:
+- Year archive (`indices/years.json`)
+- Month archive (`indices/YYYY/months.json`)
+- Monthly post index (`indices/YYYY/MM/index_MM.json`)
 
-https://onkbaonk.github.io/ben/?post=prolog-nahu
-
-Benefit:
-- artikel bisa dibagikan langsung
-- Google lebih mudah indexing halaman individual
-- URL lebih clean dan SEO friendly
-
----
-
-### Table of Contents (TOC)
-- Auto generate daftar isi dari heading markdown (`#`, `##`, `###`)
-- Floating TOC button
-- Toggle show/hide TOC
-- Responsive desktop & mobile
-- Draggable floating button
-
-Contoh markdown:
-
-```md
-# Pembuka
-## Bab 1
-### Sub Bab
-```
-
-Otomatis menghasilkan daftar isi navigasi.
-
----
-
-### Responsive Content Rendering
-- Responsive table wrapper
-- Mobile horizontal table scroll
-- Markdown rendering via Marked.js
-- HTML fallback rendering
-
-Supported:
-- heading
-- list
-- blockquote
-- code block
-- table
-
----
-
-### Modal Full Article Reader
-- Full article popup modal
-- No page reload
-- Smooth reading experience
-- URL tetap bisa dibagikan via slug
-
----
-
-### Performance Optimization
-- Blog index sharding
-- Individual post sharding
-
-Structure:
+Contoh struktur:
 
 ```bash
-blog_index.json
-posts/post_1711111111.json
+indices/
+└── 2026
+    ├── months.json
+    └── 05
+        └── index_05.json
 ```
 
 Benefit:
-- faster load
-- scalable
-- ringan walau artikel banyak
+- scalable untuk banyak post
+- loading lebih ringan
+- archive navigation seperti blog besar
+
+---
+
+### Archive Tab
+Menambahkan tab khusus Archive.
+
+Features:
+- list tahun aktif
+- list bulan per tahun
+- jumlah post per bulan
+- klik archive → tampil semua post bulan tersebut
+
+Flow:
+
+Archive → Year → Month → Posts → Full Post
+
+---
+
+### New Post Storage Structure
+Post kini tersimpan berdasarkan tahun & bulan:
+
+```bash
+posts/
+└── 2026
+    └── 05
+        └── post_1778832824490.json
+```
+
+Benefit:
+- file lebih terorganisir
+- mudah maintenance
+- scalable archive
+
+---
+
+### Floating Action System
+Full post reader memiliki floating tools:
+
+- Close
+- Search in Post
+- Native Share
+- Download (.md / .html / .pdf)
+- Table of Contents
+
+Features:
+- auto hide FAB
+- draggable feel
+- mobile optimized
+
+---
+
+### Full Post Viewer
+Modal reader upgrade:
+
+- popup full article
+- markdown rendering
+- responsive content
+- sticky floating tools
+- PDF export
+- HTML export
+- Markdown export
+
+---
+
+### Layout Mode Toggle
+Menambahkan mode tampilan:
+
+- Normal width
+- Wide layout mode
+
+Features:
+- toggle layout
+- saved in localStorage
+- responsive desktop/mobile
+
+---
+
+### Instant UI Update
+CRUD kini update UI tanpa reload penuh.
+
+Supported:
+- create post instant render
+- edit instant update
+- delete instant remove
+
+Benefit:
+- UX lebih cepat
+- tidak menunggu full refresh GitHub
+
+---
+
+### Cache Busting System
+Semua JSON fetch menggunakan auto timestamp:
+
+```js
+fileName + "?t=" + Date.now()
+```
+
+Benefit:
+- browser tidak cache JSON lama
+- update post langsung muncul
+
+---
+
+### Component Architecture
+Project kini fully modular:
+
+```bash
+components/
+├── header.html
+├── navigation.html
+├── modals.html
+├── section-blog.html
+├── section-categories.html
+├── section-archive.html
+└── section-about.html
+```
+
+Benefit:
+- maintainable
+- reusable
+- cleaner architecture
 
 
 # Setup From Zero
@@ -319,7 +436,7 @@ Terus Git Push Dulu, Setelah Selesai Push
 
 ## Publish Repo
 
-Repo boleh public.
+Repo ganti menjadi public.
 
 Karena:
 - read public
@@ -484,6 +601,10 @@ Benefits:
 MIT License
 
 ---
+
+Version: v2.2
+Status: Stable
+Architecture: Static Git CMS + Archive Sharding
 
 ### 📸 Screenshot Aplikasi
 <p align="center">
