@@ -205,9 +205,12 @@ to {
 }
 
 .post-body {
-font-size: 14px;
-line-height: 1.8;
-color: #cbd5e1;
+font-size: 15px;
+font-weight: 400;
+line-height: 1.9;
+color: #ffffff !important;
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
 }
 
 .post-body h1,
@@ -255,6 +258,7 @@ min-width: 180px;
 background: rgba(59,130,246,0.15);
 color: #60a5fa;
 }
+
 
 /* TABLE SCROLL SYSTEM */
 .table-wrapper {

@@ -22,7 +22,7 @@ async function loadFullPost(postId) {
 
         // Render Konten
         container.innerHTML = `
-            <div class="post-body text-slate-300 leading-relaxed">
+            <div class="post-body leading-relaxed">
                 <div class="flex items-center gap-2 mb-6 opacity-60 text-[10px]">
                     <span class="bg-blue-600/20 text-blue-400 px-2 py-1 rounded border border-blue-600/30">
                         ${post.category || 'Umum'}
