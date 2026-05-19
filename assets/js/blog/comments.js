@@ -42,15 +42,22 @@ window.loadComments = async function(postId) {
         snap.forEach(doc => {
             const c = doc.data();
             const date = new Date(c.createdAt);
-            const dateString = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`;
+            const dateString = date.toLocaleDateString("id-ID", { 
+                day: 'numeric', month: 'short', year: 'numeric' 
+            });
 
             html += `
-                <div class="bg-slate-900/40 border border-white/5 p-4 rounded-xl">
-                    <div class="flex justify-between items-center mb-2">
-                        <span class="text-[11px] text-blue-400 font-bold">@${c.author || "admin"}</span>
-                        <span class="text-[10px] opacity-40">${dateString}</span>
+                <div class="group bg-slate-800/30 hover:bg-slate-800/50 border border-white/5 p-1 rounded-2xl transition-all duration-300 transform hover:-translate-y-1">
+                    <div class="flex justify-between items-center mb-1">
+                        <div class="flex items-center gap-2">
+                            <div class="w-6 h-6 rounded-full bg-blue-600/20 flex items-center justify-center text-[10px] text-blue-400 border border-blue-600/30">
+                                ${(c.author || "G")[0].toUpperCase()}
+                            </div>
+                            <span class="text-[11px] text-blue-400 font-semibold">@${c.author || "guest"}</span>
+                        </div>
+                        <span class="text-[9px] opacity-30 font-medium">${dateString}</span>
                     </div>
-                    <div class="text-sm text-slate-100">
+                    <div class="text-[13.5px] text-white font-normal leading-relaxed pl-1 contrast-125">
                         ${c.text}
                     </div>
                 </div>
