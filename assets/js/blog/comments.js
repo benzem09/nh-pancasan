@@ -41,18 +41,15 @@ window.loadComments = async function(postId) {
 
         snap.forEach(doc => {
             const c = doc.data();
+            const date = new Date(c.createdAt);
+            const dateString = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`;
 
             html += `
-                <div class="glass p-3 rounded-lg mb-2">
-                    <div class="flex justify-between items-center mb-1">
-                        <span class="text-xs text-blue-400 font-bold">
-                            ${c.author || "guest"}
-                        </span>
-                        <span class="text-[10px] opacity-50">
-                            ${new Date(c.createdAt).toLocaleString("id-ID")}
-                        </span>
+                <div class="bg-slate-900/40 border border-white/5 p-4 rounded-xl">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-[11px] text-blue-400 font-bold">@${c.author || "admin"}</span>
+                        <span class="text-[10px] opacity-40">${dateString}</span>
                     </div>
-
                     <div class="text-sm text-slate-100">
                         ${c.text}
                     </div>
