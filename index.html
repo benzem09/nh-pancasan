@@ -22,7 +22,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="google-site-verification" content="QBGUfNs-2R61f3xbHBvTtUWget5sfAQFMz6tZaBaQ40" />
+    <meta name="google-site-verification" content="QBGUfNs-2R61f3xbHBvTtUWget5sfAQFMz6tZaBaQ40"/>
 </head>
 <body class="p-4 md:p-8 text-slate-200">
 <div id="comp-modals"></div>
@@ -39,6 +39,8 @@
     </main>
 </div>
 
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script>
 async function loadComponent(id, path) {
     try {
@@ -64,11 +66,10 @@ async function initApp() {
 
     const scripts = [
         'assets/js/api.js',
-        'assets/js/main.js',
-
         'assets/js/blog/config.js',
         'assets/js/blog/helpers.js',
         'assets/js/blog/search.js',
+        'assets/js/blog/comments.js',
         'assets/js/blog/post-viewer.js',
         'assets/js/blog/post-crud.js',
         'assets/js/blog/categories.js',
@@ -76,15 +77,20 @@ async function initApp() {
         'assets/js/blog/blog-feed.js',
         'assets/js/blog/router.js',
         'assets/js/blog/fab.js',
+        'assets/js/main.js',
     ];
 
     for (const src of scripts) {
         await new Promise(resolve => {
             const s = document.createElement('script');
-            s.src = src;
+            s.src = src
             s.onload = resolve;
             document.body.appendChild(s);
         });
+    }
+
+    if (typeof initBlog === "function") {
+        initBlog();
     }
 
     if (typeof switchTab === "function") {
@@ -96,9 +102,6 @@ async function initApp() {
 }
 
 initApp();
-if (typeof initBlog === "function") {
-   initBlog();
-}
 </script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
