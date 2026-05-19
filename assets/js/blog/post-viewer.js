@@ -36,19 +36,17 @@ async function loadFullPost(postId) {
                     <div style="height:100px; width:100%;"></div>
                 </div>
             </div>
+        <div id="commentSection" class="border-t border-white/10 pt-4">
+            <h4 class="text-xs font-bold mb-3 italic">💬 Komentar</h4>
 
-            <div id="commentSection" class="mt-8">
-                <h3 class="text-sm font-bold mb-3">Komentar</h3>
+                <input id="commentName" placeholder="Nama" value="${localStorage.getItem("commentName") || ""}" class="flex-1 mb-2 bg-slate-900 p-3 rounded-lg outline-none text-[10px] border border-white/5">
 
-                <input id="commentName" placeholder="Nama" value="${localStorage.getItem("commentName") || ""}" class="w-full mb-2 bg-slate-900 border border-slate-700 rounded p-3 text-sm text-white"/>
+                <textarea id="commentInput" placeholder="Tulis komentar..." class="w-full bg-slate-900 p-3 rounded-lg outline-none text-[10px] border border-white/5"></textarea>
 
-                <textarea id="commentInput" placeholder="Tulis komentar..." class="w-full bg-slate-900 border border-slate-700 rounded p-3 text-sm text-white">
-                </textarea>
-
-                <button id="commentBtn" type="button" onclick="submitComment(${postId})" class="mt-2 bg-blue-600 px-4 py-2 rounded text-xs">Kirim</button>
-
-                <div id="commentList" class="mt-4"></div>
+                <button id="commentBtn" type="button" onclick="submitComment(${postId})" class="bg-blue-600 px-3 py-1 rounded-lg text-[10px] font-bold">Kirim</button>
             </div>
+                <div id="commentList" class="mt-4"></div>
+          </div>
         `;
 
         // table wrapper
