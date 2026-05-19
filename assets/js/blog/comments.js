@@ -117,3 +117,57 @@ window.submitComment = async function(postId) {
         btn.innerText = "Kirim";
     }
 };
+
+window.loadLikes = async function(postId) {
+    const likeCount = document.getElementById("likeCount");
+    if (!likeCount) return;
+
+    try {
+        const docRef = db.collection("likes").doc(String(postId));
+        const snap = await docRef.get();
+
+        if (snap.exists) {
+            likeCount.innerText = snap.data().count || 0;
+        } else {
+            likeCount.innerText = 0;
+        }
+
+    } catch (err) {
+        console.error("loadLikes:", err);
+    }
+};
+
+
+window.toggleLike = async function(postId) {
+    const key = `liked_${postId}`;
+
+    if (localStorage.getItem(key)) {
+        alert("Kamu sudah like");
+        return;
+    }
+
+    try {
+        const docRef = db.collection("likes").doc(String(postId));
+        const snap = await docRef.get();
+
+        if (snap.exists) {
+            const current = snap.data().count || 0;
+
+            await docRef.update({
+                count: current + 1
+            });
+        } else {
+            await docRef.set({
+                count: 1
+            });
+        }
+
+        localStorage.setItem(key, "true");
+
+        await loadLikes(postId);
+
+    } catch (err) {
+        console.error("toggleLike:", err);
+        alert("Gagal like: " + err.message);
+    }
+};

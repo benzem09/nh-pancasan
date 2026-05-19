@@ -23,13 +23,18 @@ async function loadFullPost(postId) {
         // Render Konten
         container.innerHTML = `
             <div class="post-body leading-relaxed">
-                <div class="flex items-center gap-2 mb-6 opacity-60 text-[10px]">
+                <div class="overflow-x-auto mb-6 no-scrollbar">
+                    <div class="flex items-center gap-3 min-w-max opacity-80 text-[10px] whitespace-nowrap pb-2">
                     <span class="bg-blue-600/20 text-blue-400 px-2 py-1 rounded border border-blue-600/30">
                         ${post.category || 'Umum'}
                     </span>
                     <span>👤 @${post.author || "admin"}</span>
                     <span>📅 ${post.date || "-"}</span>
+                    <span>👁 <span id="viewCount">0</span></span>
+                    <button type="button" onclick="toggleLike(${postId})" class="text-pink-400 hover:text-pink-300" > ❤️ <span id="likeCount">0</span></button>
+                    <span id="bookmarkBtn" onclick="toggleBookmark(${postId})" class="cursor-pointer">🔖 Simpan</span>
                 </div>
+              </div>
 
                 <div id="main-post-content">
                     ${marked.parse(post.content || "")}
@@ -181,6 +186,21 @@ ${marked.parse(post.content)}
             } catch (err) {
                 console.error("Comment error:", err);
             }
+        }
+        if (typeof loadLikes === "function") {
+            try {
+                await loadLikes(postId);
+            } catch (err) {
+                console.error("Like error:", err);
+            }
+        }
+        if (typeof addView === "function") {
+          await addView(postId);
+          
+        }
+        if (typeof updateBookmarkButton === "function") {
+          updateBookmarkButton(postId);
+          
         }
 
         // init fab
