@@ -36,17 +36,6 @@ async function loadFullPost(postId) {
                     <div style="height:100px; width:100%;"></div>
                 </div>
             </div>
-        <div id="commentSection" class="border-t border-white/10 pt-4">
-            <h4 class="text-xs font-bold mb-3 italic">💬 Komentar</h4>
-
-                <input id="commentName" placeholder="Nama" value="${localStorage.getItem("commentName") || ""}" class="flex-1 mb-2 bg-slate-900 p-3 rounded-lg outline-none text-[10px] border border-white/5">
-
-                <textarea id="commentInput" placeholder="Tulis komentar..." class="w-full bg-slate-900 p-3 rounded-lg outline-none text-[10px] border border-white/5"></textarea>
-
-                <button id="commentBtn" type="button" onclick="submitComment(${postId})" class="bg-blue-600 px-3 py-1 rounded-lg text-[10px] font-bold">Kirim</button>
-            </div>
-                <div id="commentList" class="mt-4"></div>
-          </div>
         `;
 
         // table wrapper
@@ -161,30 +150,61 @@ ${marked.parse(post.content)}
           downloadPDF(post.title);
           
         };
-        if (typeof loadComments === "function") {
-          try {
-            await loadComments(postId);
-            
-          } catch (err) {
-            console.error("Comment error:", err);
-            
-          }
-          
+
+        // LOAD COMMENT COMPONENT
+        const commentWrap = document.createElement("div");
+        commentWrap.className = "mt-6";
+        container.appendChild(commentWrap);
+
+        const res = await fetch("components/comment-section.html");
+        if (!res.ok) throw new Error("comment-section gagal dimuat");
+
+        commentWrap.innerHTML = await res.text();
+
+        // isi nama dari localStorage
+        const commentName = document.getElementById("commentName");
+        if (commentName) {
+            commentName.value =
+                localStorage.getItem("commentName") || "";
         }
-        // Inisialisasi sistem sembunyi
+
+        // pasang tombol submit
+        const commentBtn = document.getElementById("commentBtn");
+        if (commentBtn) {
+            commentBtn.onclick = () => submitComment(postId);
+        }
+
+        // load comments aman
+        if (typeof loadComments === "function") {
+            try {
+                await loadComments(postId);
+            } catch (err) {
+                console.error("Comment error:", err);
+            }
+        }
+
+        // init fab
         setTimeout(() => {
-            initFabAutoHide(); 
-            showFab(); // Munculkan sekali saat awal buka post
+            initFabAutoHide();
+            showFab();
         }, 500);
 
     } catch (err) {
         console.error("Detail Error:", err);
+
         titleElem.innerText = "Gagal Memuat";
         container.innerHTML = `
             <div class="text-center p-8">
-                <p class="text-red-400 mb-2">⚠️ File tidak ditemukan atau path salah.</p>
+                <p class="text-red-400 mb-2">
+                    ⚠️ File tidak ditemukan atau path salah.
+                </p>
                 <p class="text-xs opacity-50">ID: ${postId}</p>
-                <button onclick="closeModal('viewModal')" class="mt-4 text-xs bg-white/10 px-4 py-2 rounded">Kembali</button>
+                <button
+                    onclick="closeModal('viewModal')"
+                    class="mt-4 text-xs bg-white/10 px-4 py-2 rounded"
+                >
+                    Kembali
+                </button>
             </div>
         `;
     }
