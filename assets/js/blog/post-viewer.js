@@ -22,19 +22,29 @@ async function loadFullPost(postId) {
 
         // Render Konten
         container.innerHTML = `
-            <div class="post-body leading-relaxed">
-                <div class="overflow-x-auto mb-6 no-scrollbar">
-                    <div class="flex items-center gap-3 min-w-max opacity-80 text-[11px] whitespace-nowrap pb-2">
+            <div class="flex items-center justify-between mb-6">
+
+                <div class="flex items-center gap-3 text-[11px] opacity-80">
                     <span class="bg-blue-600/20 text-blue-400 px-2 py-1 rounded border border-blue-600/30">
-                        ${post.category || 'Umum'}
-                    </span>
-                    <span>👤@${post.author || "admin"}</span>
-                    <span>📅${post.date || "-"}</span>
-                    <span>👁<span id="viewCount">0</span></span>
-                    <button type="button" onclick="toggleLike(${postId})" class="text-pink-400 hover:text-pink-300" >❤️ <span id="likeCount">0</span></button>
-                    <span id="bookmarkBtn" onclick="toggleBookmark(${postId})" class="cursor-pointer">🔖 Simpan</span>
+                        ${post.category || 'Umum'}</span>
+                    <span>👤 @${post.author || "admin"}</span>
                 </div>
-              </div>
+
+                <div class="relative">
+                    <button onclick="toggleMetaInfo()" class="text-lg opacity-70 hover:opacity-100">ℹ️</button>
+
+                    <div id="metaDropdown" class="hidden absolute right-0 mt-2 w-44 bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs shadow-lg z-50">
+                        <div class="space-y-2 text-slate-300">
+                            <div>📅 ${post.date || "-"}</div>
+                            <div>👁 <span id="viewCount">0</span></div>
+
+                            <div onclick="toggleLike(${postId})" class="cursor-pointer">❤️ <span id="likeCount">0</span></div>
+
+                <div id="bookmarkBtn" onclick="toggleBookmark(${postId})" class="cursor-pointer"> 🔖 Simpan </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
                 <div id="main-post-content">
                     ${marked.parse(post.content || "")}

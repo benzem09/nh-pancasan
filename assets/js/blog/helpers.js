@@ -75,3 +75,21 @@ function executeDownload(content, filename) {
     a.click();
     URL.revokeObjectURL(url);
 }
+
+window.toggleMetaInfo = function() {
+    const el = document.getElementById("metaDropdown");
+    if (!el) return;
+
+    el.classList.toggle("hidden");
+};
+
+document.addEventListener("click", function(e) {
+    const dropdown = document.getElementById("metaDropdown");
+    if (!dropdown) return;
+
+    const infoBtn = e.target.closest("button");
+
+    if (!e.target.closest("#metaDropdown") && !infoBtn) {
+        dropdown.classList.add("hidden");
+    }
+});
