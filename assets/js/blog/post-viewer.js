@@ -28,7 +28,7 @@ async function loadFullPost(postId) {
                 <div
                     class="
                         flex items-center justify-between
-                        bg-blue-600/20
+                        bg-slate-600/20
                         border border-blue-600/30
                         rounded-xl
                         px-2 py-1.5
