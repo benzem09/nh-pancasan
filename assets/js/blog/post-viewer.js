@@ -31,16 +31,18 @@ async function loadFullPost(postId) {
                 </div>
 
                 <div class="relative">
-                    <button onclick="toggleMetaInfo()" class="rounded-full bg-blue-600/20 flex items-center justify-center text-[10px] text-blue-400 border border-blue-600/30">ⓘ</button>
+                    <button onclick="toggleMetaInfo()" class=" w-9 h-9 rounded-xl bg-slate-900/60 border border-white/10 text-slate-300 flex items-center justify-center text-lg shadow-lg">⋯</button>
 
-                    <div id="metaDropdown" class="hidden absolute right-0 mt-2 w-44 bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs shadow-lg z-50">
-                        <div class="space-y-2 text-slate-300">
+                    <div id="metaDropdown" class=" hidden absolute right-0 mt-3 w-44 bg-slate-900/95 backdrop-blur-xl border border-white/10 rounded-2xl p-4 text-xs shadow-2xl z-50">
+                        <div class="space-y-3 text-slate-300">
                             <div>📅 ${post.date || "-"}</div>
                             <div>👁 <span id="viewCount">0</span></div>
-
-                            <div onclick="toggleLike(${postId})" class="cursor-pointer">❤️ <span id="likeCount">0</span></div>
-
-                <div id="bookmarkBtn" onclick="toggleBookmark(${postId})" class="cursor-pointer"> 🔖 Simpan </div>
+                            <div onclick="toggleLike(${postId})" class="cursor-pointer">
+                                ❤️ <span id="likeCount">0</span>
+                            </div>
+                            <div id="bookmarkBtn" onclick="toggleBookmark(${postId})" class="cursor-pointer">
+                                🔖 Simpan
+                            </div>
                         </div>
                     </div>
                 </div>
