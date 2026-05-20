@@ -29,7 +29,7 @@ async function loadFullPost(postId) {
                     class="
                         flex items-center justify-between
                         bg-slate-600/20
-                        border border-blue-600/30
+                        border border-white/10
                         rounded-xl
                         px-2 py-1.5
                         mb-3
@@ -99,9 +99,9 @@ async function loadFullPost(postId) {
 
                             </div>
                         </div>
-
                     </div>
                 </div>
+                <div class="h-px bg-white/5 mb-6"></div>
 
                 <!-- POST CONTENT -->
                 <div id="main-post-content">
