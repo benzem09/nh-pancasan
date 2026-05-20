@@ -22,36 +22,153 @@ async function loadFullPost(postId) {
 
         // Render Konten
         container.innerHTML = `
-            <div class="flex items-center justify-between mb-6">
+            <div class="post-body leading-relaxed">
 
-                <div class="flex items-center gap-3 text-[11px] opacity-80">
-                    <span class="bg-blue-600/20 text-blue-400 px-2 py-1 rounded border border-blue-600/30">
-                        ${post.category || 'Umum'}</span>
-                    <span>👤 @${post.author || "admin"}</span>
-                </div>
+                <!-- META DATA -->
+                <div
+                    class="
+                        flex items-center justify-between
+                        bg-slate-900/40
+                        border border-white/10
+                        rounded-2xl
+                        px-4 py-3
+                        mb-6
+                        backdrop-blur-md
+                        shadow-lg shadow-black/20
+                    "
+                >
 
-                <div class="relative">
-                    <button onclick="toggleMetaInfo()" class=" w-9 h-9 rounded-xl bg-slate-900/60 border border-white/10 text-slate-300 flex items-center justify-center text-lg shadow-lg">⋯</button>
+                    <!-- LEFT -->
+                    <div class="flex items-center gap-3 min-w-0">
 
-                    <div id="metaDropdown" class=" hidden absolute right-0 mt-3 w-44 bg-slate-900/95 backdrop-blur-xl border border-white/10 rounded-2xl p-4 text-xs shadow-2xl z-50">
-                        <div class="space-y-3 text-slate-300">
-                            <div>📅 ${post.date || "-"}</div>
-                            <div>👁 <span id="viewCount">0</span></div>
-                            <div onclick="toggleLike(${postId})" class="cursor-pointer">
-                                ❤️ <span id="likeCount">0</span>
-                            </div>
-                            <div id="bookmarkBtn" onclick="toggleBookmark(${postId})" class="cursor-pointer">
-                                🔖 Simpan
+                        <span
+                            class="
+                                shrink-0
+                                bg-blue-600/20
+                                text-blue-400
+                                px-3 py-1.5
+                                rounded-xl
+                                border border-blue-600/30
+                                text-xs font        -medium
+                            "
+                        >
+                            ${post.category || 'Umum'}
+                        </span>
+
+                        <span
+                            class="
+                                text-slate-300
+                                text-sm
+                                truncate
+                            "
+                        >
+                            👤 @${post.author || "admin"}
+                        </span>
+
+                    </div>
+
+                    <!-- RIGHT -->
+                    <div class="relative shrink-0">
+
+                        <button
+                            onclick="toggleMetaInfo()"
+                            class="
+                                w-10 h-10
+                                rounded-xl
+                                bg-slate-800/80
+                                border border-white/10
+                                text-slate-300
+                                flex items-center justify-center
+                                text-xl
+                                shadow-md
+                                active:scale-95
+                                transition
+                            "
+                        >
+                            ⋯
+                        </button>
+
+                        <!-- DROPDOWN -->
+                        <div
+                            id="metaDropdown"
+                            class="
+                                hidden
+                                absolute right-0 top-12
+                                w-48
+                                bg-slate-900/95
+                                backdrop-blur-xl
+                                border border-white/10
+                                rounded-2xl
+                                p-4
+                                text-xs
+                                shadow-2xl
+                                z-50
+                            "
+                        >
+
+                            <div class="space-y-3 text-slate-300">
+
+                                <div
+                                    class="
+                                        flex items-center justify-between
+                                        border-b border-white/5
+                                        pb-2
+                                    "
+                                >
+                                    <span>📅 Tanggal</span>
+                                    <span>${post.date || "-"}</span>
+                                </div>
+
+                                <div
+                                    class="
+                                        flex items-center justify-between
+                                        border-b border-white/5
+                                        pb-2
+                                    "
+                                >
+                                    <span>👁 Views</span>
+                                    <span id="viewCount">0</span>
+                                </div>
+
+                                <div
+                                    onclick="toggleLike(${postId})"
+                                    class="
+                                        flex items-center justify-between
+                                        border-b border-white/5
+                                        pb-2
+                                        cursor-pointer
+                                        hover:text-red-400 transition
+                                    "
+                                >
+                                    <span>❤️ Likes</span>
+                                    <span id="likeCount">0</span>
+                                </div>
+
+                                <div
+                                    id="bookmarkBtn"
+                                    onclick="toggleBookmark(${postId})"
+                                    class="
+                                        flex items-center justify-between
+                                        cursor-pointer
+                                        hover:text-blue-400 transition
+                                    "
+                                >
+                                    <span>🔖 Bookmark</span>
+                                    <span>Simpan</span>
+                                </div>
+
                             </div>
                         </div>
+
                     </div>
                 </div>
-            </div>
 
+                <!-- POST CONTENT -->
                 <div id="main-post-content">
                     ${marked.parse(post.content || "")}
                     <div style="height:100px; width:100%;"></div>
                 </div>
+
             </div>
         `;
 
