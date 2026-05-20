@@ -42,20 +42,10 @@ async function loadFullPost(postId) {
                     <!-- LEFT -->
                     <div class="flex items-center gap-3 min-w-0">
 
-                        <span
-                            class="
-                                shrink-0
-                            "
-                        >
-                            🏷 ${post.category || 'Umum'}
+                        <span class=" shrink-0">🏷 ${post.category || 'Umum'}
                         </span>
 
-                        <span
-                            class="
-                                truncate
-                            "
-                        >
-                            👤 @${post.author || "admin"}
+                        <span class=" truncate">👤 @${post.author || "admin"}
                         </span>
 
                     </div>
@@ -63,58 +53,19 @@ async function loadFullPost(postId) {
                     <!-- RIGHT -->
                     <div class="relative shrink-0">
 
-                        <button
-                            onclick="toggleMetaInfo()"
-                            class="
-                                
-                                flex items-center justify-center
-                                text-xl
-                                shadow-md
-                                active:scale-95
-                                transition
-                            "
-                        >
-                            ⋯
-                        </button>
+                        <button onclick="toggleMetaInfo()" class=" flex items-center justify-center text-xl shadow-md active:scale-95 transition">⋯ </button>
 
                         <!-- DROPDOWN -->
-                        <div
-                            id="metaDropdown"
-                            class="
-                                hidden
-                                absolute right-0 top-12
-                                w-48
-                                bg-slate-900/95
-                                backdrop-blur-xl
-                                border border-white/10
-                                rounded-2xl
-                                p-4
-                                text-xs
-                                shadow-2xl
-                                z-50
-                            "
-                        >
+                        <div id="metaDropdown" class=" hidden absolute right-0 top-12 w-48 bg-slate-900/95 backdrop-blur-xl border border-white/10 rounded-2xl p-4 text-xs shadow-2xl z-50">
 
                             <div class="space-y-3 text-slate-300">
 
-                                <div
-                                    class="
-                                        flex items-center justify-between
-                                        border-b border-white/5
-                                        pb-2
-                                    "
-                                >
+                                <div class=" flex items-center justify-between border-b border-white/5 pb-2">
                                     <span>📅 Tanggal</span>
                                     <span>${post.date || "-"}</span>
                                 </div>
 
-                                <div
-                                    class="
-                                        flex items-center justify-between
-                                        border-b border-white/5
-                                        pb-2
-                                    "
-                                >
+                                <div class=" flex items-center justify-between border-b border-white/5 pb-2">
                                     <span>👁 Views</span>
                                     <span id="viewCount">0</span>
                                 </div>
