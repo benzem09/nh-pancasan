@@ -47,7 +47,7 @@ async function loadFullPost(postId) {
                                 shrink-0
                             "
                         >
-                            ${post.category || 'Umum'}
+                            🏷 ${post.category || 'Umum'}
                         </span>
 
                         <span
