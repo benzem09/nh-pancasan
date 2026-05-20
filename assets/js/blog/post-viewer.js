@@ -28,13 +28,14 @@ async function loadFullPost(postId) {
                 <div
                     class="
                         flex items-center justify-between
-                        bg-slate-900/40
-                        border border-white/10
-                        rounded-2xl
-                        px-4 py-3
-                        mb-6
+                        bg-blue-600/20
+                        border border-blue-600/30
+                        rounded-xl
+                        px-2 py-1.5
+                        mb-3
                         backdrop-blur-md
                         shadow-lg shadow-black/20
+                        text-xs font        -medium
                     "
                 >
 
@@ -44,12 +45,6 @@ async function loadFullPost(postId) {
                         <span
                             class="
                                 shrink-0
-                                bg-blue-600/20
-                                text-blue-400
-                                px-3 py-1.5
-                                rounded-xl
-                                border border-blue-600/30
-                                text-xs font        -medium
                             "
                         >
                             ${post.category || 'Umum'}
@@ -57,8 +52,6 @@ async function loadFullPost(postId) {
 
                         <span
                             class="
-                                text-slate-300
-                                text-sm
                                 truncate
                             "
                         >
@@ -73,11 +66,7 @@ async function loadFullPost(postId) {
                         <button
                             onclick="toggleMetaInfo()"
                             class="
-                                w-10 h-10
-                                rounded-xl
-                                bg-slate-800/80
-                                border border-white/10
-                                text-slate-300
+                                
                                 flex items-center justify-center
                                 text-xl
                                 shadow-md
