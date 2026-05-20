@@ -31,7 +31,7 @@ async function loadFullPost(postId) {
                 </div>
 
                 <div class="relative">
-                    <button onclick="toggleMetaInfo()" class="text-lg opacity-70 hover:opacity-100">ℹ️</button>
+                    <button onclick="toggleMetaInfo()" class="rounded-full bg-blue-600/20 flex items-center justify-center text-[10px] text-blue-400 border border-blue-600/30">ⓘ</button>
 
                     <div id="metaDropdown" class="hidden absolute right-0 mt-2 w-44 bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs shadow-lg z-50">
                         <div class="space-y-2 text-slate-300">
