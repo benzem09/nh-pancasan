@@ -25,12 +25,11 @@
     <meta name="google-site-verification" content="QBGUfNs-2R61f3xbHBvTtUWget5sfAQFMz6tZaBaQ40"/>
 </head>
 <body class="p-4 md:p-8 text-slate-200">
-  <div id="readingProgress"></div>
 <div id="comp-modals"></div>
-
 <div id="appContainer">
+  
     <header id="comp-header" class="flex justify-between items-center mb-2"></header>
-    <nav id="comp-navigation" class="flex border-b border-white/10 mb-6 gap-6 overflow-x-auto sticky"></nav>
+    <nav id="comp-navigation" class="flex border-b border-white/10 mb-4 gap-5 overflow-x-auto sticky top-0 z-30"></nav>
 
     <main id="main-content">
         <div id="section-blog" class="tab-content"></div>
@@ -39,7 +38,6 @@
         <div id="section-about" class="tab-content hidden"></div>
     </main>
 </div>
-
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script>
@@ -131,5 +129,6 @@ OneSignalDeferred.push(async function(OneSignal) {
     });
 });
 </script>
+<div id="viewPopup" class="view-popup hidden">👁 Dibaca <span id="popupViewCount">0</span>x</div>
 </body>
 </html>

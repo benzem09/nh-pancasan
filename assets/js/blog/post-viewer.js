@@ -23,6 +23,7 @@ async function loadFullPost(postId) {
         // Render Konten
         container.innerHTML = `
             <div class="post-body leading-relaxed">
+            <div id="readingProgress"></div>
 
                 <!-- META DATA -->
                 <div
@@ -371,7 +372,22 @@ function toggleFabPopup(id) {
 
     if (isHidden) target.classList.remove('hidden');
 }
+window.addEventListener("scroll", () => {
 
+    const scrollTop =
+        document.documentElement.scrollTop;
+
+    const scrollHeight =
+        document.documentElement.scrollHeight -
+        document.documentElement.clientHeight;
+
+    const progress =
+        (scrollTop / scrollHeight) * 100;
+
+    document.getElementById(
+        "readingProgress"
+    ).style.width = progress + "%";
+});
 // slug open
 function openPost(slug, id) {
     history.pushState({}, '', `?post=${slug}`);

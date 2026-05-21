@@ -658,12 +658,53 @@ pointer-events: none;
     animation: fadeIn 0.4s ease forwards;
 }
 
+.view-popup{
+    position: fixed;
+    top: 80px;
+    right: 20px;
+
+    background: rgba(15,23,42,.88);
+
+    border: 1px solid rgba(255,255,255,.08);
+
+    color: #cbd5e1;
+
+    padding: 10px 14px;
+
+    border-radius: 14px;
+
+    backdrop-filter: blur(12px);
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.35);
+
+    font-size: 12px;
+
+    z-index: 99999;
+
+    opacity: 0;
+    transform: translateY(-10px);
+
+    transition:
+        opacity .3s ease,
+        transform .3s ease;
+}
+
+.view-popup.show{
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.hidden{
+    display:none;
+}
+
 #readingProgress{
     position: fixed;
     top: 0;
     left: 0;
     width: 0%;
-    height: 2px;
+    height: 2.5px;
 
     background: linear-gradient(
         to right,
