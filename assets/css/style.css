@@ -25,7 +25,29 @@ header {
     overflow: hidden;
 
 }
-
+.nav {
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 1rem;
+  gap: 1.25rem;
+  border-radius: 0.75rem;
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  -webkit-overflow-scrolling: touch; 
+}
+.nav {
+  flex-shrink: 0;
+}
+.nav::-webkit-scrollbar {
+  display: none;
+}
+.nav {
+  -ms-overflow-style: none;  /* IE dan Edge */
+  scrollbar-width: none;  /* Firefox */
+}
 .brand-wrapper-horizontal {
     display: flex;
     flex-direction: row;
@@ -486,19 +508,20 @@ z-index: 10000;
         margin-top: 10px;  
       
     }  
-
-#tocPopup li {  
+    #tocPopup li {  
     margin-bottom: 12px; /* Jarak antar link lebih lebar agar tidak salah pencet */  
     line-height: 1.5;  
-}  
-
-#tocPopup a {  
+      
+    }  
+    #tocPopup a {  
     font-size: 14px; /* Font sedikit diperbesar (14px) agar mudah dibaca di layar HP */  
     color: #cbd5e1;  
     text-decoration: none;  
     display: block;  
-    padding: 5px 0; /* Area klik lebih luas */  }
-
+    padding: 5px 0; /* Area klik lebih luas */
+      
+    }
+  
 }
 
 @keyframes slideUp{
