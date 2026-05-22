@@ -16,9 +16,9 @@ window.generateTOC = function () {
     // 1. Buat Wrapper Utama
     let html = `
         <div class="popup-title">📑 Daftar Isi
-            <div>${headings.length} Bagian</div>
+            <div>(${headings.length} Bagian)</div>
         </div>
-        <ul id="tocList" class="max-h-[60vh] overflow-y-auto p-2"></ul>
+        <ul id="tocList" class="max-h-[90vh] overflow-y-auto p-2"></ul>
     `;
     tocContainer.innerHTML = html;
     const tocList = document.getElementById("tocList");

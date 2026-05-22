@@ -207,22 +207,20 @@ padding: 12px;
 }
 /* Animasi perpindahan tab */
 .tab-content {
-animation: fadeIn 0.3s ease;
+    animation: fadeIn 0.3s ease;
 
 }
 
 @keyframes fadeIn {
-from {
-opacity: 0;
-transform: translateY(5px);
-
-}  
-  
-to {  
-    opacity: 1;  
-    transform: translateY(0);  
-    
-}
+    from {
+      opacity: 0;
+      transform: translateY(5px);
+      
+    }  
+    to {  
+      opacity: 1;  
+      transform: translateY(0);  
+    }
 
 }
 
@@ -287,7 +285,8 @@ to {
     color: #ffffff !important;
     opacity: 1 !important; /* Memastikan tidak ada transparansi */
 }
-
+direction: rtl;
+text-align: right;
 [dir="rtl"], .arabic-text {
     font-size: 1.2em;
     line-height: 2;
@@ -315,227 +314,377 @@ to {
 
 }
 
-/* FAB SYSTEM */
-#floatingAction {
-    position: fixed;
-    right: 16px;
-    bottom: 110px;
-    z-index: 9999;
+/* =========================
+   FLOATING ACTION BUTTONS
+========================= */
+#floatingAction{
+    position:fixed;
+    right:14px;
+    bottom:105px;
+    z-index:9999;
 
-    display: flex;  
-    flex-direction: column;  
-    align-items: center;  
-    gap: 5px; /* lebih rapat */
-    transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    opacity: 1;
-    transform: scale(1);
-    visibility: visible;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:8px;
+
+    opacity:1;
+    visibility:visible;
+
+    transition:
+        opacity .25s ease,
+        transform .25s ease,
+        visibility .25s ease;
 }
 
-.fab-btn {
-    background: rgba(15, 23, 42, 0.88);
-    border: 1px solid rgba(255,255,255,0.06);
-    box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+/* =========================
+   FAB BUTTON
+========================= */
+.fab-btn{
+    width:42px;
+    height:42px;
 
-    width: 40px;  
-    height: 40px;  
-    border-radius: 40%;  
+    display:flex;
+    align-items:center;
+    justify-content:center;
 
-display: flex;  
-align-items: center;  
-justify-content: center;  
+    border-radius:16px;
 
-cursor: grab;  
-box-shadow: 0 4px 12px rgba(0,0,0,0.35);  
-padding: 0;
+    background:
+        linear-gradient(
+            180deg,
+            rgba(20,30,55,.92),
+            rgba(12,18,35,.96)
+        );
 
+    border:1px solid rgba(255,255,255,.06);
+
+    box-shadow:
+        0 6px 18px rgba(0,0,0,.35),
+        inset 0 1px 0 rgba(255,255,255,.04);
+
+    backdrop-filter:blur(12px);
+
+    cursor:pointer;
+    user-select:none;
+
+    transition:
+        transform .18s ease,
+        background .25s ease,
+        border-color .25s ease;
 }
 
-.fab-popup {
-position: fixed;
-right: 62px;
-bottom: 110px;
-z-index: 10000;
-}
-/* PENYEMPURNAAN POPUP FAB */
-.fab-popup-inner {
-    background: linear-gradient(
-        165deg,
-        rgba(12, 24, 48, 0.98) 0%,
-        rgba(18, 36, 68, 0.95) 100%
-    );
-    border: 1px solid rgba(96,165,250,0.12);
-    border-radius: 20px;
-    padding: 16px;
-    min-width: 240px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+.fab-btn:hover{
+    transform:translateY(-1px);
+    border-color:rgba(96,165,250,.20);
 }
 
-/* Judul Popup - Dibuat lebih kontras tapi tetap soft */
-.popup-title {
-    color: #60a5fa; /* Biru terang agar mudah dibaca */
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 0.1em;
-    margin-bottom: 12px;
-    text-transform: uppercase;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    padding-bottom: 8px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+.fab-btn:active{
+    transform:scale(.92);
 }
 
-/* Item menu di dalam popup (Download & Daftar Isi) */
-.popup-item {
-    width: 100%;
-    text-align: left;
-    padding: 12px 14px;
-    font-size: 13px;
-    color: #cbd5e1;
-    border-radius: 12px;
-    display: block;
-    margin-bottom: 6px;
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    cursor: pointer;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid transparent;
+.fab-btn img{
+    width:18px;
+    height:18px;
+    opacity:.88;
 }
 
-/* Efek Hover - Mengikuti gaya tombol di beranda */
-.popup-item:hover {
-    background: rgba(59, 130, 246, 0.15);
-    color: #ffffff;
-    border-color: rgba(96, 165, 250, 0.3);
-    transform: scale(1.02);
+/* =========================
+   FAB HIDE
+========================= */
+.fab-hidden{
+    opacity:0 !important;
+    transform:scale(.7) translateY(10px) !important;
+    visibility:hidden !important;
+    pointer-events:none;
 }
 
-/* Area Input Copy Link */
-.popup-url {
-    display: flex;
-    gap: 8px;
-    margin-top: 5px;
+/* =========================
+   POPUP CONTAINER
+========================= */
+.fab-popup{
+    position:fixed;
+    right:64px;
+    bottom:108px;
+    z-index:10000;
+
+    animation:popupFade .25s ease;
 }
 
-.popup-url input {
-    flex: 1;
-    background: rgba(15, 23, 42, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 8px 10px;
-    font-size: 11px;
-    border-radius: 8px;
-    color: #94a3b8;
-    outline: none;
+/* =========================
+   POPUP INNER
+========================= */
+.fab-popup-inner{
+    width:250px;
+    max-height:58vh;
+    overflow:hidden;
+
+    padding:14px;
+
+    border-radius:22px;
+
+    background:
+        linear-gradient(
+            165deg,
+            rgba(10,20,40,.96) 0%,
+            rgba(15,30,55,.96) 100%
+        );
+
+    border:1px solid rgba(255,255,255,.06);
+
+    box-shadow:
+        0 20px 45px rgba(0,0,0,.45),
+        inset 0 1px 0 rgba(255,255,255,.03);
+
+    backdrop-filter:blur(16px);
 }
 
-.popup-url button {
-    background: #2563eb;
-    color: white;
-    font-size: 10px;
-    font-weight: bold;
-    padding: 0 12px;
-    border-radius: 8px;
-    transition: background 0.2s;
+/* =========================
+   POPUP TITLE
+========================= */
+.popup-title{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    margin-bottom:10px;
+    padding-bottom:10px;
+
+    border-bottom:1px solid rgba(255,255,255,.06);
+
+    color:#60a5fa;
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:.12em;
+    text-transform:uppercase;
 }
 
-.popup-url button:active {
-    transform: scale(0.95);
+/* =========================
+   POPUP ITEMS
+========================= */
+.popup-item{
+    width:100%;
+
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    padding:10px 12px;
+    margin-bottom:6px;
+
+    border-radius:12px;
+
+    color:#cbd5e1;
+    font-size:13px;
+
+    background:rgba(255,255,255,.025);
+    border:1px solid transparent;
+
+    cursor:pointer;
+
+    transition:all .2s ease;
 }
 
-/* List Daftar Isi (TOC) agar lebih rapi */
-#tocContainer ul {
-    list-style: none;
-    padding: 0;
-    max-height: 40vh;
-    overflow-y: auto;
+.popup-item:hover{
+    background:rgba(59,130,246,.12);
+    border-color:rgba(96,165,250,.18);
+    color:#fff;
 }
 
-#tocContainer li {
-    padding: 2px 0;
+.popup-item:active{
+    transform:scale(.98);
 }
 
-#tocContainer a {
-    display: block;
-    padding: 8px 12px;
-    border-radius: 8px;
-    color: #94a3b8;
-    text-decoration: none;
-    font-size: 12px;
-    transition: 0.2s;
+/* =========================
+   URL BOX
+========================= */
+.popup-url{
+    display:flex;
+    gap:8px;
+    margin-top:8px;
 }
 
-#tocContainer a:hover {
-    background: rgba(59, 130, 246, 0.1);
-    color: #60a5fa;
+.popup-url input{
+    flex:1;
+
+    height:38px;
+
+    padding:0 12px;
+
+    border-radius:10px;
+    border:1px solid rgba(255,255,255,.08);
+
+    background:rgba(15,23,42,.75);
+
+    color:#cbd5e1;
+    font-size:11px;
+
+    outline:none;
 }
 
-.floating-actions{
-    animation: slideUp .35s ease;
+.popup-url button{
+    padding:0 14px;
+
+    border-radius:10px;
+
+    background:#2563eb;
+    color:white;
+
+    font-size:11px;
+    font-weight:700;
+
+    transition:.2s ease;
 }
 
-.fab-hidden {
-    opacity: 0 !important;
-    transform: scale(0.3) !important; /* Efek mengecil ke tengah */
-    visibility: hidden !important;
-    pointer-events: none;
+.popup-url button:active{
+    transform:scale(.94);
 }
 
-@media (max-width: 767px) {
-    .fab-btn {
-        width: 38px;
-        height: 38px;
-      
+/* =========================
+   TOC CONTAINER
+========================= */
+#tocContainer{
+    max-height:45vh;
+    overflow-y:auto;
+
+    padding-right:4px;
+}
+
+/* scrollbar */
+#tocContainer::-webkit-scrollbar{
+    width:4px;
+}
+
+#tocContainer::-webkit-scrollbar-thumb{
+    background:rgba(255,255,255,.12);
+    border-radius:20px;
+}
+
+/* =========================
+   TOC LIST
+========================= */
+#tocContainer ul{
+    list-style:none;
+    padding:0;
+    margin:0;
+}
+
+#tocContainer li{
+    margin-bottom:5px;
+}
+
+/* =========================
+   TOC LINK
+========================= */
+#tocContainer a{
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    padding:9px 11px;
+
+    border-radius:12px;
+
+    color:#cbd5e1;
+    font-size:13px;
+    line-height:1.45;
+
+    text-decoration:none;
+
+    transition:all .18s ease;
+}
+
+#tocContainer a:hover{
+    background:rgba(59,130,246,.10);
+    color:#60a5fa;
+}
+
+/* ACTIVE TOC */
+#tocContainer a.active{
+    background:
+        linear-gradient(
+            90deg,
+            rgba(37,99,235,.28),
+            rgba(37,99,235,.10)
+        );
+
+    border:1px solid rgba(96,165,250,.18);
+
+    color:#93c5fd;
+
+    box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,.02),
+        0 4px 12px rgba(37,99,235,.12);
+}
+
+/* =========================
+   MOBILE
+========================= */
+@media(max-width:767px){
+
+    #floatingAction{
+        right:12px;
+        bottom:100px;
+        gap:7px;
     }
-    .fab-popup {
-        right: 54px;  
-      
+
+    .fab-btn{
+        width:40px;
+        height:40px;
+        border-radius:15px;
     }
-    
-    /* khusus popup daftar isi di mobile */  
-    #tocPopup .fab-popup-inner {  
-        width: 75vw; /* Lebih lebar di mobile agar nyaman dibaca */  
-        max-width: 260px;  
-        min-width: unset;
-        max-height: 60vh; /* Sedikit lebih pendek agar tidak menutupi seluruh layar */  
-        overflow-y: auto;
-        padding: 13px; /* Padding lebih besar agar area sentuh (tap) lebih nyaman */
-        border-radius: 16px;  
-      
-    }  
-    /* daftar isi text mobile */  
-    #tocPopup ul {  
-        padding-left: 10px;  
-        margin-top: 10px;  
-      
-    }  
-    #tocPopup li {  
-    margin-bottom: 12px; /* Jarak antar link lebih lebar agar tidak salah pencet */  
-    line-height: 1.5;  
-      
-    }  
-    #tocPopup a {  
-    font-size: 14px; /* Font sedikit diperbesar (14px) agar mudah dibaca di layar HP */  
-    color: #cbd5e1;  
-    text-decoration: none;  
-    display: block;  
-    padding: 5px 0; /* Area klik lebih luas */
-      
+
+    .fab-popup{
+        right:56px;
+        bottom:100px;
     }
-  
+
+    #tocPopup .fab-popup-inner{
+        width:76vw;
+        max-width:270px;
+        min-width:unset;
+
+        max-height:55vh;
+
+        padding:13px;
+        border-radius:20px;
+    }
+
+    #tocContainer{
+        max-height:42vh;
+    }
+
+    #tocContainer a{
+        font-size:13px;
+        padding:10px 11px;
+    }
+
+    .popup-title{
+        font-size:10px;
+        margin-bottom:8px;
+        padding-bottom:8px;
+    }
 }
 
-@keyframes slideUp{
+/* =========================
+   ANIMATION
+========================= */
+@keyframes popupFade{
     from{
         opacity:0;
-        transform: translateY(20px);
-      
+        transform:
+            translateY(10px)
+            scale(.96);
     }
+
     to{
-      opacity:1;
-      transform: translateY(0);
-      
+        opacity:1;
+        transform:
+            translateY(0)
+            scale(1);
     }
 }
+
 #viewContent {
     font-size: 14px;
     line-height: 1.8;
