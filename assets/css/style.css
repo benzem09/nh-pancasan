@@ -45,8 +45,8 @@ header {
   display: none;
 }
 .nav {
-  -ms-overflow-style: none;  /* IE dan Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 .brand-wrapper-horizontal {
     display: flex;
@@ -63,17 +63,17 @@ header {
 }
 
 .brand-info {
-display: flex;
-flex-direction: column;
-justify-content: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .brand-title {
-margin: 0;
-font-size: 12px;
-font-weight: 600;
-color: #ffd700;
-line-height: 1.2;
+    margin: 0;
+    font-size: 12px;
+    font-weight: 600;
+    color: #ffd700;
+    line-height: 1.2;
 }
 
 .brand-subtitle {
@@ -85,13 +85,13 @@ line-height: 1.2;
 }
 
 .brand-subtitle a {
-color: #ffd700;
-text-decoration: none;
-font-weight: 600;
+    color: #ffd700;
+    text-decoration: none;
+    font-weight: 600;
 }
 
 .brand-subtitle a:hover {
-color: #93c5fd;
+    color: #93c5fd;
 }
 
 .flex.border-b {
@@ -121,17 +121,17 @@ html, body {
     -webkit-overflow-scrolling: touch;
 }
 .line-clamp-3 {
-display: -webkit-box;
--webkit-line-clamp: 3;
--webkit-box-orient: vertical;
-overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 
 }
 
 button[onclick^="deletePost"] {
-background: rgba(239, 68, 68, 0.1);
-border-radius: 8px;
-backdrop-filter: blur(4px);
+    background: rgba(239, 68, 68, 0.1);
+    border-radius: 8px;
+    backdrop-filter: blur(4px);
 
 }
 
@@ -157,22 +157,22 @@ transform: scale(0.9);
 }
 
 .modal {
-position: fixed;
-top: 74px;      /* mulai setelah header */
-left: 0;
-right: 0;
-bottom: 0;
+    position: fixed;
+    top: 72px;      /* mulai setelah header */
+    left: 0;
+    right: 0;
+    bottom: 0;
 
     background: rgba(5, 10, 25, 0.78);
     backdrop-filter: blur(16px);
 
-display: none;  
-justify-content: center;  
-align-items: flex-start;  
+    display: none;  
+    justify-content: center;  
+    align-items: flex-start;  
 
-z-index: 999;  
-padding: 16px;  
-overflow-y: auto;
+    z-index: 999;  
+    padding: 16px;  
+    overflow-y: auto;
 
 }
 /* box popup */
@@ -194,16 +194,17 @@ overflow-y: auto;
 
 }
 @media (max-width: 768px) {
-.modal {
-top: 65px;
-padding: 12px;
-}
-
-.modal-content {  
-    max-height: calc(100vh - 85px);  
-    padding: 18px;  
-}
-
+      .modal {
+          top: 65px;
+          padding: 12px;
+        
+      }
+      .modal-content {  
+          max-height: calc(100vh - 85px);  
+          padding: 18px;  
+        
+      }
+  
 }
 /* Animasi perpindahan tab */
 .tab-content {
@@ -570,7 +571,7 @@ text-align: right;
 }
 
 #tocContainer li{
-    margin-bottom:5px;
+    margin-bottom:1px;
 }
 
 /* =========================
@@ -581,13 +582,13 @@ text-align: right;
     align-items:center;
     gap:8px;
 
-    padding:9px 11px;
+    padding:4px 8px;
 
     border-radius:12px;
 
     color:#cbd5e1;
     font-size:13px;
-    line-height:1.45;
+    line-height:1.05;
 
     text-decoration:none;
 
@@ -655,12 +656,12 @@ text-align: right;
     }
 
     #tocContainer a{
-        font-size:13px;
-        padding:10px 11px;
+        font-size:12px;
+        padding:6px 9px;
     }
 
     .popup-title{
-        font-size:10px;
+        font-size:12px;
         margin-bottom:8px;
         padding-bottom:8px;
     }
