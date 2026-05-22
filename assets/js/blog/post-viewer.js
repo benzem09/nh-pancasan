@@ -121,33 +121,9 @@ async function loadFullPost(postId) {
         });
 
         // TOC
-        const headings = container.querySelectorAll("h1,h2,h3");
-
-        if (headings.length > 1) {
-            let tocHTML = `
-                <div class="popup-title">📑 Daftar Isi</div>
-                <ul class="max-h-[50vh] overflow-y-auto">
-            `;
-
-            headings.forEach((heading, index) => {
-                const id = `heading-${index}`;
-                heading.id = id;
-
-                const indent =
-                    heading.tagName === "H2" ? "ml-3" :
-                    heading.tagName === "H3" ? "ml-6" : "";
-
-                tocHTML += `
-                    <li class="${indent} mb-2">
-                        <a href="#${id}" class="text-slate-400 text-[11px] hover:text-blue-400">
-                            • ${heading.innerText}
-                        </a>
-                    </li>
-                `;
-            });
-
-            tocHTML += `</ul>`;
-            document.getElementById("tocContainer").innerHTML = tocHTML;
+        if (typeof generateTOC === "function") {
+          generateTOC();
+          
         }
 
         fab.classList.remove("hidden");
