@@ -57,7 +57,7 @@ header {
 }
 
 .logo-img-wide {
-    height: 30px;
+    height: 50px;
     width: auto;
     object-fit: contain;
 }
@@ -70,9 +70,9 @@ justify-content: center;
 
 .brand-title {
 margin: 0;
-font-size: 1.35rem;
-font-weight: 700;
-color: #93c5fd;
+font-size: 12px;
+font-weight: 600;
+color: #ffd700;
 line-height: 1.2;
 }
 
@@ -85,7 +85,7 @@ line-height: 1.2;
 }
 
 .brand-subtitle a {
-color: #fbbf24;
+color: #ffd700;
 text-decoration: none;
 font-weight: 600;
 }
