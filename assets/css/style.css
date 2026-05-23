@@ -158,7 +158,7 @@ transform: scale(0.9);
 
 .modal {
     position: fixed;
-    top: 72px;      /* mulai setelah header */
+    top: 78px;      /* mulai setelah header */
     left: 0;
     right: 0;
     bottom: 0;
@@ -195,13 +195,13 @@ transform: scale(0.9);
 }
 @media (max-width: 768px) {
       .modal {
-          top: 65px;
+          top: 68px;
           padding: 12px;
         
       }
       .modal-content {  
           max-height: calc(100vh - 85px);  
-          padding: 18px;  
+          padding: 5px;  
         
       }
   
