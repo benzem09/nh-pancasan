@@ -33,8 +33,19 @@ window.generateTOC = function () {
         
         li.className = `${indent} mb-2 toc-item cursor-pointer p-1 rounded transition-all`;
         li.innerHTML = `
-            <a href="#${id}" class="text-slate-400 text-[11px] hover:text-blue-400 flex items-center">
-                <span class="toc-dot mr-2">•</span> ${heading.innerText}
+            <a
+                href="#"
+                onclick="jumpToHeading('${id}')"
+                class="
+                    text-slate-400
+                    text-[11px]
+                    hover:text-blue-400
+                    flex items-center
+                    transition
+                "
+            >
+                <span class="toc-dot mr-2">•</span>
+                ${heading.innerText}
             </a>
         `;
 
@@ -52,7 +63,7 @@ window.generateTOC = function () {
     });
 
     // Menampilkan FAB jika ada
-    const fab = document.getElementById("fab"); // Pastikan ID ini sesuai di HTML Anda
+    const fab = document.getElementById("floatingAction"); // Pastikan ID ini sesuai di HTML Anda
     if(fab) fab.classList.remove("hidden");
 };
 
@@ -75,14 +86,22 @@ window.closeTOC = function() {
 };
 
 // Inisialisasi event listener tombol
-document.addEventListener("DOMContentLoaded", () => {
-    const btnToc = document.getElementById('btnToc');
-    if(btnToc) {
-        btnToc.onclick = (e) => {
-            e.stopPropagation();
-            if (typeof toggleFabPopup === "function") {
-                toggleFabPopup('tocPopup');
-            }
-        };
-    }
-});
+
+
+window.jumpToHeading = function(id){
+
+    const el = document.getElementById(id);
+    if(!el) return;
+
+    // hide popup TOC
+    toggleFabPopup('tocPopup');
+
+    // scroll smooth
+    setTimeout(() => {
+        el.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    }, 120);
+
+};
