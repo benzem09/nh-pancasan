@@ -12,21 +12,24 @@
             <option value="Hadist">Hadist</option>
         </select>
         <div class="flex gap-2 mb-3">
-            <input
-                type="file"
-                id="imageUpload"
-                accept="image/*"
-                hidden>
 
-            <button
-                id="btnUploadImage"
-                type="button"
-                onclick="document.getElementById('imageUpload').click()"
-                class="px-3 py-2 rounded-lg bg-slate-700 text-xs">
+    <input
+        type="file"
+        id="imageUpload"
+        accept="image/*"
+        hidden
+        onchange="handleImageUpload(event)">
 
-                📷 Upload
-            </button>
-        </div>
+    <button
+        id="btnUploadImage"
+        type="button"
+        onclick="document.getElementById('imageUpload').click()"
+        class="px-3 py-2 rounded-lg bg-slate-700 text-xs">
+
+        📷 Upload
+    </button>
+
+</div>
         <textarea id="postContent" placeholder="Isi konten..." rows="16" class="w-full min-h-[320px] max-h-[65vh] resize-y bg-slate-800 p-3 rounded-xl mb-4 outline-none border border-white/10 text-sm leading-relaxed"></textarea>
         <div class="flex gap-2">
             <button onclick="closeModal('postModal'); resetPostModal();" class="flex-1 bg-slate-700 py-2 rounded-lg text-xs">Batal</button>

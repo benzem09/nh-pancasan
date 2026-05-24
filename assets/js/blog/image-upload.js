@@ -4,7 +4,7 @@ async function handleImageUpload(e) {
     if (!file) return;
 
     if (!file.type.startsWith("image/")) {
-        alert("File harus gambar.");
+        alert("File harus image");
         return;
     }
 
@@ -24,25 +24,31 @@ async function handleImageUpload(e) {
         const path =
             await uploadGithubImage(file);
 
-        const markdown =
-            `\n\n![image](${path})\n\n`;
-
         const textarea =
             document.getElementById(
                 "postContent"
             );
 
-        textarea.value += markdown;
+        if (!textarea) {
+            throw new Error(
+                "Textarea tidak ditemukan"
+            );
+        }
+
+        textarea.value +=
+            `\n\n![image](${path})\n\n`;
+
+        textarea.focus();
 
         alert(
-            "Image berhasil diupload."
+            "Image berhasil diupload"
         );
 
-    } catch (e) {
+    } catch (err) {
 
-        console.error(e);
+        console.error(err);
         alert(
-            "Upload gagal."
+            "Upload gagal"
         );
 
     } finally {
@@ -61,7 +67,6 @@ async function handleImageUpload(e) {
         e.target.value = "";
     }
 }
-
 window.addEventListener(
     "DOMContentLoaded",
     () => {
