@@ -44,18 +44,39 @@ async function refreshBlog(targetData = null, action = null) {
                 (p.author === CURRENT_USER || CURRENT_USER === "admin");
 
             return `
-            <div class="glass p-3 rounded-xl mb-2">
-                <div onclick="openPost('${p.slug}', ${p.id})" class="cursor-pointer">
-                    <h3 class="font-bold text-sm text-blue-400">${sanitizeHTML(p.title)}</h3>
-                    <div class="flex justify-between mt-2 text-[9px] opacity-50">
-                        <span>👤 ${p.author.toUpperCase()} | 🏷 ${p.category || 'Umum'} | 📅 ${p.date}</span>
-                        ${isOwner ? `
-                            <span>
-                                <button onclick="event.stopPropagation(); prepareEdit(${p.id})">✏️</button>
-                                <button onclick="event.stopPropagation(); deletePost(${p.id})">🗑️</button>
-                            </span>
-                        ` : ""}
+            <div class="glass feed-card p-3 rounded-xl mb-2">
+                <div onclick="openPost('${p.slug}', ${p.id})"
+                    class="cursor-pointer flex gap-3 items-start">
+
+                    <div class="feed-thumb shrink-0">
+                        ${
+                            p.thumbnail
+                            ? `<img src="${p.thumbnail}" class="feed-thumb-img">`
+                            : `<div class="feed-thumb-placeholder">📝</div>`
+                        }
                     </div>
+
+                    <div class="flex-1 min-w-0">
+                        <h3 class="font-bold text-sm text-blue-400 line-clamp-2">
+                            ${sanitizeHTML(p.title)}
+                        </h3>
+
+                        <div class="mt-2 text-[9px] opacity-50 flex justify-between items-center">
+                            <span class="truncate">
+                                👤 ${p.author.toUpperCase()}
+                                · 🏷 ${p.category || 'Umum'}
+                                · 📅 ${p.date}
+                            </span>
+
+                            ${isOwner ? `
+                                <span class="shrink-0">
+                                    <button onclick="event.stopPropagation(); prepareEdit(${p.id})">✏️</button>
+                                    <button onclick="event.stopPropagation(); deletePost(${p.id})">🗑️</button>
+                                </span>
+                            ` : ""}
+                        </div>
+                    </div>
+
                 </div>
             </div>
             `;
