@@ -93,59 +93,118 @@ async function updateGithubFile(fileName, newObj, sha = null, message = "Update 
 }
 
 async function uploadGithubImage(file) {
+
     requireToken();
 
-    if (!file) throw new Error("No file");
-
-    const reader = new FileReader();
+    if (!file)
+        throw new Error("No file");
 
     return new Promise((resolve, reject) => {
 
-        reader.onload = async () => {
+        const img = new Image();
+
+        img.onload = async () => {
+
             try {
 
-                const base64 =
-                    reader.result.split(',')[1];
+                const canvas =
+                    document.createElement(
+                        "canvas"
+                    );
 
-                const now = new Date();
+                let w = img.width;
+                let h = img.height;
+
+                const MAX_WIDTH = 1200;
+
+                if (w > MAX_WIDTH) {
+                    h =
+                        h *
+                        (
+                            MAX_WIDTH /
+                            w
+                        );
+
+                    w = MAX_WIDTH;
+                }
+
+                canvas.width = w;
+                canvas.height = h;
+
+                const ctx =
+                    canvas.getContext(
+                        "2d"
+                    );
+
+                ctx.drawImage(
+                    img,
+                    0,
+                    0,
+                    w,
+                    h
+                );
+
+                const compressed =
+                    canvas.toDataURL(
+                        "image/webp",
+                        0.80
+                    );
+
+                const base64 =
+                    compressed
+                    .split(',')[1];
+
+                const now =
+                    new Date();
 
                 const year =
                     now.getFullYear();
 
                 const month =
-                    String(now.getMonth() + 1)
-                    .padStart(2, '0');
-
-                const ext =
-                    file.name.split('.').pop();
+                    String(
+                        now.getMonth() + 1
+                    ).padStart(
+                        2,
+                        '0'
+                    );
 
                 const fileName =
-                    `img_${Date.now()}.${ext}`;
+                    `img_${Date.now()}.webp`;
 
                 const path =
                     `uploads/${year}/${month}/${fileName}`;
 
-                const res = await fetch(
-                    `https://api.github.com/repos/${REPO_PATH}/contents/${path}`,
-                    {
-                        method: "PUT",
-                        headers: {
-                            Authorization:
-                                `token ${GITHUB_TOKEN}`,
-                            "Content-Type":
-                                "application/json"
-                        },
-                        body: JSON.stringify({
-                            message:
-                                `Upload ${fileName}`,
-                            content: base64
-                        })
-                    }
-                );
+                const res =
+                    await fetch(
+                        `https://api.github.com/repos/${REPO_PATH}/contents/${path}`,
+                        {
+                            method:
+                                "PUT",
+
+                            headers:
+                            {
+                                Authorization:
+                                    `token ${GITHUB_TOKEN}`,
+
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body:
+                            JSON.stringify(
+                            {
+                                message:
+                                    `Upload ${fileName}`,
+
+                                content:
+                                    base64
+                            })
+                        }
+                    );
 
                 if (!res.ok) {
                     throw new Error(
-                        "GitHub upload gagal"
+                        "Upload gagal"
                     );
                 }
 
@@ -156,6 +215,17 @@ async function uploadGithubImage(file) {
             }
         };
 
-        reader.readAsDataURL(file);
+        img.onerror =
+            () =>
+            reject(
+                new Error(
+                    "Image load gagal"
+                )
+            );
+
+        img.src =
+            URL.createObjectURL(
+                file
+            );
     });
 }
