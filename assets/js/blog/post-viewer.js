@@ -144,6 +144,14 @@ function renderPost(post, postId) {
             </div>
         </div>
     `;
+    // image viewer
+    container.querySelectorAll('.post-body img').forEach(img => {
+        img.style.cursor = 'zoom-in';
+
+        img.onclick = () => {
+            openImageViewer(img.src);
+        };
+    });
 }
 
 // table wrapper + TOC
@@ -301,6 +309,31 @@ function toggleFabPopup(id) {
     document.querySelectorAll('.fab-popup').forEach(p => p.classList.add('hidden'));
 
     if (isHidden) target.classList.remove('hidden');
+}
+
+function openImageViewer(src) {
+    const viewer = document.createElement('div');
+
+    viewer.className = `
+        fixed inset-0 z-[9999]
+        bg-black/90 backdrop-blur-sm
+        flex items-center justify-center
+        p-4
+    `;
+
+    viewer.innerHTML = `
+        <img src="${src}"
+             class="max-w-full max-h-full rounded-xl shadow-2xl object-contain">
+
+        <button
+            class="absolute top-5 right-5 text-white text-3xl">
+            ✕
+        </button>
+    `;
+
+    viewer.onclick = () => viewer.remove();
+
+    document.body.appendChild(viewer);
 }
 
 // slug open
