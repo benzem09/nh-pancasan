@@ -41,7 +41,7 @@ async function refreshBlog(targetData = null, action = null) {
             const isOwner =
                 typeof CURRENT_USER !== "undefined" &&
                 (p.author === CURRENT_USER || CURRENT_USER === "admin");
-            const thumb = p.thumbnail || "assets/icons/articel.svg";
+            const thumb = p.thumbnail || "assets/icons/article.svg";
 
             return `
             <div class="glass post-card p-3 rounded-xl mb-3">
