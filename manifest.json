@@ -1,7 +1,7 @@
 {
   "name": "NH Pancasan",
   "short_name": "Pancasan",
-  "start_url": "/ben/",
+  "start_url": "/nh-pancasan/",
   "display": "standalone",
   "background_color": "#1E3B8A",
   "theme_color": "#14275C",

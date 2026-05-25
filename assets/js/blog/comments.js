@@ -2,12 +2,13 @@ console.log("comments.js loaded");
 
 // Firebase config
 const firebaseConfig = {
-  apiKey: "AIzaSyDwuHPRnTtYe4oA5DuVVrQRarMMHwWZwac",
-  authDomain: "nh-pancasan-comments.firebaseapp.com",
-  projectId: "nh-pancasan-comments",
-  storageBucket: "nh-pancasan-comments.firebasestorage.app",
-  messagingSenderId: "206326783949",
-  appId: "1:206326783949:web:1a349b0ce5173acd3dae84"
+  apiKey: "AIzaSyAwRLJ11sfU3X0CPC5c_JyvoGjf13vTYzk",
+  authDomain: "nh-pancasan.firebaseapp.com",
+  projectId: "nh-pancasan",
+  storageBucket: "nh-pancasan.firebasestorage.app",
+  messagingSenderId: "979480864440",
+  appId: "1:979480864440:web:e5c3a9fc16a9d0a236b64d",
+  measurementId: "G-NMSD3751S"
 };
 
 // init firebase

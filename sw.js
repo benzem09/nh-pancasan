@@ -15,6 +15,8 @@ const FILES_TO_CACHE = [
   '/assets/js/blog/comments.js',
   '/assets/js/blog/post-viewer.js',
   '/assets/js/blog/post-crud.js',
+  '/assets/js/blog/image-upload.js',
+  '/assets/js/blog/lightbox.js',
   '/assets/js/blog/categories.js',
   '/assets/js/blog/archive.js',
   '/assets/js/blog/blog-feed.js',
