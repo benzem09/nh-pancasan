@@ -36,47 +36,45 @@ async function refreshBlog(targetData = null, action = null) {
                 "<p class='opacity-50 text-xs'>Belum ada postingan</p>";
             return;
         }
-        renderPosts(sortedPosts);
 
         feed.innerHTML = sortedPosts.map(p => {
             const isOwner =
                 typeof CURRENT_USER !== "undefined" &&
                 (p.author === CURRENT_USER || CURRENT_USER === "admin");
+            const thumb = p.thumbnail || "assets/img/articel.jpg";
 
             return `
-            <div class="glass feed-card p-3 rounded-xl mb-2">
+            <div class="glass post-card p-3 rounded-xl mb-3">
                 <div onclick="openPost('${p.slug}', ${p.id})"
-                    class="cursor-pointer flex gap-3 items-start">
+                     class="cursor-pointer flex items-center gap-3">
 
-                    <div class="feed-thumb shrink-0">
-                        ${
-                            p.thumbnail
-                            ? `<img src="${p.thumbnail}" class="feed-thumb-img">`
-                            : `<div class="feed-thumb-placeholder">📝</div>`
-                        }
+                    <!-- Thumbnail -->
+                    <div class="post-thumb shrink-0">
+                        <img src="${thumb}"
+                             class="w-full h-full object-cover rounded-lg"
+                             loading="lazy">
                     </div>
 
+                    <!-- Content -->
                     <div class="flex-1 min-w-0">
-                        <h3 class="font-bold text-sm text-blue-400 line-clamp-2">
+                        <h3 class="font-bold text-sm text-blue-400 truncate">
                             ${sanitizeHTML(p.title)}
                         </h3>
 
-                        <div class="mt-2 text-[9px] opacity-50 flex justify-between items-center">
-                            <span class="truncate">
-                                👤 ${p.author.toUpperCase()}
-                                · 🏷 ${p.category || 'Umum'}
-                                · 📅 ${p.date}
-                            </span>
-
-                            ${isOwner ? `
-                                <span class="shrink-0">
-                                    <button onclick="event.stopPropagation(); prepareEdit(${p.id})">✏️</button>
-                                    <button onclick="event.stopPropagation(); deletePost(${p.id})">🗑️</button>
-                                </span>
-                            ` : ""}
+                        <div class="text-[9px] opacity-50 mt-1 truncate">
+                            👤 ${p.author.toUpperCase()}
+                            · 🏷 ${p.category || 'Umum'}
+                            · 📅 ${p.date}
                         </div>
                     </div>
 
+                    <!-- Action -->
+                    ${isOwner ? `
+                    <div class="flex gap-2 text-xs shrink-0">
+                        <button onclick="event.stopPropagation(); prepareEdit(${p.id})">✏️</button>
+                        <button onclick="event.stopPropagation(); deletePost(${p.id})">🗑️</button>
+                    </div>
+                    ` : ""}
                 </div>
             </div>
             `;

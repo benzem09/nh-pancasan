@@ -2,6 +2,8 @@
 async function submitPost() {
     const t = document.getElementById('postTitle').value.trim();
     const c = document.getElementById('postContent').value.trim();
+    const imgMatch = c.match(/!\[.*?\]\((.*?)\)/);
+    const thumbnail = imgMatch ? imgMatch[1] : "assets/img/articel.jpg";
     const cat = document.getElementById('postCategory').value;
     
     if(!t || !c) return alert("Isi judul & konten!");
@@ -23,6 +25,7 @@ async function submitPost() {
           title: t,
           content: c,
           category: cat,
+          thumbnail: thumbnail,
           author: typeof CURRENT_USER !== "undefined" ? CURRENT_USER : "admin",
           date,
           year,
@@ -81,6 +84,7 @@ async function submitPost() {
           id: postId,
           slug: slug,
           title: t,
+          thumbnail: thumbnail,
           author: detailedData.author,
           category: cat,
           date,
@@ -137,6 +141,8 @@ async function prepareEdit(postId) {
 async function submitEdit() {
     const t = document.getElementById('postTitle').value.trim();
     const c = document.getElementById('postContent').value.trim();
+    const imgMatch = c.match(/!\[.*?\]\((.*?)\)/);
+    const thumbnail = imgMatch ? imgMatch[1] : "assets/img/articel.jpg";
     const cat = document.getElementById('postCategory').value;
     
     if (!t || !c) return alert("Isi judul & konten!");
@@ -177,6 +183,7 @@ async function submitEdit() {
             index.content[idx].title = t;
             index.content[idx].slug = newSlug;
             index.content[idx].category = cat;
+            index.content[idx].thumbnail = thumbnail;
             await updateGithubFile(indexPath, index.content, index.sha, `Update Index ${postMonth}-${postYear}`);
         }
 
