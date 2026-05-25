@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://onkbaonk.github.io/ben/sitemap.xml
+Sitemap: https://benzem09.github.io/nh-pancasan/sitemap.xml
