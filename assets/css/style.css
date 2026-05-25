@@ -25,29 +25,7 @@ header {
     overflow: hidden;
 
 }
-.nav {
-  display: flex;
-  overflow-x: auto;
-  white-space: nowrap;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  margin-bottom: 1rem;
-  gap: 1.25rem;
-  border-radius: 0.75rem;
-  position: sticky;
-  top: 0;
-  z-index: 30;
-  -webkit-overflow-scrolling: touch; 
-}
-.nav {
-  flex-shrink: 0;
-}
-.nav::-webkit-scrollbar {
-  display: none;
-}
-.nav {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
+
 .brand-wrapper-horizontal {
     display: flex;
     flex-direction: row;
@@ -92,6 +70,30 @@ header {
 
 .brand-subtitle a:hover {
     color: #93c5fd;
+}
+
+.nav {
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 1rem;
+    gap: 1.25rem;
+    border-radius: 0.75rem;
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    -webkit-overflow-scrolling: touch; 
+}
+.nav {
+    flex-shrink: 0;
+}
+.nav::-webkit-scrollbar {
+    display: none;
+}
+.nav {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 
 .flex.border-b {
