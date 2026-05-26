@@ -64,7 +64,11 @@ async function getGithubFile(fileName) {
 async function updateGithubFile(fileName, newObj, sha = null, message = "Update file") {
     requireToken();
 
-    const content = utoa(JSON.stringify(newObj, null, 4));
+    const content = utoa(
+        typeof newObj === "string"
+            ? newObj
+            : JSON.stringify(newObj, null, 4)
+    );
 
     const res = await fetch(
         `https://api.github.com/repos/${REPO_PATH}/contents/${fileName}`,
