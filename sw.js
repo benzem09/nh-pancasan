@@ -1,4 +1,4 @@
-const CACHE_NAME = "nh-pancasan-v2.2";
+const CACHE_NAME = "nh-pancasan-v2.3";
 
 const FILES_TO_CACHE = [
   '/',
@@ -32,10 +32,25 @@ self.addEventListener("install", event => {
 });
 
 self.addEventListener("fetch", event => {
-  event.respondWith(
-    caches.match(event.request)
-      .then(response => response || fetch(event.request))
-  );
+    const url = new URL(event.request.url);
+
+    // JSON & data → network first
+    if (
+        url.pathname.endsWith(".json") ||
+        url.search.includes("t=")
+    ) {
+        event.respondWith(
+            fetch(event.request)
+                .catch(() => caches.match(event.request))
+        );
+        return;
+    }
+
+    // Asset → cache first
+    event.respondWith(
+        caches.match(event.request)
+            .then(response => response || fetch(event.request))
+    );
 });
 
 self.addEventListener("activate", event => {
