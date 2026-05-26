@@ -99,7 +99,7 @@ async function submitPost() {
         resetPostModal();
         
         // LANGSUNG DI-REFRESH SECARA INSTAN MENGGUNAKAN DATA BARU
-        refreshBlog(newIndexItem, "create");
+        refreshBlog(newIndexItem, 'create');
 
     } catch (e) {
         console.error(e);
