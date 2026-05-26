@@ -163,8 +163,8 @@ transform: scale(0.9);
 }
 
 .feed-thumb {
-    width: 44px;
-    height: 44px;
+    width: 40px;
+    height: 40px;
     overflow: hidden;
     border-radius: 12px;
     
@@ -204,8 +204,8 @@ transform: scale(0.9);
 }
 
 .post-thumb{
-    width: 46px;
-    height: 46px;
+    width: 30px;
+    height: 30px;
     border-radius: 12px;
     overflow: hidden;
     border: 1px solid rgba(255,255,255,.06);
@@ -222,7 +222,7 @@ transform: scale(0.9);
     filter: brightness(0) invert(1);
     opacity: .85;
     object-fit: contain;
-    padding: 8px;
+    padding: 4px;
 }
 
 .modal {
@@ -363,7 +363,7 @@ transform: scale(0.9);
     max-height: 120px;
 
     margin: 12px auto;
-    border-radius: 12px;
+    border-radius: 10px;
 
     object-fit: cover;
 
