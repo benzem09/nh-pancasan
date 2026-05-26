@@ -1,14 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-  <url>
-    <loc>https://benzem09.github.io/nh-pancasan/</loc>
-    <priority>1.0</priority>
-  </url>
-
-  <url>
-    <loc>https://benzem09.github.io/nh-pancasan/?post=Welcome</loc>
-    <priority>0.8</priority>
-  </url>
-
-</urlset>
+"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n\n  <url>\n    <loc>https://benzem09.github.io/nh-pancasan/</loc>\n    <priority>1.0</priority>\n  </url>\n\n  <url>\n    <loc>https://benzem09.github.io/nh-pancasan/?post=Welcome</loc>\n    <priority>0.8</priority>\n  </url>\n  <url>\n    <loc>https://benzem09.github.io/nh-pancasan/?post=bagan-nahu</loc>\n    <priority>0.8</priority>\n  </url>\n  <url>\n    <loc>https://benzem09.github.io/nh-pancasan/?post=pondasi-agama</loc>\n    <priority>0.8</priority>\n  </url>\n</urlset>"
