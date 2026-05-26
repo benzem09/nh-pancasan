@@ -19,5 +19,16 @@
         "date": "2026-05-26",
         "year": "2026",
         "month": "05"
+    },
+    {
+        "id": 1779801927201,
+        "slug": "tes1",
+        "title": "Tes1",
+        "thumbnail": "uploads/2026/05/img_1779801913713.webp",
+        "author": "admin",
+        "category": "Umum",
+        "date": "2026-05-26",
+        "year": "2026",
+        "month": "05"
     }
 ]
