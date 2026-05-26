@@ -351,16 +351,22 @@ transform: scale(0.9);
 
 .post-body img {
     display: block;
-    width: auto;
     max-width: 100%;
-    max-height: 120px;
+    max-height: 320px;
+    width: auto;
+    height: auto;
 
-    margin: 16px auto;
-    border-radius: 12px;
+    margin: 18px auto;
+    padding: 8px;
 
-    object-fit: cover;
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,.12);
 
-    box-shadow: 0 8px 25px rgba(0,0,0,.35);
+    object-fit: contain;
+
+    box-shadow: 0 4px 12px rgba(255,255,255,.08);
+
     cursor: pointer;
     transition: .25s;
 }
