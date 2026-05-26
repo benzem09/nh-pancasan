@@ -93,6 +93,7 @@ async function submitPost() {
         };
         indexRes.content.push(newIndexItem);
         await updateGithubFile(indexPath, indexRes.content, indexRes.sha, `Update Index ${month}-${year}`);
+        await generateSitemap();
         
         // PEMBERSIHAN FORM & PROSES SELESAI
         closeModal('postModal');
@@ -185,6 +186,7 @@ async function submitEdit() {
             index.content[idx].category = cat;
             index.content[idx].thumbnail = thumbnail;
             await updateGithubFile(indexPath, index.content, index.sha, `Update Index ${postMonth}-${postYear}`);
+            await generateSitemap();
         }
 
         // Object data baru untuk memanipulasi feed UI secara lokal
@@ -246,7 +248,10 @@ async function deletePost(postId) {
             console.warn("File fisik tidak ditemukan, kemungkinan sudah terhapus.");
         }
         
-        // 4. Refresh UI secara instan (Penundaan dihapus)
+        // 4. updaye sitemap
+        await generateSitemap();
+        
+        // 5. Refresh UI secara instan (Penundaan dihapus)
         refreshBlog(postId, 'delete');
         alert("Postingan berhasil dihapus!");
     } catch (e) {
