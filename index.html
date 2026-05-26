@@ -19,6 +19,7 @@
     <link rel="canonical" href="https://benzem09.github.io/nh-pancasan/">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0f172a">
+    <link rel="apple-touch-icon" href="assets/img/logo.png">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -110,13 +111,6 @@ initApp();
 </script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-<script>
-if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("./sw.js")
-        .then(() => console.log("SW registered"))
-        .catch(err => console.log("SW failed", err));
-}
-</script>
 <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
 
 <script>
@@ -132,6 +126,13 @@ OneSignalDeferred.push(async function(OneSignal) {
         serviceWorkerUpdaterPath: "OneSignalSDKUpdaterWorker.js"
     });
 });
+</script>
+<script>
+if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("./sw.js")
+        .then(() => console.log("SW registered"))
+        .catch(err => console.log("SW failed", err));
+}
 </script>
 <div id="viewPopup" class="view-popup hidden">👁 Dibaca <span id="popupViewCount">0</span>x</div>
 </body>
