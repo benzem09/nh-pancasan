@@ -30,5 +30,16 @@
         "date": "2026-05-26",
         "year": "2026",
         "month": "05"
+    },
+    {
+        "id": 1779817149455,
+        "slug": "waktu",
+        "title": "Waktu...",
+        "thumbnail": "assets/img/articel.jpg",
+        "author": "admin",
+        "category": "Renungan",
+        "date": "2026-05-26",
+        "year": "2026",
+        "month": "05"
     }
 ]
