@@ -163,8 +163,8 @@ transform: scale(0.9);
 }
 
 .feed-thumb {
-    width: 54px;
-    height: 54px;
+    width: 44px;
+    height: 44px;
     overflow: hidden;
     border-radius: 12px;
     
@@ -360,9 +360,9 @@ transform: scale(0.9);
     display: block;
     width: auto;
     max-width: 100%;
-    max-height: 220px;
+    max-height: 120px;
 
-    margin: 16px auto;
+    margin: 12px auto;
     border-radius: 12px;
 
     object-fit: cover;
