@@ -376,12 +376,11 @@ transform: scale(0.9);
     transform: scale(1.02);
 }
 
-direction: rtl;
-text-align: right;
 [dir="rtl"], .arabic-text {
     font-size: 1.2em;
     line-height: 2;
     font-weight: 500;
+    text-align: right;
 }
 
 /* TABLE SCROLL SYSTEM */
