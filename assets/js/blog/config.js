@@ -1,2 +1,2 @@
 let EDIT_POST_ID = null;
-const availableCategories = ["Semua",  "sharaf", "Nahu", "Tauhid", "Fiqih", "Tashauf", "Hadist", "Renungan", "Umum"];
+const availableCategories = ["Semua",  "sharaf", "Nahu", "Tauhid", "Fiqih", "Tashauf", "Hadist", "Renungan", 'Tafsir', "Umum"];
