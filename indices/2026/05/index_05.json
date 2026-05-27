@@ -52,5 +52,16 @@
         "date": "2026-05-27",
         "year": "2026",
         "month": "05"
+    },
+    {
+        "id": 1779846153472,
+        "slug": "spiritual",
+        "title": "Spiritual",
+        "thumbnail": "assets/img/articel.jpg",
+        "author": "admin",
+        "category": "Tashauf",
+        "date": "2026-05-27",
+        "year": "2026",
+        "month": "05"
     }
 ]
