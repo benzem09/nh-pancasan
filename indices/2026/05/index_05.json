@@ -96,5 +96,16 @@
         "date": "2026-05-27",
         "year": "2026",
         "month": "05"
+    },
+    {
+        "id": 1779869092729,
+        "slug": "nabi-idris",
+        "title": "Nabi Idris",
+        "thumbnail": "assets/img/articel.jpg",
+        "author": "admin",
+        "category": "Kisah",
+        "date": "2026-05-27",
+        "year": "2026",
+        "month": "05"
     }
 ]
