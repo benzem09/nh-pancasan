@@ -41,5 +41,16 @@
         "date": "2026-05-26",
         "year": "2026",
         "month": "05"
+    },
+    {
+        "id": 1779845412815,
+        "slug": "al-insan-al-basyar-bani-adam",
+        "title": "Al-insan Al-basyar Bani Adam",
+        "thumbnail": "assets/img/articel.jpg",
+        "author": "admin",
+        "category": "Renungan",
+        "date": "2026-05-27",
+        "year": "2026",
+        "month": "05"
     }
 ]
