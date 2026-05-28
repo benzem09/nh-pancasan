@@ -4,7 +4,6 @@ const FILES_TO_CACHE = [
   '/',
   '/index.html',
   '/assets/css/style.css',
-
   '/assets/js/main.js',
   '/assets/js/api.js',
   '/assets/js/auth.js',
