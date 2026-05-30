@@ -272,5 +272,16 @@
         "date": "2026-05-29",
         "year": "2026",
         "month": "05"
+    },
+    {
+        "id": 1780109552178,
+        "slug": "sharaf-pemula-tahap-1",
+        "title": "Sharaf Pemula Tahap 1",
+        "thumbnail": "uploads/2026/05/img_1780109522344.webp",
+        "author": "admin",
+        "category": "Sharaf",
+        "date": "2026-05-30",
+        "year": "2026",
+        "month": "05"
     }
 ]
