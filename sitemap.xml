@@ -4,18 +4,13 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-  <url>
-    <loc>https://benzem09.github.io/nh-pancasan/</loc>
-    <lastmod>2026-05-31T06:31:47+00:00</lastmod>
-    <priority>1.0</priority>
-  
-  </url>
-  
-  <url>
-    <loc>https://benzem09.github.io/nh-pancasan/?post=Welcome</loc>
-    <lastmod>2026-05-31T06:31:47+00:00</lastmod>
-    <priority>0.8</priority>
-  </url>
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+  <loc>https://benzem09.github.io/nh-pancasan/</loc>
+  <lastmod>2026-06-01T07:19:40+00:00</lastmod>
+</url>
 
 
 </urlset>
