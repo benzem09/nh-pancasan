@@ -1,28 +1,113 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<urlset
-
-      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-
-      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-
-            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-
-<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
-
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <url>
-  <loc>https://benzem09.github.io/nh-pancasan/</loc>
-  <lastmod>2026-05-31T06:31:47+00:00</lastmod>
+    <loc>https://benzem09.github.io/nh-pancasan/</loc>
     <priority>1.0</priority>
   </url>
 
   <url>
     <loc>https://benzem09.github.io/nh-pancasan/?post=Welcome</loc>
-    <lastmod>2026-05-31T06:31:47+00:00</lastmod>
     <priority>0.8</priority>
   </url>
-
+  <url>
+    <loc>https://benzem09.github.io/nh-pancasan/?post=bagan-nahu</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://benzem09.github.io/nh-pancasan/?post=pondasi-agama</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://benzem09.github.io/nh-pancasan/?post=waktu</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://benzem09.github.io/nh-pancasan/?post=al-insan-al-basyar-bani-adam</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://benzem09.github.io/nh-pancasan/?post=spiritual</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://benzem09.github.io/nh-pancasan/?post=bahagia-dan-tidak-bahagia</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://benzem09.github.io/nh-pancasan/?post=al-ashr-</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://benzem09.github.io/nh-pancasan/?post=nabi-adam-dan-keluarga</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://benzem09.github.io/nh-pancasan/?post=nabi-idris</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://benzem09.github.io/nh-pancasan/?post=nabi-nuh-dan-keluarga</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://benzem09.github.io/nh-pancasan/?post=nabi-hud-dan-kaumnya</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://benzem09.github.io/nh-pancasan/?post=nabi-shalih-dan-kaumnya</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://benzem09.github.io/nh-pancasan/?post=nabi-ibrahim-dan-keluarga</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://benzem09.github.io/nh-pancasan/?post=nabi-luth-dan-keluarganya</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://benzem09.github.io/nh-pancasan/?post=nabi-ismail</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://benzem09.github.io/nh-pancasan/?post=nabi-ishaq</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://benzem09.github.io/nh-pancasan/?post=nabi-yaqub-dan-keluarganya</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://benzem09.github.io/nh-pancasan/?post=nabi-yusuf</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://benzem09.github.io/nh-pancasan/?post=nabi-ayyub-dengan-kesabarannya</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://benzem09.github.io/nh-pancasan/?post=nabi-syuaib-dan-kaum-nya</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://benzem09.github.io/nh-pancasan/?post=nabi-musa-dengan-kisah-nya</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://benzem09.github.io/nh-pancasan/?post=nabi-harun</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://benzem09.github.io/nh-pancasan/?post=sharaf-pemula</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://benzem09.github.io/nh-pancasan/?post=nyerenkeun-panganten</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://benzem09.github.io/nh-pancasan/?post=belajar-nahu-pemula</loc>
+    <priority>0.8</priority>
+  </url>
 </urlset>
