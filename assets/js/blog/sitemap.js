@@ -1,57 +1,53 @@
 async function generateSitemap() {
     try {
-        const allPosts = await loadAllIndexes();
+        const posts = await loadAllIndexes();
 
-        const base = "https://benzem09.github.io/nh-pancasan";
+        const now = new Date().toISOString();
 
-        let xml =
-`<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+        let xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 
-  <url>
-    <loc>${base}/</loc>
-    <priority>1.0</priority>
-  </url>
+<url>
+<loc>https://benzem09.github.io/nh-pancasan/</loc>
+<lastmod>${now}</lastmod>
+<priority>1.0</priority>
+</url>
 `;
 
-        allPosts.forEach(post => {
+        posts.forEach(post => {
+
+            const lastmod =
+                post.date
+                ? new Date(post.date).toISOString()
+                : now;
+
             xml += `
-  <url>
-    <loc>${base}/?post=${encodeURIComponent(post.slug)}</loc>
-    <priority>0.8</priority>
-  </url>`;
+<url>
+<loc>https://benzem09.github.io/nh-pancasan/?post=${post.slug}</loc>
+<lastmod>${lastmod}</lastmod>
+<priority>0.8</priority>
+</url>
+`;
         });
 
         xml += `
 </urlset>`;
 
-        let sha = null;
-
-        try {
-            const file = await fetch(
-                `https://api.github.com/repos/${REPO_PATH}/contents/sitemap.xml`,
-                {
-                    headers: {
-                        Authorization: `token ${GITHUB_TOKEN}`
-                    }
-                }
-            );
-
-            if (file.ok) {
-                const data = await file.json();
-                sha = data.sha;
-            }
-        } catch {}
+        const file = await getGithubFile("sitemap.xml");
 
         await updateGithubFile(
             "sitemap.xml",
             xml,
-            sha,
+            file.sha,
             "Auto update sitemap"
         );
 
         console.log("Sitemap updated");
-    } catch (e) {
-        console.error("Sitemap gagal:", e);
+    } catch(e) {
+        console.error("Generate sitemap gagal", e);
     }
 }
