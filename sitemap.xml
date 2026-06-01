@@ -13,19 +13,16 @@
 <!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
 
 
-
-
-
-<url>
-
+  <url>
   <loc>https://benzem09.github.io/nh-pancasan/</loc>
-
   <lastmod>2026-05-31T06:31:47+00:00</lastmod>
+    <priority>1.0</priority>
+  </url>
 
-</url>
-
-
-
-
+  <url>
+    <loc>https://benzem09.github.io/nh-pancasan/?post=Welcome</loc>
+    <lastmod>2026-05-31T06:31:47+00:00</lastmod>
+    <priority>0.8</priority>
+  </url>
 
 </urlset>
