@@ -240,11 +240,12 @@ ${marked.parse(post.content)}
     };
 }
 
-// pdf download function (Optimized)
+// pdf download function (Optimized for long pages)
 function downloadPDF(postTitle) {
     const element = document.querySelector(".post-body");
     if (!element) return;
 
+    // 1. Buat clone elemen
     const clone = element.cloneNode(true);
     const temp = document.createElement("div");
     temp.style.position = "fixed";
@@ -255,9 +256,15 @@ function downloadPDF(postTitle) {
     temp.appendChild(clone);
     document.body.appendChild(temp);
 
+    // Hapus dropdown meta agar tidak mengganggu tata letak
     const metaDropdown = clone.querySelector(".relative.shrink-0");
     if (metaDropdown) metaDropdown.remove();
 
+    // Hapus spacer kosong di akhir post jika ada (agar tidak menambah halaman kosong)
+    const emptySpacer = clone.querySelector("#main-post-content > div[style*='height:100px']");
+    if (emptySpacer) emptySpacer.remove();
+
+    // 2. Styling untuk cetak PDF yang bersih
     clone.style.background = "#ffffff";
     clone.style.color = "#000000";
     clone.style.padding = "40px";
@@ -278,26 +285,36 @@ function downloadPDF(postTitle) {
         }
     });
 
-    html2pdf()
-        .set({
-            margin: [0.5, 0.5, 0.5, 0.5],
-            filename: `${generateSlug(postTitle)}.pdf`,
-            image: { type: "jpeg", quality: 0.98 },
-            html2canvas: {
-                scale: 2,
-                useCORS: true,
-                logging: false,
-                backgroundColor: "#ffffff",
-                letterRendering: true
-            },
-            jsPDF: { unit: "in", format: "a4", orientation: "portrait" },
-            pagebreak: { mode: ["css", "legacy"] }
-        })
-        .from(clone)
-        .save()
-        .finally(() => {
-            temp.remove();
-        });
+    // 3. Menggunakan setTimeout untuk memberikan napas pada browser merender DOM panjang
+    setTimeout(() => {
+        html2pdf()
+            .set({
+                margin: [0.5, 0.5, 0.5, 0.5],
+                filename: `${generateSlug(postTitle)}.pdf`,
+                image: { type: "jpeg", quality: 0.95 }, // Diturunkan sedikit dari 0.98 untuk menghemat memori dokumen panjang
+                html2canvas: {
+                    scale: 1.5, // Diturunkan dari 2 ke 1.5 agar memori canvas tidak meledak di 20+ halaman, namun tetap tajam
+                    useCORS: true,
+                    logging: false,
+                    backgroundColor: "#ffffff",
+                    letterRendering: false // Diubah ke false! letterRendering true sangat lambat & sering bug di dokumen panjang
+                },
+                jsPDF: { unit: "in", format: "a4", orientation: "portrait" },
+                pagebreak: { 
+                    mode: ["css", "legacy"], 
+                    before: ".page-break" // Opsional: jika kamu ingin membuat paksaan halaman baru di masa depan
+                }
+            })
+            .from(clone)
+            .save()
+            .catch(err => {
+                console.error("Gagal membuat PDF:", err);
+            })
+            .finally(() => {
+                // Hapus elemen temporary setelah proses selesai
+                temp.remove();
+            });
+    }, 500); // Jeda 500ms memberikan waktu browser menyiapkan element
 }
 
 // popup toggle 
