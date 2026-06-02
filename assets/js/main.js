@@ -83,7 +83,6 @@ document.getElementById("btnRefresh")?.addEventListener("click", async () => {
 });
 
 let OCR_ACTIVE = false;
-
 document.addEventListener("visibilitychange", () => {
 
     if (OCR_ACTIVE) return;
