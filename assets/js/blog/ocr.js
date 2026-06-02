@@ -1,3 +1,13 @@
+document
+.getElementById("btnScanOCR")
+?.addEventListener("click", e => {
+    e.preventDefault();
+    e.stopPropagation();
+    document
+        .getElementById("ocrFile")
+        .click();
+});
+
 document.addEventListener("change", async (e) => {
     if (e.target.id !== "ocrFile") return;
 
