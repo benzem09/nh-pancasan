@@ -240,7 +240,7 @@ ${marked.parse(post.content)}
     };
 }
 
-// pdf download function (Ultimate Fix untuk 20+ Halaman)
+// pdf download function (Fixed for Long Pages + Auto Page Numbering)
 function downloadPDF(postTitle) {
     const element = document.querySelector(".post-body");
     if (!element) return;
@@ -251,7 +251,7 @@ function downloadPDF(postTitle) {
     temp.style.position = "fixed";
     temp.style.left = "-99999px";
     temp.style.top = "0";
-    temp.style.width = "750px"; // Sedikit diperkecil agar pas di A4 tanpa kepotong
+    temp.style.width = "750px"; 
     temp.style.background = "#ffffff";
     temp.appendChild(clone);
     document.body.appendChild(temp);
@@ -264,7 +264,7 @@ function downloadPDF(postTitle) {
     const emptySpacer = clone.querySelector("#main-post-content > div[style*='height:100px']");
     if (emptySpacer) emptySpacer.remove();
 
-    // 2. Styling Khusus Cetak & Cegah Canvas Crash
+    // 2. Styling Cetak
     clone.style.background = "#ffffff";
     clone.style.color = "#000000";
     clone.style.padding = "30px";
@@ -280,7 +280,6 @@ function downloadPDF(postTitle) {
         el.style.filter = "none";
         el.style.opacity = "1";
 
-        // Trik Krusial: Cegah elemen terpotong aneh di tengah halaman
         if (el.tagName === "P" || el.tagName === "H1" || el.tagName === "H2" || el.tagName === "H3" || el.tagName === "TR") {
             el.style.pageBreakInside = "avoid";
             el.style.breakInside = "avoid";
@@ -291,38 +290,57 @@ function downloadPDF(postTitle) {
         }
     });
 
-    // 3. Konfigurasi yang bersahabat dengan dokumen panjang
+    // 3. Konfigurasi html2pdf
     const opt = {
-        margin: 0.5,
+        margin: [0.75, 0.5, 0.75, 0.5], // Atur margin atas & bawah sedikit longgar untuk ruang nomor halaman
         filename: `${generateSlug(postTitle)}.pdf`,
-        image: { type: "jpeg", quality: 0.90 }, // Kompresi sedikit ditingkatkan demi memori
+        image: { type: "jpeg", quality: 0.90 },
         html2canvas: {
-            scale: 1, // Turunkan ke 1 (Normal). Ini penyelamat utama agar canvas tidak kepenuhan memori!
+            scale: 1, 
             useCORS: true,
             logging: false,
             backgroundColor: "#ffffff",
-            removeContainer: true // Hapus container sampah setelah render selesai
+            removeContainer: true 
         },
         jsPDF: { unit: "in", format: "a4", orientation: "portrait" },
-        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] } // Paduan mode terbaik untuk dokumen panjang
+        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
     };
 
-    // 4. Jalankan dengan Worker agar lebih stabil
-    const worker = html2pdf().set(opt).from(clone);
-    
-    worker.save()
-        .then(() => {
-            console.log("PDF Berhasil diunduh.");
-        })
-        .catch(err => {
-            console.error("Gagal cetak PDF:", err);
-        })
-        .finally(() => {
-            // Hapus elemen temporary setelah selesai
-            temp.remove();
-        });
-}
+    // 4. Jalankan Worker + Suntik Nomor Halaman via jsPDF
+    html2pdf().set(opt).from(clone).toPdf().get('pdf').then(function (pdf) {
+        const totalPages = pdf.internal.getNumberOfPages();
+        
+        for (let i = 1; i <= totalPages; i++) {
+            pdf.setPage(i);
+            pdf.setFont("Helvetica", "normal");
+            pdf.setFontSize(9);
+            pdf.setTextColor(100, 100, 100); // Warna abu-abu halus
 
+            // Format teks nomor halaman (Contoh: "Halaman 1 dari 58")
+            const pageText = `Halaman ${i} dari ${totalPages}`;
+            
+            // Mengambil ukuran lebar dan tinggi halaman PDF aktif (satuan inci)
+            const pageWidth = pdf.internal.pageSize.getWidth();
+            const pageHeight = pdf.internal.pageSize.getHeight();
+
+            // Cetak teks di kanan bawah (dikurangi margin sekitar 0.5 inci)
+            pdf.text(pageText, pageWidth - 0.5, pageHeight - 0.4, { align: "right" });
+            
+            // OPSIONAL: Jika ingin menambah garis horizontal tipis di atas nomor halaman
+            // pdf.setDrawColor(200, 200, 200);
+            // pdf.line(0.5, pageHeight - 0.5, pageWidth - 0.5, pageHeight - 0.5);
+        }
+    }).save()
+    .then(() => {
+        console.log("PDF dengan nomor halaman berhasil diunduh.");
+    })
+    .catch(err => {
+        console.error("Gagal cetak PDF:", err);
+    })
+    .finally(() => {
+        temp.remove();
+    });
+}
 
 // popup toggle 
 function toggleFabPopup(id) {
