@@ -240,111 +240,89 @@ ${marked.parse(post.content)}
     };
 }
 
-// PDF download (Long Document Safe)
-async function downloadPDF(postTitle) {
+// pdf download function (Ultimate Fix untuk 20+ Halaman)
+function downloadPDF(postTitle) {
     const element = document.querySelector(".post-body");
     if (!element) return;
 
+    // 1. Buat clone elemen
     const clone = element.cloneNode(true);
-
     const temp = document.createElement("div");
     temp.style.position = "fixed";
     temp.style.left = "-99999px";
     temp.style.top = "0";
-    temp.style.width = "794px"; // A4 px
-    temp.style.background = "#fff";
-    temp.style.zIndex = "-1";
-
+    temp.style.width = "750px"; // Sedikit diperkecil agar pas di A4 tanpa kepotong
+    temp.style.background = "#ffffff";
     temp.appendChild(clone);
     document.body.appendChild(temp);
 
-    // remove dropdown
-    clone.querySelector("#metaDropdown")?.remove();
+    // Hapus dropdown meta
+    const metaDropdown = clone.querySelector(".relative.shrink-0");
+    if (metaDropdown) metaDropdown.remove();
 
-    // remove spacer
-    clone.querySelector(
-        "#main-post-content > div[style*='height:100px']"
-    )?.remove();
+    // Hapus spacer kosong di akhir post
+    const emptySpacer = clone.querySelector("#main-post-content > div[style*='height:100px']");
+    if (emptySpacer) emptySpacer.remove();
 
-    // clean style
-    clone.style.background = "#fff";
-    clone.style.color = "#000";
+    // 2. Styling Khusus Cetak & Cegah Canvas Crash
+    clone.style.background = "#ffffff";
+    clone.style.color = "#000000";
     clone.style.padding = "30px";
-    clone.style.fontFamily = "Arial,sans-serif";
+    clone.style.fontFamily = "Arial, sans-serif";
 
     clone.querySelectorAll("*").forEach(el => {
-        el.style.color = "#000";
-        el.style.background = "transparent";
+        el.style.setProperty("color", "#000000", "important");
+        el.style.setProperty("background", "transparent", "important");
+        el.style.setProperty("background-color", "transparent", "important");
         el.style.boxShadow = "none";
+        el.style.backdropFilter = "none";
         el.style.textShadow = "none";
         el.style.filter = "none";
+        el.style.opacity = "1";
 
-        // hindari pecah elemen
-        if (
-            el.tagName === "IMG" ||
-            el.tagName === "TABLE" ||
-            el.tagName === "PRE"
-        ) {
-            el.style.breakInside = "avoid";
+        // Trik Krusial: Cegah elemen terpotong aneh di tengah halaman
+        if (el.tagName === "P" || el.tagName === "H1" || el.tagName === "H2" || el.tagName === "H3" || el.tagName === "TR") {
             el.style.pageBreakInside = "avoid";
+            el.style.breakInside = "avoid";
+        }
+
+        if (el.tagName === "LI" || el.tagName === "OL" || el.tagName === "UL") {
+            el.style.listStylePosition = "inside";
         }
     });
 
-    // tunggu semua gambar
-    const imgs = clone.querySelectorAll("img");
+    // 3. Konfigurasi yang bersahabat dengan dokumen panjang
+    const opt = {
+        margin: 0.5,
+        filename: `${generateSlug(postTitle)}.pdf`,
+        image: { type: "jpeg", quality: 0.90 }, // Kompresi sedikit ditingkatkan demi memori
+        html2canvas: {
+            scale: 1, // Turunkan ke 1 (Normal). Ini penyelamat utama agar canvas tidak kepenuhan memori!
+            useCORS: true,
+            logging: false,
+            backgroundColor: "#ffffff",
+            removeContainer: true // Hapus container sampah setelah render selesai
+        },
+        jsPDF: { unit: "in", format: "a4", orientation: "portrait" },
+        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] } // Paduan mode terbaik untuk dokumen panjang
+    };
 
-    await Promise.all(
-        [...imgs].map(img => {
-            return new Promise(resolve => {
-                if (img.complete) resolve();
-                else {
-                    img.onload = resolve;
-                    img.onerror = resolve;
-                }
-            });
+    // 4. Jalankan dengan Worker agar lebih stabil
+    const worker = html2pdf().set(opt).from(clone);
+    
+    worker.save()
+        .then(() => {
+            console.log("PDF Berhasil diunduh.");
         })
-    );
-
-    // beri napas render DOM
-    await new Promise(r => setTimeout(r, 1500));
-
-    html2pdf()
-        .set({
-            margin: 0.4,
-            filename: `${generateSlug(postTitle)}.pdf`,
-            image: {
-                type: "jpeg",
-                quality: 0.90
-            },
-            html2canvas: {
-                scale: 1,
-                useCORS: true,
-                logging: false,
-                backgroundColor: "#fff",
-                scrollY: 0
-            },
-            jsPDF: {
-                unit: "in",
-                format: "a4",
-                orientation: "portrait"
-            },
-            pagebreak: {
-                mode: [
-                    "css",
-                    "legacy"
-                ],
-                avoid: [
-                    "img",
-                    "table",
-                    "pre",
-                    "blockquote"
-                ]
-            }
+        .catch(err => {
+            console.error("Gagal cetak PDF:", err);
         })
-        .from(clone)
-        .save()
-        .finally(() => temp.remove());
+        .finally(() => {
+            // Hapus elemen temporary setelah selesai
+            temp.remove();
+        });
 }
+
 
 // popup toggle 
 function toggleFabPopup(id) {
