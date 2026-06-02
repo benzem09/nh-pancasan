@@ -1,15 +1,9 @@
-document
-.getElementById("btnScanOCR")
-?.addEventListener("click", e => {
+document.addEventListener("change", async (e) => {
+
+    if (e.target.id !== "ocrFile") return;
+
     e.preventDefault();
     e.stopPropagation();
-    document
-        .getElementById("ocrFile")
-        .click();
-});
-
-document.addEventListener("change", async (e) => {
-    if (e.target.id !== "ocrFile") return;
 
     const file = e.target.files[0];
     if (!file) return;
@@ -17,11 +11,16 @@ document.addEventListener("change", async (e) => {
     const status = document.getElementById("ocrStatus");
     const textarea = document.getElementById("postContent");
 
+    // Cegah auto reload saat file picker / OCR aktif
+    OCR_ACTIVE = true;
+
     status.innerText = "Memproses...";
 
     try {
 
-        // ===== PDF =====
+        // =====================
+        // PDF OCR
+        // =====================
         if (file.type === "application/pdf") {
 
             status.innerText = "Membaca PDF...";
@@ -34,16 +33,22 @@ document.addEventListener("change", async (e) => {
 
             let finalText = "";
 
-            for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+            for (
+                let pageNum = 1;
+                pageNum <= pdf.numPages;
+                pageNum++
+            ) {
 
                 status.innerText =
                     `OCR PDF ${pageNum}/${pdf.numPages}`;
 
-                const page = await pdf.getPage(pageNum);
+                const page =
+                    await pdf.getPage(pageNum);
 
-                const viewport = page.getViewport({
-                    scale: 2
-                });
+                const viewport =
+                    page.getViewport({
+                        scale: 2
+                    });
 
                 const canvas =
                     document.createElement("canvas");
@@ -51,8 +56,11 @@ document.addEventListener("change", async (e) => {
                 const ctx =
                     canvas.getContext("2d");
 
-                canvas.width = viewport.width;
-                canvas.height = viewport.height;
+                canvas.width =
+                    viewport.width;
+
+                canvas.height =
+                    viewport.height;
 
                 await page.render({
                     canvasContext: ctx,
@@ -76,10 +84,11 @@ document.addEventListener("change", async (e) => {
 
             status.innerText =
                 "✓ PDF selesai";
-
         }
 
-        // ===== IMAGE =====
+        // =====================
+        // IMAGE OCR
+        // =====================
         else {
 
             const result =
@@ -88,10 +97,12 @@ document.addEventListener("change", async (e) => {
                     "ind+eng+ara",
                     {
                         logger: m => {
+
                             if (
                                 m.status ===
                                 "recognizing text"
                             ) {
+
                                 status.innerText =
                                     "Scanning " +
                                     Math.round(
@@ -107,7 +118,9 @@ document.addEventListener("change", async (e) => {
                 result.data.text.trim();
 
             textarea.value +=
-                (textarea.value ? "\n\n" : "") +
+                (textarea.value
+                    ? "\n\n"
+                    : "") +
                 text;
 
             status.innerText =
@@ -120,5 +133,14 @@ document.addEventListener("change", async (e) => {
 
         status.innerText =
             "✗ OCR gagal";
+    }
+
+    finally {
+
+        // Aktifkan lagi auto refresh normal
+        OCR_ACTIVE = false;
+
+        // reset input supaya bisa scan file sama lagi
+        e.target.value = "";
     }
 });

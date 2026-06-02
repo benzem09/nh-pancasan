@@ -82,7 +82,12 @@ document.getElementById("btnRefresh")?.addEventListener("click", async () => {
     location.reload();
 });
 
+let OCR_ACTIVE = false;
+
 document.addEventListener("visibilitychange", () => {
+
+    if (OCR_ACTIVE) return;
+
     if (!document.hidden) {
         location.reload();
     }
