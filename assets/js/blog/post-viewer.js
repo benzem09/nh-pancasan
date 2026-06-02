@@ -280,8 +280,14 @@ async function downloadPDF(postTitle) {
         el.style.filter = "none";
 
         // hindari pecah elemen
-        el.style.breakInside = "avoid";
-        el.style.pageBreakInside = "avoid";
+        if (
+            el.tagName === "IMG" ||
+            el.tagName === "TABLE" ||
+            el.tagName === "PRE"
+        ) {
+            el.style.breakInside = "avoid";
+            el.style.pageBreakInside = "avoid";
+        }
     });
 
     // tunggu semua gambar
@@ -324,9 +330,14 @@ async function downloadPDF(postTitle) {
             },
             pagebreak: {
                 mode: [
-                    "avoid-all",
                     "css",
                     "legacy"
+                ],
+                avoid: [
+                    "img",
+                    "table",
+                    "pre",
+                    "blockquote"
                 ]
             }
         })
