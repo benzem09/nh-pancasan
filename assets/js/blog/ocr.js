@@ -1,3 +1,9 @@
+document
+.getElementById("ocrFile")
+?.addEventListener("click", () => {
+    FILE_PICKER_ACTIVE = true;
+});
+
 document.addEventListener("change", async (e) => {
 
     if (e.target.id !== "ocrFile") return;
@@ -12,7 +18,7 @@ document.addEventListener("change", async (e) => {
     const textarea = document.getElementById("postContent");
 
     // Cegah auto reload saat file picker / OCR aktif
-    OCR_ACTIVE = true;
+    FILE_PICKER_ACTIVE = true;
 
     status.innerText = "Memproses...";
 
@@ -138,7 +144,7 @@ document.addEventListener("change", async (e) => {
     finally {
 
         // Aktifkan lagi auto refresh normal
-        OCR_ACTIVE = false;
+        FILE_PICKER_ACTIVE = false;
 
         // reset input supaya bisa scan file sama lagi
         e.target.value = "";

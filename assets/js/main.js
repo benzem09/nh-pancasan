@@ -82,17 +82,17 @@ document.getElementById("btnRefresh")?.addEventListener("click", async () => {
     location.reload();
 });
 
-let OCR_ACTIVE = false;
+let FILE_PICKER_ACTIVE = false;
+
 document.addEventListener("visibilitychange", () => {
 
-    if (OCR_ACTIVE) return;
+    // Jangan reload saat pilih file / OCR
+    if (FILE_PICKER_ACTIVE) return;
 
     if (!document.hidden) {
         location.reload();
     }
 });
-
-
 
 window.onload = () => {
     switchTab('blog');
