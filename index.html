@@ -67,6 +67,7 @@ async function initApp() {
 
     const scripts = [
         'assets/js/api.js',
+
         'assets/js/blog/config.js',
         'assets/js/blog/helpers.js',
         'assets/js/blog/search.js',
@@ -76,15 +77,20 @@ async function initApp() {
         'assets/js/blog/toc.js',
         'assets/js/blog/post-viewer.js',
         'assets/js/blog/lightbox.js',
+
         'assets/vendor/jspdf.umd.min.js',
         'assets/js/blog/sitemap.js',
-        'assets/js/blog/post-crud.js',
+
         'assets/js/blog/image-upload.js',
+        'assets/js/blog/ocr.js',
+        'assets/js/blog/post-crud.js',
+
         'assets/js/blog/categories.js',
         'assets/js/blog/archive.js',
         'assets/js/blog/blog-feed.js',
         'assets/js/blog/router.js',
         'assets/js/blog/fab.js',
+
         'assets/js/main.js',
     ];
 
@@ -135,5 +141,7 @@ if ("serviceWorker" in navigator) {
         .catch(err => console.log("SW failed", err));
 }
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 </body>
 </html>
