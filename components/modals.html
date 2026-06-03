@@ -14,7 +14,7 @@
             <option value="Renungan">Renungan</option>
             <option value="Tafsir">Tafsir</option>
         </select>
-        <div class="flex gap-4 mb-3 flex-wrap">
+        <div class="flex gap-3 mb-3 flex-wrap">
             <!-- UPLOAD IMAGE -->
             <input
                 type="file"
@@ -30,7 +30,7 @@
                 📷 Upload
             </button>
 
-                          <!-- IMAGE OCR -->
+             <!-- IMAGE OCR -->
              <input
                  type="file"
                  id="ocrFile"
@@ -55,35 +55,11 @@
                  class="px-1 py-1 rounded-lg bg-slate-700 text-xs flex items-center gap-1">
                  📄 Scan PDF
              </button>
-             
-             <!-- TOMBOL LIVE SCAN BARU -->
-             <button
-                 type="button"
-                 id="btnLiveScan"
-                 onclick="toggleLiveScan()"
-                 class="px-1 py-1 rounded-lg bg-emerald-700 text-xs font-bold text-white">
-                 禿 Live Scan
-             </button>
              <span
                  id="ocrStatus"
                  class="text-[11px] opacity-60">
              </span>
-         </div>
-
-         <!-- AREA KAMERA LIVE SCAN (Disembunyikan secara default) -->
-         <div id="cameraContainer" class="hidden mb-3 relative border border-emerald-500 rounded-xl overflow-hidden bg-black">
-             <video id="videoStream" autoplay playsinline class="w-full h-[240px] object-cover"></video>
-             <!-- Canvas rahasia untuk menangkap gambar dari video -->
-             <canvas id="videoCanvas" class="hidden"></canvas>
-             <div class="absolute bottom-2 left-2 right-2 flex justify-between items-center bg-black/60 p-2 rounded-lg text-[10px]">
-                 <span id="liveOcrIndicator" class="text-emerald-400 animate-pulse">禿 Kamera Standby...</span>
-                 <button type="button" onclick="stopLiveScan()" class="bg-red-600 px-2 py-1 rounded text-white font-bold">Tutup Kamera</button>
-                 <span
-                 id="ocrStatus"
-                 class="text-[11px] opacity-60">
-             </span>
-             </div>
-         </div>
+        </div>
         <textarea id="postContent" placeholder="Isi konten..." rows="16" class="w-full min-h-[320px] max-h-[65vh] resize-y bg-slate-800 p-3 rounded-xl mb-4 outline-none border border-white/10 text-sm leading-relaxed"></textarea>
         <div class="flex gap-2">
             <button onclick="closeModal('postModal'); resetPostModal();" class="flex-1 bg-slate-700 py-2 rounded-lg text-xs">Batal</button>
