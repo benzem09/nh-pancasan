@@ -37,9 +37,9 @@
                  class="hidden">
              <button
                  type="button"
-                 onclick="document.getElementById('ocrFile').click()"
-                 class="px-2 py-1 rounded-lg bg-slate-700 text-xs">
-                 📷 Scan Image
+                 onclick="FILE_PICKER_ACTIVE = true; document.getElementById('ocrFile').click();"
+                 class="px-3 py-2 rounded-lg bg-slate-700 text-xs">
+                 胴 Scan Image
              </button>
              <!-- PDF OCR -->
              <input
@@ -49,9 +49,9 @@
                  class="hidden">
              <button
                  type="button"
-                 onclick="document.getElementById('pdfFile').click()"
-                 class="px-2 py-1 rounded-lg bg-slate-700 text-xs">
-                 📄 Scan PDF
+                 onclick="FILE_PICKER_ACTIVE = true; document.getElementById('pdfFile').click();"
+                 class="px-3 py-2 rounded-lg bg-blue-700 text-xs">
+                 塘 Scan PDF
              </button>
              <span
                  id="ocrStatus"

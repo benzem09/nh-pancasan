@@ -7,9 +7,14 @@ document.addEventListener("change", async (e) => {
     if (e.target.id !== "pdfFile") return;
 
     const file = e.target.files[0];
-    if (!file) return;
+    
+    // JIKA USER BATAL MEMILIH FILE
+    if (!file) {
+        FILE_PICKER_ACTIVE = false; // Lepas kunci perlindungan
+        return;
+    }
 
-    // KUNCI UTAMA: Aktifkan mode proteksi agar halaman tidak reload saat file PDF masuk
+    // Pastikan proteksi tetap aktif selama proses berjalan
     FILE_PICKER_ACTIVE = true;
 
     const status = document.getElementById("ocrStatus");
@@ -62,7 +67,9 @@ document.addEventListener("change", async (e) => {
         status.innerText = "✗ PDF gagal diproses: " + err.message;
     } finally {
         e.target.value = "";
-        // Lepaskan proteksi setelah proses tuntas
-        setTimeout(() => { FILE_PICKER_ACTIVE = false; }, 1000);
+        // Beri jeda 1,5 detik sebelum mematikan proteksi reload halaman demi keamanan browser HP
+        setTimeout(() => { 
+            FILE_PICKER_ACTIVE = false; 
+        }, 1500);
     }
 });
