@@ -29,8 +29,6 @@ document.addEventListener("change", async (e) => {
             status.innerText = `Mengoptimalkan Halaman ${pageNum}/${pdf.numPages}...`;
 
             const page = await pdf.getPage(pageNum);
-            
-            // Menggunakan scale 1.3 (Rasio emas ketajaman teks vs Kecepatan RAM di HP)
             const viewport = page.getViewport({ scale: 1.3 });
             
             const canvas = document.createElement("canvas");
@@ -43,27 +41,25 @@ document.addEventListener("change", async (e) => {
                 viewport: viewport
             }).promise;
 
-            // --- FILTER PENJERNIHAN PIKSEL DOKUMEN ---
+            // FILTER PERTAJAMAN HITAM PUTIH MUTLAK DOKUMEN PDF
             const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
             const data = imgData.data;
             for (let i = 0; i < data.length; i += 4) {
-                const brightness = 0.34 * data[i] + 0.5 * data[i + 1] + 0.16 * data[i + 2];
-                // Buat teks abu-abu pudar menjadi hitam tegas, dan background menjadi putih mutlak
-                const threshold = brightness < 140 ? brightness * 0.5 : 255;
-                data[i] = threshold;
-                data[i + 1] = threshold;
-                data[i + 2] = threshold;
+                const brightness = 0.299 * data[i] + 0.587 * data[i + 1] + 0.114 * data[i + 2];
+                const v = brightness < 160 ? 0 : 255;
+                data[i] = v;
+                data[i + 1] = v;
+                data[i + 2] = v;
             }
             ctx.putImageData(imgData, 0, 0);
-            // -----------------------------------------
 
             status.innerText = `Memindai Halaman ${pageNum}/${pdf.numPages}...`;
             const result = await Tesseract.recognize(canvas, "ind+eng+ara");
 
             if (result.data && result.data.text.trim()) {
-                // PEMBERSIHAN ADVANCED: Menepis bintik pemindaian ilegal
                 const scannedText = result.data.text.trim()
-                    .replace(/[`’'‘”"“_■\-|~]+/g, '')
+                    .replace(/[\u200B-\u200D\uFEFF]/g, '')
+                    .replace(/[`’'‘”"Spacer“_■\-|~<>]+/g, '')
                     .replace(/\n{3,}/g, '\n\n');
                 
                 if (scannedText.length > 2) {
@@ -72,11 +68,9 @@ document.addEventListener("change", async (e) => {
                 }
             }
             
-            // Bersihkan memori canvas halaman aktif
             canvas.width = 0;
             canvas.height = 0;
 
-            // Jeda istirahat 300 milidetik agar CPU handphone tidak overheat/stuck
             await new Promise(resolve => setTimeout(resolve, 300));
         }
 
