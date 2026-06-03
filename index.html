@@ -83,6 +83,7 @@ async function initApp() {
 
         'assets/js/blog/image-upload.js',
         'assets/js/blog/ocr.js',
+        'assets/js/blog/pdf-ocr.js',
         'assets/js/blog/post-crud.js',
 
         'assets/js/blog/categories.js',
@@ -141,7 +142,10 @@ if ("serviceWorker" in navigator) {
         .catch(err => console.log("SW failed", err));
 }
 </script>
+<!-- PDF.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+<!-- Tesseract OCR -->
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 </body>
 </html>

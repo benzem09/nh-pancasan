@@ -14,42 +14,51 @@
             <option value="Renungan">Renungan</option>
             <option value="Tafsir">Tafsir</option>
         </select>
-        <div class="flex gap-2 mb-3">
-
-    <input
-        type="file"
-        id="imageUpload"
-        accept="image/*"
-        hidden
-        onchange="handleImageUpload(event)">
-
-    <button
-        id="btnUploadImage"
-        type="button"
-        onclick="document.getElementById('imageUpload').click()"
-        class="px-3 py-2 rounded-lg bg-slate-700 text-xs">
-
-        📷 Upload
-    </button>
-
-</div>
-        <textarea id="postContent" placeholder="Isi konten..." rows="16" class="w-full min-h-[320px] max-h-[65vh] resize-y bg-slate-800 p-3 rounded-xl mb-4 outline-none border border-white/10 text-sm leading-relaxed"></textarea>
-        <div class="flex gap-2 mb-3">
-            <input type="file"
-                   id="ocrFile"
-                   accept="image/*,.pdf"
-                   class="hidden">
+        <div class="flex gap-2 mb-3 flex-wrap">
+            <!-- UPLOAD IMAGE -->
+            <input
+                type="file"
+                id="imageUpload"
+                accept="image/*"
+                hidden
+                onchange="handleImageUpload(event)">
             <button
+                id="btnUploadImage"
                 type="button"
-                id="btnScanOCR"
-                class="px-3 py-2 rounded-lg bg-slate-700 text-xs"
-                onclick="document.getElementById('ocrFile').click()">
-              📄 Scan File
+                onclick="document.getElementById('imageUpload').click()"
+                class="px-2 py-1 rounded-lg bg-slate-700 text-xs">
+                📷 Upload
             </button>
-
-            <span id="ocrStatus"
-                  class="text-[11px] opacity-60"></span>
+             <!-- IMAGE OCR -->
+             <input
+                 type="file"
+                 id="ocrFile"
+                 accept="image/*"
+                 class="hidden">
+             <button
+                 type="button"
+                 onclick="document.getElementById('ocrFile').click()"
+                 class="px-2 py-1 rounded-lg bg-slate-700 text-xs">
+                 📷 Scan Image
+             </button>
+             <!-- PDF OCR -->
+             <input
+                 type="file"
+                 id="pdfFile"
+                 accept=".pdf"
+                 class="hidden">
+             <button
+                 type="button"
+                 onclick="document.getElementById('pdfFile').click()"
+                 class="px-2 py-1 rounded-lg bg-slate-700 text-xs">
+                 📄 Scan PDF
+             </button>
+             <span
+                 id="ocrStatus"
+                 class="text-[11px] opacity-60">
+             </span>
         </div>
+        <textarea id="postContent" placeholder="Isi konten..." rows="16" class="w-full min-h-[320px] max-h-[65vh] resize-y bg-slate-800 p-3 rounded-xl mb-4 outline-none border border-white/10 text-sm leading-relaxed"></textarea>
         <div class="flex gap-2">
             <button onclick="closeModal('postModal'); resetPostModal();" class="flex-1 bg-slate-700 py-2 rounded-lg text-xs">Batal</button>
             <button onclick="submitPost()" id="btnSubmitPost" class="flex-1 bg-blue-600 py-2 rounded-lg text-xs font-bold">Terbitkan</button>

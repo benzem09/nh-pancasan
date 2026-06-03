@@ -1,152 +1,47 @@
-document
-.getElementById("ocrFile")
-?.addEventListener("click", () => {
-    FILE_PICKER_ACTIVE = true;
-});
-
 document.addEventListener("change", async (e) => {
-
     if (e.target.id !== "ocrFile") return;
-
-    e.preventDefault();
-    e.stopPropagation();
 
     const file = e.target.files[0];
     if (!file) return;
 
+    // KUNCI: Set true agar halaman tidak ter-refresh saat kembali dari file picker
+    FILE_PICKER_ACTIVE = true;
+
     const status = document.getElementById("ocrStatus");
     const textarea = document.getElementById("postContent");
 
-    // Cegah auto reload saat file picker / OCR aktif
-    FILE_PICKER_ACTIVE = true;
-
-    status.innerText = "Memproses...";
+    status.innerText = "Menginisialisasi Scan...";
 
     try {
-
-        // =====================
-        // PDF OCR
-        // =====================
-        if (file.type === "application/pdf") {
-
-            status.innerText = "Membaca PDF...";
-
-            const arrayBuffer = await file.arrayBuffer();
-
-            const pdf = await pdfjsLib.getDocument({
-                data: arrayBuffer
-            }).promise;
-
-            let finalText = "";
-
-            for (
-                let pageNum = 1;
-                pageNum <= pdf.numPages;
-                pageNum++
-            ) {
-
-                status.innerText =
-                    `OCR PDF ${pageNum}/${pdf.numPages}`;
-
-                const page =
-                    await pdf.getPage(pageNum);
-
-                const viewport =
-                    page.getViewport({
-                        scale: 2
-                    });
-
-                const canvas =
-                    document.createElement("canvas");
-
-                const ctx =
-                    canvas.getContext("2d");
-
-                canvas.width =
-                    viewport.width;
-
-                canvas.height =
-                    viewport.height;
-
-                await page.render({
-                    canvasContext: ctx,
-                    viewport
-                }).promise;
-
-                const result =
-                    await Tesseract.recognize(
-                        canvas,
-                        "ind+eng+ara"
-                    );
-
-                finalText +=
-                    "\n\n" +
-                    result.data.text;
-            }
-
-            textarea.value +=
-                (textarea.value ? "\n\n" : "") +
-                finalText;
-
-            status.innerText =
-                "✓ PDF selesai";
-        }
-
-        // =====================
-        // IMAGE OCR
-        // =====================
-        else {
-
-            const result =
-                await Tesseract.recognize(
-                    file,
-                    "ind+eng+ara",
-                    {
-                        logger: m => {
-
-                            if (
-                                m.status ===
-                                "recognizing text"
-                            ) {
-
-                                status.innerText =
-                                    "Scanning " +
-                                    Math.round(
-                                        m.progress * 100
-                                    ) +
-                                    "%";
-                            }
-                        }
+        const result = await Tesseract.recognize(
+            file,
+            "ind+eng+ara",
+            {
+                logger: m => {
+                    if (m.status === "recognizing text") {
+                        status.innerText = "Memindai Gambar: " + Math.round(m.progress * 100) + "%";
+                    } else {
+                        status.innerText = "Memuat AI: " + m.status;
                     }
-                );
+                }
+            }
+        );
 
-            const text =
-                result.data.text.trim();
+        const text = result.data.text.trim();
 
-            textarea.value +=
-                (textarea.value
-                    ? "\n\n"
-                    : "") +
-                text;
-
-            status.innerText =
-                "✓ Scan selesai";
+        if (text) {
+            textarea.value = (textarea.value ? textarea.value + "\n\n" : "") + text;
+            status.innerText = "✓ Scan Gambar Berhasil";
+        } else {
+            status.innerText = "⚠ Selesai, teks tidak terdeteksi";
         }
 
     } catch (err) {
-
-        console.error(err);
-
-        status.innerText =
-            "✗ OCR gagal";
-    }
-
-    finally {
-
-        // Aktifkan lagi auto refresh normal
-        FILE_PICKER_ACTIVE = false;
-
-        // reset input supaya bisa scan file sama lagi
+        console.error("Error OCR Gambar:", err);
+        status.innerText = "✗ Gagal scan: " + err.message;
+    } finally {
         e.target.value = "";
+        // Buka kunci kembali setelah proses selesai beberapa saat
+        setTimeout(() => { FILE_PICKER_ACTIVE = false; }, 1000);
     }
 });
