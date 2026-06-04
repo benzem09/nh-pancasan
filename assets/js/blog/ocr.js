@@ -23,7 +23,7 @@ document.addEventListener("change", async (e) => {
                 const page = await pdf.getPage(pageNum);
                 
                 // POWER UP: Gunakan Scale 2.5 agar lekukan huruf Arab sangat tajam
-                const viewport = page.getViewport({ scale: 3 });
+                const viewport = page.getViewport({ scale: 4 });
                 const canvas = document.createElement("canvas");
                 const ctx = canvas.getContext("2d");
                 canvas.width = viewport.width;
