@@ -41,7 +41,8 @@ document.addEventListener("change", async (e) => {
                 await pdf.getPage(pageNum);  
 
             const content =  
-                await page.getTextContent();  
+                await page.getTextContent();
+            console.log(content.items);
 
             const pageText =  
                 content.items  
