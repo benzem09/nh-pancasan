@@ -12,68 +12,56 @@ document.addEventListener("change", async (e) => {
 
         status.innerText = "Memproses...";
 
-        // =====================================
-        // PDF TEXT EXTRACT
-        // =====================================
+        // ==========================  
+    // PDF  
+    // ==========================  
 
-        if (file.type === "application/pdf") {
+    if (file.type === "application/pdf") {  
 
-            const arrayBuffer = await file.arrayBuffer();
+        const arrayBuffer =  
+            await file.arrayBuffer();  
 
-            const pdf = await pdfjsLib.getDocument({
-                data: arrayBuffer
-            }).promise;
+        const pdf =  
+            await pdfjsLib.getDocument({  
+                data: arrayBuffer  
+            }).promise;  
 
-            let fullText = "";
+        let fullText = "";  
 
-            for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+        for (  
+            let pageNum = 1;  
+            pageNum <= pdf.numPages;  
+            pageNum++  
+        ) {  
 
-                status.innerText =
-                    `PDF ${pageNum}/${pdf.numPages}`;
+            status.innerText =  
+                `PDF ${pageNum}/${pdf.numPages}`;  
 
-                const page = await pdf.getPage(pageNum);
+            const page =  
+                await pdf.getPage(pageNum);  
 
-                const content =
-                    await page.getTextContent();
+            const content =  
+                await page.getTextContent();  
 
-                let pageText = "";
+            const pageText =  
+                content.items  
+                .map(item => item.str)  
+                .join(" ");  
 
-                let lastY = null;
+            fullText +=  
+                pageText +  
+                "\n\n";  
+        }  
 
-                content.items.forEach(item => {
+        textarea.value +=  
+            (textarea.value ? "\n\n" : "") +  
+            fullText;  
 
-                    const y = item.transform[5];
+        status.innerText =  
+            "✓ PDF selesai";  
 
-                    if (
-                        lastY !== null &&
-                        Math.abs(lastY - y) > 5
-                    ) {
-                        pageText += "\n";
-                    }
-
-                    pageText += item.str + " ";
-
-                    lastY = y;
-                });
-
-                fullText +=
-                    pageText +
-                    "\n\n--------------------\n\n";
-            }
-
-            fullText = cleanText(fullText);
-
-            textarea.value +=
-                (textarea.value ? "\n\n" : "") +
-                fullText;
-
-            status.innerText =
-                "✓ PDF selesai";
-
-            e.target.value = "";
-
-            return;
-        }
+        return;  
+    }  
 
         // =====================================
         // IMAGE PREPROCESS
