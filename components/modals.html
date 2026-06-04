@@ -29,31 +29,17 @@
                 class="px-1 py-1 rounded-lg bg-slate-700 text-xs">
                 📷 Upload
             </button>
-
-             <!-- IMAGE OCR -->
+             <!-- IMAGE OCR / PDF OCR -->
              <input
                  type="file"
                  id="ocrFile"
-                 accept="image/*"
+                 accept="image/*,.pdf"
                  class="hidden">
              <button
                  type="button"
                  onclick="FILE_PICKER_ACTIVE = true; document.getElementById('ocrFile').click();"
                  class="px-1 py-1 rounded-lg bg-slate-700 text-xs flex items-center gap-1">
-                 📷 Scan
-             </button>
-             
-             <!-- PDF OCR -->
-             <input
-                 type="file"
-                 id="pdfFile"
-                 accept=".pdf"
-                 class="hidden">
-             <button
-                 type="button"
-                 onclick="FILE_PICKER_ACTIVE = true; document.getElementById('pdfFile').click();"
-                 class="px-1 py-1 rounded-lg bg-slate-700 text-xs flex items-center gap-1">
-                 📄 Scan PDF
+                 	📚 Scan File
              </button>
              <span
                  id="ocrStatus"
