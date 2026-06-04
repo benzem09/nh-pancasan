@@ -116,29 +116,3 @@ try {
 }
 
 });
-
-// =====================================
-// CLEAN OCR RESULT
-// =====================================
-
-function cleanText(text) {
-
-    return text
-
-        // karakter RTL tersembunyi
-        .replace(/[‎‏]/g, "")
-
-        // spasi berlebihan
-        .replace(/[ ]{2,}/g, " ")
-
-        // enter berlebihan
-        .replace(/\n{3,}/g, "\n\n")
-
-        // artefak OCR umum
-        .replace(/PURPORT/g, "")
-        .replace(/Goyang/g, "")
-        .replace(/Jest/g, "")
-        .replace(/£\d+/g, "")
-
-        .trim();
-}
