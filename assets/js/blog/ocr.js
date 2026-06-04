@@ -1,18 +1,21 @@
 document.addEventListener("change", async (e) => {
 
-    if (e.target.id !== "ocrFile") return;
+if (e.target.id !== "ocrFile") return;  
 
-    const file = e.target.files[0];
-    if (!file) return;
+const file = e.target.files[0];  
+if (!file) return;  
 
-    const status = document.getElementById("ocrStatus");
-    const textarea = document.getElementById("postContent");
+const status =  
+    document.getElementById("ocrStatus");  
 
-    try {
+const textarea =  
+    document.getElementById("postContent");  
 
-        status.innerText = "Memproses...";
+try {  
 
-        // ==========================  
+    status.innerText = "Memproses...";  
+
+    // ==========================  
     // PDF  
     // ==========================  
 
@@ -41,8 +44,7 @@ document.addEventListener("change", async (e) => {
                 await pdf.getPage(pageNum);  
 
             const content =  
-                await page.getTextContent();
-            console.log(content.items);
+                await page.getTextContent();  
 
             const pageText =  
                 content.items  
@@ -64,148 +66,56 @@ document.addEventListener("change", async (e) => {
         return;  
     }  
 
-        // =====================================
-        // IMAGE PREPROCESS
-        // =====================================
+    // ==========================  
+    // IMAGE OCR  
+    // ==========================  
 
-        status.innerText = "Menyiapkan gambar...";
+    const result =  
+        await Tesseract.recognize(  
+            file,  
+            "ara+ind+eng",  
+            {  
+                logger: m => {  
+                    if (  
+                        m.status ===  
+                        "recognizing text"  
+                    ) {  
+                        status.innerText =  
+                            "OCR " +  
+                            Math.round(  
+                                m.progress * 100  
+                            ) +  
+                            "%";  
+                    }  
+                }  
+            }  
+        );  
 
-        const img = await loadImage(file);
+    let text =  
+        result.data.text;  
 
-        const canvas =
-            preprocessImage(img);
+    text = text  
+        .replace(/[‎‏]/g, "")  
+        .replace(/\n{3,}/g, "\n\n")  
+        .replace(/[ ]{2,}/g, " ")  
+        .trim();  
 
-        // =====================================
-        // OCR IMAGE
-        // =====================================
+    textarea.value +=  
+        (textarea.value ? "\n\n" : "") +  
+        text;  
 
-        const result =
-            await Tesseract.recognize(
-                canvas,
-                "ara+ind",
-                {
-                    logger: m => {
+    status.innerText =  
+        "✓ OCR selesai";  
 
-                        if (
-                            m.status ===
-                            "recognizing text"
-                        ) {
+} catch (err) {  
 
-                            status.innerText =
-                                "OCR " +
-                                Math.round(
-                                    m.progress * 100
-                                ) +
-                                "%";
-                        }
-                    }
-                }
-            );
+    console.error(err);  
 
-        let text =
-            cleanText(result.data.text);
+    status.innerText =  
+        "✗ Gagal membaca file";  
+}
 
-        textarea.value +=
-            (textarea.value ? "\n\n" : "") +
-            text;
-
-        status.innerText =
-            "✓ OCR selesai";
-
-        e.target.value = "";
-
-    } catch (err) {
-
-        console.error(err);
-
-        status.innerText =
-            "✗ Gagal membaca file";
-    }
 });
-
-
-// =====================================
-// LOAD IMAGE
-// =====================================
-
-function loadImage(file) {
-
-    return new Promise((resolve, reject) => {
-
-        const img = new Image();
-
-        img.onload = () => resolve(img);
-
-        img.onerror = reject;
-
-        img.src =
-            URL.createObjectURL(file);
-    });
-}
-
-
-// =====================================
-// PREPROCESS IMAGE
-// =====================================
-
-function preprocessImage(img) {
-
-    const canvas =
-        document.createElement("canvas");
-
-    const ctx =
-        canvas.getContext("2d");
-
-    canvas.width =
-        img.width;
-
-    canvas.height =
-        img.height;
-
-    ctx.drawImage(img, 0, 0);
-
-    const imageData =
-        ctx.getImageData(
-            0,
-            0,
-            canvas.width,
-            canvas.height
-        );
-
-    const data =
-        imageData.data;
-
-    for (
-        let i = 0;
-        i < data.length;
-        i += 4
-    ) {
-
-        let gray =
-            0.299 * data[i] +
-            0.587 * data[i + 1] +
-            0.114 * data[i + 2];
-
-        gray =
-            gray > 190
-                ? 255
-                : 0;
-
-        data[i] =
-        data[i + 1] =
-        data[i + 2] =
-            gray;
-    }
-
-    ctx.putImageData(
-        imageData,
-        0,
-        0
-    );
-
-    return canvas;
-}
-
 
 // =====================================
 // CLEAN OCR RESULT
