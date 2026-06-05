@@ -108,5 +108,16 @@
         "date": "2026-06-05",
         "year": "2026",
         "month": "06"
+    },
+    {
+        "id": 1780633641199,
+        "slug": "yes-scan-img",
+        "title": "Yes scan img",
+        "thumbnail": "assets/img/articel.jpg",
+        "author": "admin",
+        "category": "Umum",
+        "date": "2026-06-05",
+        "year": "2026",
+        "month": "06"
     }
 ]
