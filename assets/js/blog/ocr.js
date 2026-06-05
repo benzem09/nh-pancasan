@@ -50,14 +50,29 @@ document.addEventListener("change", async (e) => {
                         Math.abs(y - lastY) > 5
                     ) {
 
-                        currentLine.sort(
-                            (a, b) => b.x - a.x
-                        );
+                        const sampleText =
+                            currentLine
+                                .map(i => i.text)
+                                .join("");
+
+                        if (isMostlyArabic(sampleText)) {
+
+                            currentLine.sort(
+                                (a, b) => b.x - a.x
+                            );
+
+                        } else {
+
+                            currentLine.sort(
+                                (a, b) => a.x - b.x
+                            );
+                        }
 
                         lines.push(
                             currentLine
                                 .map(i => i.text)
                                 .join(" ")
+                                .trim()
                         );
 
                         currentLine = [];
@@ -73,15 +88,30 @@ document.addEventListener("change", async (e) => {
 
                 if (currentLine.length) {
 
-                    currentLine.sort(
-                        (a, b) => b.x - a.x
-                    );
+                    const sampleText =
+                            currentLine
+                                .map(i => i.text)
+                                .join("");
 
-                    lines.push(
-                        currentLine
-                            .map(i => i.text)
-                            .join(" ")
-                    );
+                        if (isMostlyArabic(sampleText)) {
+
+                            currentLine.sort(
+                                (a, b) => b.x - a.x
+                            );
+
+                        } else {
+
+                            currentLine.sort(
+                                (a, b) => a.x - b.x
+                            );
+                        }
+
+                        lines.push(
+                            currentLine
+                                .map(i => i.text)
+                                .join(" ")
+                                .trim()
+                        );
                 }
 
                 fullText +=
@@ -89,7 +119,10 @@ document.addEventListener("change", async (e) => {
                     "\n\n";
             }
 
-            fullText = formatArabicText(fullText);
+            fullText = fullText.replace(
+                /([0-9]+)\./g,
+                "\n$1. "
+            );
 
             textarea.value +=
                 (textarea.value ? "\n\n" : "") +
@@ -148,24 +181,18 @@ document.addEventListener("change", async (e) => {
                 }
             );
 
-        let text = "";
+        let text =
+            result.data.text || "";
 
         if (
+            !text.trim() &&
             result.data.words &&
             result.data.words.length
         ) {
 
             text = result.data.words
-                .filter(
-                    w =>
-                        w.conf > 45 &&
-                        w.text.trim()
-                )
                 .map(w => w.text)
                 .join(" ");
-        } else {
-
-            text = result.data.text;
         }
 
         text = formatArabicText(text);
@@ -211,6 +238,13 @@ function loadImage(file) {
     );
 }
 
+function isMostlyArabic(text) {
+
+    const arabicChars =
+        (text.match(/[\u0600-\u06FF]/g) || []).length;
+
+    return arabicChars > text.length * 0.3;
+}
 
 // =====================================
 // PREPROCESS
