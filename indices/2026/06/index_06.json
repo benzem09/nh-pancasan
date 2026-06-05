@@ -119,5 +119,16 @@
         "date": "2026-06-05",
         "year": "2026",
         "month": "06"
+    },
+    {
+        "id": 1780633730607,
+        "slug": "tes-scan-pdf",
+        "title": "Tes scan pdf",
+        "thumbnail": "assets/img/articel.jpg",
+        "author": "admin",
+        "category": "Umum",
+        "date": "2026-06-05",
+        "year": "2026",
+        "month": "06"
     }
 ]
