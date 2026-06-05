@@ -38,6 +38,7 @@ document.addEventListener("change", async (e) => {
                     });
 
                 let lines = [];
+                let pageLines = []
                 let currentLine = [];
                 let lastY = null;
 
@@ -150,7 +151,7 @@ document.addEventListener("change", async (e) => {
         const result =
             await Tesseract.recognize(
                 canvas,
-                "ara+eng+ind",
+                "ara+ind",
                 {
                     logger: m => {
 
@@ -181,8 +182,7 @@ document.addEventListener("change", async (e) => {
                 }
             );
 
-        let text =
-            result.data.text || "";
+        let text = formatArabicText(result.data.text);
 
         if (
             !text.trim() &&
