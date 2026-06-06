@@ -152,7 +152,7 @@ document.addEventListener("change", async (e) => {
         const result =
             await Tesseract.recognize(
                 canvas,
-                "ara+ind",
+                "ara",
                 {
                     logger: m => {
 
