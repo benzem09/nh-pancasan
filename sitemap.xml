@@ -6,7 +6,7 @@
 
   <url>
     <loc>https://benzem09.github.io/nh-pancasan/</loc>
-    <lastmod>2026-06-06T09:14:56.434Z</lastmod>
+    <lastmod>2026-06-06T11:59:41.878Z</lastmod>
     <priority>1.0</priority>
   </url>
 
@@ -178,6 +178,11 @@
   <url>
     <loc>https://benzem09.github.io/nh-pancasan/?post=nabi-zakariya</loc>
     <lastmod>2026-06-02T00:00:00.000Z</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://benzem09.github.io/nh-pancasan/?post=ijab-qabul-bhs-arab</loc>
+    <lastmod>2026-06-06T00:00:00.000Z</lastmod>
     <priority>0.8</priority>
   </url>
 </urlset>
