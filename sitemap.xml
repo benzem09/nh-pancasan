@@ -6,7 +6,7 @@
 
   <url>
     <loc>https://benzem09.github.io/nh-pancasan/</loc>
-    <lastmod>2026-06-06T03:16:54.398Z</lastmod>
+    <lastmod>2026-06-06T03:38:03.274Z</lastmod>
     <priority>1.0</priority>
   </url>
 
@@ -188,6 +188,11 @@
   <url>
     <loc>https://benzem09.github.io/nh-pancasan/?post=tes-scan-pdf</loc>
     <lastmod>2026-06-05T00:00:00.000Z</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://benzem09.github.io/nh-pancasan/?post=tes-scan-pdf</loc>
+    <lastmod>2026-06-06T00:00:00.000Z</lastmod>
     <priority>0.8</priority>
   </url>
 </urlset>
