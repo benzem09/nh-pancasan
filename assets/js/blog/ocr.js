@@ -118,15 +118,13 @@ document.addEventListener("change", async (e) => {
                 fullText +=
                     lines.join("\n") +
                     "\n\n";
-                    
-                await new Promise(resolve => setTimeout(resolve, 100));
             }
 
-            const formattedPDFText = formatArabicText(fullText);
-                fullText = fullText.replace(
+            fullText = formatArabicText(fullText); 
+            fullText = fullText.replace(
                 /([0-9]+)\./g,
                 "\n$1. "
-              );
+            );
 
             textarea.value +=
                 (textarea.value ? "\n\n" : "") +
@@ -310,7 +308,7 @@ function preprocessImage(img) {
             data[i + 1] * 0.587 +
             data[i + 2] * 0.114;
 
-        gray = (gray - 128) * 1.35 + 128;
+        gray = (gray - 128) * 1.6 + 128;
 
         gray = Math.max(
             0,
