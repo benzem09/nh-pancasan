@@ -118,12 +118,15 @@ document.addEventListener("change", async (e) => {
                 fullText +=
                     lines.join("\n") +
                     "\n\n";
+                    
+                await new Promise(resolve => setTimeout(resolve, 100));
             }
 
-            fullText = fullText.replace(
+            const formattedPDFText = formatArabicText(fullText);
+                fullText = fullText.replace(
                 /([0-9]+)\./g,
                 "\n$1. "
-            );
+              );
 
             textarea.value +=
                 (textarea.value ? "\n\n" : "") +
