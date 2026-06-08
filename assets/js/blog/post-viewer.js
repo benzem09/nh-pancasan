@@ -68,7 +68,9 @@ function renderPost(post, postId) {
 
     // title + SEO
     titleElem.innerText = post.title || "Tanpa Judul";
-    document.title = `${post.title} - Blog`;
+    document.title = `${post.title} - NH Pancasan`;
+
+    updateSEO(post);
 
     // render html
     container.innerHTML = `
@@ -384,3 +386,54 @@ function openPost(slug, id) {
     loadFullPost(id);
 }
 
+function updateSEO(post) {
+
+    const siteUrl = "https://benzem09.github.io/nh-pancasan";
+
+    const slug =
+        post.slug || generateSlug(post.title);
+
+    const canonicalUrl =
+        `${siteUrl}/?post=${slug}`;
+
+    const description =
+        (post.content || "")
+        .replace(/[#>*`]/g, "")
+        .replace(/\n/g, " ")
+        .substring(0, 160);
+
+    const metaDesc =
+        document.querySelector('meta[name="description"]');
+
+    if (metaDesc) {
+        metaDesc.setAttribute("content", description);
+    }
+
+    const canonical =
+        document.querySelector('link[rel="canonical"]');
+
+    if (canonical) {
+        canonical.setAttribute("href", canonicalUrl);
+    }
+
+    const ogTitle =
+        document.querySelector('meta[property="og:title"]');
+
+    if (ogTitle) {
+        ogTitle.setAttribute("content", post.title);
+    }
+
+    const ogDesc =
+        document.querySelector('meta[property="og:description"]');
+
+    if (ogDesc) {
+        ogDesc.setAttribute("content", description);
+    }
+
+    const ogUrl =
+        document.querySelector('meta[property="og:url"]');
+
+    if (ogUrl) {
+        ogUrl.setAttribute("content", canonicalUrl);
+    }
+}
