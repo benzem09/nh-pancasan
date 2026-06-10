@@ -173,7 +173,7 @@ async function uploadGithubImage(file) {
                     );
 
                 const fileName =
-                    `img_${Date.now()}.webp`;
+                    `img_${Date.now()}_${Math.random().toString(36).slice(2,7)}.webp`;
 
                 const path =
                     `uploads/${year}/${month}/${fileName}`;

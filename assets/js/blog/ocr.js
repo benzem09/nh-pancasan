@@ -12,11 +12,11 @@ document.addEventListener("change", async (e) => {
         status.innerText = "Memproses...";
 
         // =====================================
-        // DOCX
+        // DOCX + IMAGE
         // =====================================
 
         if (
-            file.name.endsWith(".docx")
+            file.name.toLowerCase().endsWith(".docx")
         ) {
 
             status.innerText =
@@ -25,22 +25,99 @@ document.addEventListener("change", async (e) => {
             const arrayBuffer =
                 await file.arrayBuffer();
 
-            const result =
-                await mammoth.extractRawText({
-                    arrayBuffer
-                });
+            const images = [];
 
-            const text =
-                formatArabicText(
-                    result.value
+            const result =
+                await mammoth.convertToHtml(
+                    { arrayBuffer },
+                    {
+                        convertImage:
+                            mammoth.images.inline(
+                                async function(image) {
+
+                                    const base64 =
+                                        await image.read(
+                                            "base64"
+                                        );
+
+                                    images.push({
+                                        base64,
+                                        contentType:
+                                            image.contentType
+                                    });
+
+                                    return {
+                                        src:
+                                            "temp-image"
+                                    };
+                                }
+                            )
+                    }
                 );
+
+            // =========================
+            // TEXT
+            // =========================
+
+            let text =
+                result.value
+                    .replace(/<[^>]+>/g, "\n")
+                    .replace(/\n{3,}/g, "\n\n");
+
+            text =
+                formatArabicText(text);
+
+            // =========================
+            // UPLOAD IMAGES
+            // =========================
+
+            let imageMarkdown = "";
+
+            for (const img of images) {
+
+                try {
+
+                    const blob =
+                        await fetch(
+                            `data:${img.contentType};base64,${img.base64}`
+                        ).then(
+                            r => r.blob()
+                        );
+
+                    const fileObj =
+                        new File(
+                            [blob],
+                            `docx_${Date.now()}.png`,
+                            {
+                                type:
+                                    img.contentType
+                            }
+                        );
+
+                    const path =
+                        await uploadGithubImage(
+                            fileObj
+                        );
+
+                    imageMarkdown +=
+                        `\n\n![image](${path})\n\n`;
+
+                } catch (err) {
+
+                    console.error(
+                        "Upload gambar DOCX gagal",
+                        err
+                    );
+                }
+            }
 
             textarea.value +=
                 (textarea.value ? "\n\n" : "") +
-                text;
+                text +
+                imageMarkdown;
 
             status.innerText =
-                "✓ DOCX selesai";
+                `✓ DOCX selesai (${images.length} gambar)`;
 
             e.target.value = "";
 
