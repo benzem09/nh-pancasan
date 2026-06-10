@@ -12,6 +12,42 @@ document.addEventListener("change", async (e) => {
         status.innerText = "Memproses...";
 
         // =====================================
+        // DOCX
+        // =====================================
+
+        if (
+            file.name.endsWith(".docx")
+        ) {
+
+            status.innerText =
+                "Membaca DOCX...";
+
+            const arrayBuffer =
+                await file.arrayBuffer();
+
+            const result =
+                await mammoth.extractRawText({
+                    arrayBuffer
+                });
+
+            const text =
+                formatArabicText(
+                    result.value
+                );
+
+            textarea.value +=
+                (textarea.value ? "\n\n" : "") +
+                text;
+
+            status.innerText =
+                "✓ DOCX selesai";
+
+            e.target.value = "";
+
+            return;
+        }
+        
+        // =====================================
         // PDF
         // =====================================
 
