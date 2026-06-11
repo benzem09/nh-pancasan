@@ -18,11 +18,15 @@ header {
     top: 0;
     height: 33px;
     z-index: 40;
-    background: rgba(30, 41, 59, 0.75); /* Lebih terang dan lebih transparan */
-    backdrop-filter: blur(14px);        /* Mempertahankan efek blur yang halus */
-    -webkit-backdrop-filter: blur(14px); /* Dukungan browser Safari */
+    background: rgba(36, 59, 107, 0.7); /* Menggunakan basis biru navy terang */
+    backdrop-filter: blur(16px);         /* Mempertahankan efek blur */
+    -webkit-backdrop-filter: blur(16px);  /* Dukungan browser Safari */
     padding-top: 0;
     margin-top: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 1rem;
+    gap: 1rem;
+    border-radius: 0.75rem;
     overflow: hidden;
 
 }
@@ -49,7 +53,7 @@ header {
 
 .brand-title {
     margin: 0;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 600;
     color: #ffd700;
     line-height: 1.2;
