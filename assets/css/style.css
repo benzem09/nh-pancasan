@@ -18,7 +18,7 @@ header {
     top: 0;
     height: 33px;
     z-index: 40;
-    background: rgba(36, 59, 107, 0.7); /* Menggunakan basis biru navy terang */
+    background: rgba(26, 42, 74, 1); /* Menggunakan basis biru navy terang */
     backdrop-filter: blur(16px);         /* Mempertahankan efek blur */
     -webkit-backdrop-filter: blur(16px);  /* Dukungan browser Safari */
     padding-top: 0;
