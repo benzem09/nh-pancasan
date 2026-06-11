@@ -1,9 +1,9 @@
 body {
     background: linear-gradient(
         180deg,
-        #071226 0%,
-        #0f1f45 35%,
-        #111827 100%
+        #1a2a4a 0%,
+        #243b6b 35%,
+        #1e293b 100%
     );
     color: #e2e8f0;
     font-family: sans-serif;
@@ -18,8 +18,9 @@ header {
     top: 0;
     height: 33px;
     z-index: 40;
-    background: rgba(10, 20, 40, 0.92);
-    backdrop-filter: blur(14px);
+    background: rgba(30, 41, 59, 0.75); /* Lebih terang dan lebih transparan */
+    backdrop-filter: blur(14px);        /* Mempertahankan efek blur yang halus */
+    -webkit-backdrop-filter: blur(14px); /* Dukungan browser Safari */
     padding-top: 0;
     margin-top: 0;
     overflow: hidden;
@@ -100,8 +101,10 @@ header {
     position: sticky;
     top: 45px; /* Jarak dari atas (di bawah header) */
     z-index: 30;
-    background: rgba(15, 30, 58, 0.88);
-    backdrop-filter: blur(12px);
+    background: rgba(36, 59, 107, 0.7); /* Menggunakan basis biru navy terang */
+    backdrop-filter: blur(12px);         /* Mempertahankan efek blur */
+    -webkit-backdrop-filter: blur(12px);  /* Dukungan browser Safari */
+
     border-bottom: 1px solid rgba(255,255,255,0.06);
     padding-bottom: 0;
 
@@ -232,8 +235,10 @@ transform: scale(0.9);
     right: 0;
     bottom: 0;
 
-    background: rgba(5, 10, 25, 0.78);
-    backdrop-filter: blur(16px);
+    background: rgba(47, 55, 71, 0.55);  /* Menggunakan basis slate-gray yang cerah */
+    backdrop-filter: blur(16px);         /* Mempertahankan blur yang sangat halus */
+    -webkit-backdrop-filter: blur(16px);  /* Dukungan browser Safari */
+
 
     display: none;  
     justify-content: center;  
@@ -253,9 +258,12 @@ transform: scale(0.9);
     max-height: calc(100vh - 110px);  
     overflow-y: auto;  
 
-    background: rgba(17, 34, 64, 0.96);
-    border: 1px solid rgba(96,165,250,0.12);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.45);
+    background: rgba(30, 41, 59, 0.7);    /* Jauh lebih terang dan tembus pandang */
+    border: 1px solid rgba(96, 165, 250, 0.25); /* Menurunkan opasitas border sedikit agar tidak kaku */
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.18); /* Memperhalus bayangan agar tidak terlalu hitam pekat */
+    backdrop-filter: blur(12px);          /* Menambahkan efek blur agar menyatu dengan komponen sebelumnya */
+    -webkit-backdrop-filter: blur(12px);
+
     border-radius: 24px;  
     padding: 24px;
 
@@ -441,11 +449,14 @@ transform: scale(0.9);
     border-radius:16px;
 
     background:
-        linear-gradient(
-            180deg,
-            rgba(20,30,55,.92),
-            rgba(12,18,35,.96)
-        );
+            linear-gradient(
+                180deg,
+                rgba(30, 41, 59, 0.75),  /* Biru slate terang dan transparan */
+                rgba(21, 30, 45, 0.85)   /* Gradien bawah yang sedikit lebih teduh */
+            );
+            backdrop-filter: blur(12px);     /* Menambahkan efek blur agar transisinya halus */
+            -webkit-backdrop-filter: blur(12px);
+
 
     border:1px solid rgba(255,255,255,.06);
 
@@ -514,11 +525,14 @@ transform: scale(0.9);
     border-radius:22px;
 
     background:
-        linear-gradient(
-            165deg,
-            rgba(10,20,40,.96) 0%,
-            rgba(15,30,55,.96) 100%
-        );
+            linear-gradient(
+                165deg,
+                rgba(38, 56, 89, 0.7) 0%,   /* Biru medium cerah dari sudut kiri atas */
+                rgba(21, 32, 54, 0.82) 100%  /* Biru gelap lembut di sudut kanan bawah */
+            );
+        backdrop-filter: blur(14px);         /* Menambahkan efek blur untuk hasil kaca buram yang mewah */
+        -webkit-backdrop-filter: blur(14px);
+
 
     border:1px solid rgba(255,255,255,.06);
 
