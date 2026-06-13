@@ -808,8 +808,9 @@ transform: scale(0.9);
     height: 42px;
     border-radius: 14px;
 
-    background: rgba(30, 41, 59, 0.88);
+    background: rgba(30, 41, 59, 0.65);
     backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(255,255,255,0.08);
 
     color: #fff;
