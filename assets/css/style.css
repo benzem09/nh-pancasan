@@ -76,7 +76,7 @@ header {
     display: flex;
     overflow-x: auto;
     white-space: nowrap;
-    box-shadow: 1px 2px 3px 3px rgba(0, 0, 0, 0.4);
+    box-shadow: 1px 2px 3px 3px rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(12px);
     margin-bottom: 1rem;
     gap: 1.25rem;
@@ -233,9 +233,9 @@ transform: scale(0.9);
     left: 0;
     right: 0;
     bottom: 0;
-
-    background: rgba(5, 10, 25, 0.78);
+    background: rgba(43, 71, 127, 0.6);
     backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
 
     display: none;  
     justify-content: center;  
