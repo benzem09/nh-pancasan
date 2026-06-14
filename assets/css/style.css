@@ -235,7 +235,7 @@ transform: scale(0.9);
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(43, 71, 127, 0.6);
+    background: rgba(43, 71, 127, 0.7);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     display: none;  
@@ -310,6 +310,7 @@ transform: scale(0.9);
 .post-body h2,
 .post-body h3 {
     color: #60a5fa;
+    text-shadow: 0 0 8px rgba(147,197,253,.25);
     font-weight: bold;
     margin-top: 20px;
     margin-bottom: 12px;
@@ -317,6 +318,9 @@ transform: scale(0.9);
 
 .post-body p {
     margin-bottom: 12px;
+    color: #f8fafc !important;
+    opacity: 1 !important;
+    font-weight: 450;
 }
 
 .post-body ul,
@@ -379,10 +383,12 @@ transform: scale(0.9);
     transform: scale(1.02);
 }
 
-[dir="rtl"], .arabic-text {
+.arabic-text,
+[dir="rtl"] {
     font-size: 1.2em;
     line-height: 2;
-    font-weight: 500;
+    color: #ffffff !important;
+    font-weight: 600;
     text-align: right;
 }
 
@@ -942,44 +948,4 @@ a .icon {
 
 .hidden{
     display:none;
-}
-
-/* ===== Teks lebih terang ===== */
-
-/* Judul post */
-.post-body h1,
-.post-body h2,
-.post-body h3 {
-    color: #93c5fd !important;
-    text-shadow: 0 0 8px rgba(147,197,253,.25);
-}
-
-/* Isi artikel */
-.post-body,
-.post-body p,
-.post-body li,
-.post-body span,
-.post-body div {
-    color: #f8fafc !important;
-    opacity: 1 !important;
-    font-weight: 450;
-}
-
-/* Metadata */
-.text-slate-400,
-.text-slate-500,
-.text-gray-400 {
-    color: #cbd5e1 !important;
-}
-
-/* Link */
-.post-body a {
-    color: #bfdbfe !important;
-}
-
-/* Arab */
-.arabic-text,
-[dir="rtl"] {
-    color: #ffffff !important;
-    font-weight: 600;
 }
