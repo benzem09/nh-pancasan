@@ -388,10 +388,9 @@ transform: scale(0.9);
     text-align: right;
     unicode-bidi: isolate;
     font-size: 1em;
-    line-height: 2.2;
+    line-height: 1.6;
     color: #ffffff !important;
-    font-weight: 200;
-
+    font-weight: 300;
     margin: 12px 0;
 }
 
