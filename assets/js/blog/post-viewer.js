@@ -61,6 +61,34 @@ async function loadFullPost(postId) {
     }
 }
 
+function wrapArabic(text) {
+    const lines = text.split('\n');
+
+    return lines.map(line => {
+
+        const clean = line.trim();
+
+        if (!clean) return line;
+
+        // hitung huruf arab
+        const arabicChars =
+            (clean.match(/[\u0600-\u06FF]/g) || []).length;
+
+        const totalChars =
+            clean.replace(/\s/g, '').length;
+
+        // jika mayoritas arab (>70%)
+        if (
+            totalChars > 0 &&
+            arabicChars / totalChars > 0.7
+        ) {
+            return `<div class="arabic-text">${line}</div>`;
+        }
+
+        return line;
+    }).join('\n');
+}
+
 // render post
 function renderPost(post, postId) {
     const container = document.getElementById('viewContent');
@@ -141,7 +169,7 @@ function renderPost(post, postId) {
             <div class="h-px bg-white/5 mb-6"></div>
 
             <div id="main-post-content">
-                ${marked.parse(post.content || "")}
+                ${marked.parse(wrapArabic(post.content || ""))}
                 <div style="height:100px;"></div>
             </div>
         </div>
