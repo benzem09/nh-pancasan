@@ -6,7 +6,7 @@
 
   <url>
     <loc>https://benzem09.github.io/nh-pancasan/</loc>
-    <lastmod>2026-06-14T15:05:22.530Z</lastmod>
+    <lastmod>2026-06-14T15:25:57.303Z</lastmod>
     <priority>1.0</priority>
   </url>
 
@@ -227,6 +227,11 @@
   </url>
   <url>
     <loc>https://benzem09.github.io/nh-pancasan/?post=tes</loc>
+    <lastmod>2026-06-14T00:00:00.000Z</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://benzem09.github.io/nh-pancasan/?post=tes-2</loc>
     <lastmod>2026-06-14T00:00:00.000Z</lastmod>
     <priority>0.8</priority>
   </url>
