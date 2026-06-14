@@ -391,12 +391,12 @@ transform: scale(0.9);
     padding-right: 10px;
     padding-left: 10px;
     unicode-bidi: isolate;
-    font-size: 1.2em;
-    line-height: 2.4;
+    font-size: 1.6em;
+    line-height: 2.2;
     color:#ffffff !important;
     opacity:1 !important;
     font-weight: 300;
-    margin: 18px 0;
+    margin: 24px 0;
 }
 .arabic-text *{
     color:#ffffff !important;
