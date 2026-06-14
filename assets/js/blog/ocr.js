@@ -476,42 +476,52 @@ function cleanText(text) {
 // FORMAT ARABIC
 // =====================================
 
-function formatArabicText(text) {
+function formatArabicText(text){
 
     text = cleanText(text);
 
     const lines =
         text
-            .split("\n")
-            .map(
-                l => l.trim()
-            )
-            .filter(Boolean);
+        .split("\n")
+        .map(l => l.trim())
+        .filter(Boolean);
 
     let result = [];
+    let arabicBlock = [];
 
-    lines.forEach(line => {
+    function flushArabic(){
+
+        if(!arabicBlock.length) return;
+
+        result.push(
+`:::arab
+${arabicBlock.join("\n")}
+:::`
+        );
+
+        arabicBlock = [];
+    }
+
+    lines.forEach(line=>{
 
         const arabicOnly =
-            /^[\u0600-\u06FF\s]+$/
-                .test(line);
+            /^[\u0600-\u06FF\sۖۗۘۙۚۛۜ۝۞]+$/
+            .test(line);
 
-        if (
-            arabicOnly &&
-            line.length < 25 &&
-            !line.includes("،") &&
-            !line.includes(".")
-        ) {
+        if(arabicOnly){
 
-            result.push(
-                `\n## ${line}\n`
-            );
+            arabicBlock.push(line);
 
-            return;
+        }else{
+
+            flushArabic();
+
+            result.push(line);
         }
 
-        result.push(line);
     });
+
+    flushArabic();
 
     return result.join("\n\n");
 }
