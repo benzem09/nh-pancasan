@@ -66,26 +66,12 @@ function wrapArabic(text) {
 
     return lines.map(line => {
 
-        const clean = line.trim();
-
-        if (!clean) return line;
-
-        // hitung huruf arab
-        const arabicChars =
-            (clean.match(/[\u0600-\u06FF]/g) || []).length;
-
-        const totalChars =
-            clean.replace(/\s/g, '').length;
-
-        // jika mayoritas arab (>70%)
-        if (
-            totalChars > 0 &&
-            arabicChars / totalChars > 0.9
-        ) {
+        if (/[\u0600-\u06FF]/.test(line)) {
             return `<div class="arabic-text">${line}</div>`;
         }
 
         return line;
+
     }).join('\n');
 }
 function processArabicBlocks(text){
