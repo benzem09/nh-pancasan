@@ -88,7 +88,22 @@ function wrapArabic(text) {
         return line;
     }).join('\n');
 }
+function processArabicBlocks(text){
 
+    return text.replace(
+        /:::arab\s*([\s\S]*?)\s*:::/g,
+        (_, arabic) => {
+
+            return `
+<div class="arabic-text">
+${arabic.trim()}
+</div>
+`;
+
+        }
+    );
+
+}
 // render post
 function renderPost(post, postId) {
     const container = document.getElementById('viewContent');
@@ -169,7 +184,9 @@ function renderPost(post, postId) {
             <div class="h-px bg-white/5 mb-6"></div>
 
             <div id="main-post-content">
-                ${marked.parse(wrapArabic(post.content || ""))}
+                ${marked.parse(
+                processArabicBlocks(
+                        post.content || ""))}
                 <div style="height:100px;"></div>
             </div>
         </div>
