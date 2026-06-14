@@ -80,7 +80,7 @@ function wrapArabic(text) {
         // jika mayoritas arab (>70%)
         if (
             totalChars > 0 &&
-            arabicChars / totalChars > 0.7
+            arabicChars / totalChars > 0.9
         ) {
             return `<div class="arabic-text">${line}</div>`;
         }
