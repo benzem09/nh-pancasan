@@ -387,10 +387,10 @@ transform: scale(0.9);
     direction: rtl;
     text-align: right;
     unicode-bidi: isolate;
-    font-size: 1.5em;
+    font-size: 1em;
     line-height: 2.2;
     color: #ffffff !important;
-    font-weight: 450;
+    font-weight: 500;
 
     margin: 12px 0;
 }
