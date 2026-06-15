@@ -395,8 +395,10 @@ transform: scale(0.9);
     line-height: 2.2;
     color:#ffffff !important;
     opacity:1 !important;
+    font-family:'Amiri', serif;
     font-weight: 300;
     margin: 24px 0;
+}
 }
 .arabic-text *{
     color:#ffffff !important;
