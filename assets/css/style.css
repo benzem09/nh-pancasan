@@ -396,7 +396,9 @@ transform: scale(0.9);
     color:#ffffff !important;
     opacity:1 !important;
     font-family:'Amiri', serif;
-    font-weight: 500;
+    font-weight: 700;
+    text-shadow:
+        0 0 1px rgba(255,255,255,0.8);
     margin: 24px 0;
 }
 }
