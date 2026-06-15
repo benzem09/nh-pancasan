@@ -185,5 +185,16 @@
         "date": "2026-06-12",
         "year": "2026",
         "month": "06"
+    },
+    {
+        "id": 1781499146266,
+        "slug": "al-ashr",
+        "title": "Al-'ashr",
+        "thumbnail": "uploads/2026/06/img_1781499120247_bgroi.webp",
+        "author": "admin",
+        "category": "Tafsir",
+        "date": "2026-06-15",
+        "year": "2026",
+        "month": "06"
     }
 ]
