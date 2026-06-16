@@ -18,7 +18,7 @@ header {
     top: 0;
     height: 33px;
     z-index: 40;
-    background: rgba(26, 42, 74, 1.0)
+    background: rgba(26, 42, 74, 1.0);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
     padding-top: 0;
@@ -245,13 +245,13 @@ transform: scale(0.9);
     z-index: 999;  
     padding: 0px 16px 16px 16px;
     overflow-y: auto;
-
 }
+
 /* box popup */
 .modal-content {
     width: 100%;
     max-width: 850px;
-    margin-top: 0px
+    margin-top: 0px;
 
     max-height: calc(100vh - 110px);  
     overflow-y: auto;  
@@ -261,10 +261,8 @@ transform: scale(0.9);
     box-shadow: 0 20px 40px rgba(0,0,0,0.45);
     border-radius: 24px;  
     padding: 24px;
-
 }
 
-}
 @media (max-width: 768px) {
       .modal {
           top: 72px;
@@ -397,10 +395,8 @@ transform: scale(0.9);
     opacity:1 !important;
     font-family:'Amiri', serif;
     font-weight: 700;
-    text-shadow:
-        0 0 1px rgba(255,255,255,0.8);
+    text-shadow: 0 0 1px rgba(255,255,255,0.8);
     margin: 24px 0;
-}
 }
 .arabic-text *{
     color:#ffffff !important;
@@ -425,7 +421,6 @@ transform: scale(0.9);
 .table-wrapper::-webkit-scrollbar-thumb {
     background: rgba(59,130,246,0.4);
     border-radius: 10px;
-
 }
 
 /* =========================
