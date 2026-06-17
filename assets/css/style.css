@@ -79,6 +79,7 @@ header {
     white-space: nowrap;
     box-shadow: 1px 2px 2px 2px rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     margin-bottom: 1rem;
     gap: 1.25rem;
     border-radius: 0.75rem;
@@ -90,7 +91,6 @@ header {
 .nav {
     flex-shrink: 0;
 }
-
 .nav::-webkit-scrollbar {
     display: none;
 }
@@ -172,6 +172,7 @@ transform: scale(0.9);
     height: 40px;
     overflow: hidden;
     border-radius: 12px;
+    
     background: rgba(255,255,255,0.03);
     border: 1px solid rgba(255,255,255,0.06);
 }
@@ -235,9 +236,10 @@ transform: scale(0.9);
     left: 0;
     right: 0;
     bottom: 0;
+
     background: rgba(43, 71, 127, 0.7);
     backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+
     display: none;  
     justify-content: center;  
     align-items: flex-start;  
@@ -245,12 +247,13 @@ transform: scale(0.9);
     z-index: 999;  
     padding: 0px 16px 16px 16px;
     overflow-y: auto;
-}
 
+}
 /* box popup */
 .modal-content {
     width: 100%;
     max-width: 850px;
+    margin-top: 0px
 
     max-height: calc(100vh - 110px);  
     overflow-y: auto;  
@@ -260,8 +263,10 @@ transform: scale(0.9);
     box-shadow: 0 20px 40px rgba(0,0,0,0.45);
     border-radius: 24px;  
     padding: 24px;
+
 }
 
+}
 @media (max-width: 768px) {
       .modal {
           top: 72px;
@@ -307,7 +312,6 @@ transform: scale(0.9);
 .post-body h2,
 .post-body h3 {
     color: #60a5fa;
-    text-shadow: 0 0 8px rgba(147,197,253,.25);
     font-weight: bold;
     margin-top: 20px;
     margin-bottom: 12px;
@@ -315,9 +319,6 @@ transform: scale(0.9);
 
 .post-body p {
     margin-bottom: 12px;
-    color: #f8fafc !important;
-    opacity: 1 !important;
-    font-weight: 450;
 }
 
 .post-body ul,
@@ -388,8 +389,8 @@ transform: scale(0.9);
     padding-right: 10px;
     padding-left: 10px;
     unicode-bidi: isolate;
-    font-size: 1.2em;
-    line-height: 2.2;
+    font-size: 1em;
+    line-height: 2;
     color:#ffffff !important;
     opacity:1 !important;
     font-family:'Amiri', serif;
@@ -420,6 +421,7 @@ transform: scale(0.9);
 .table-wrapper::-webkit-scrollbar-thumb {
     background: rgba(59,130,246,0.4);
     border-radius: 10px;
+
 }
 
 /* =========================
@@ -472,8 +474,12 @@ transform: scale(0.9);
     box-shadow:
         0 6px 18px rgba(0,0,0,.35),
         inset 0 1px 0 rgba(255,255,255,.04);
+
+    backdrop-filter:blur(12px);
+
     cursor:pointer;
     user-select:none;
+
     transition:
         transform .18s ease,
         background .25s ease,
