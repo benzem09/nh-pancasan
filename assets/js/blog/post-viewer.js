@@ -180,9 +180,8 @@ function renderPost(post, postId) {
     // image viewer
     container.querySelectorAll('.post-body img').forEach(img => {
         img.style.cursor = 'zoom-in';
-
         img.onclick = () => {
-            openImageViewer(img.src);
+            openImageModal(img.src);
         };
     });
 }
@@ -386,29 +385,30 @@ function toggleFabPopup(id) {
     if (isHidden) target.classList.remove('hidden');
 }
 
-function openImageViewer(src) {
-    const viewer = document.createElement('div');
+function openImageModal(src) {
 
-    viewer.className = `
-        fixed inset-0 z-[9999]
-        bg-black/90 backdrop-blur-sm
-        flex items-center justify-center
-        p-4
-    `;
+    const modal =
+        document.getElementById(
+            "imageModal"
+        );
+    const image =
+        document.getElementById(
+            "fullscreenImage"
+        );
+    image.src = src;
+    modal.classList.remove(
+        "hidden"
+    );
+}
 
-    viewer.innerHTML = `
-        <img src="${src}"
-             class="max-w-full max-h-full rounded-xl shadow-2xl object-contain">
-
-        <button
-            class="absolute top-5 right-5 text-white text-3xl">
-            ✕
-        </button>
-    `;
-
-    viewer.onclick = () => viewer.remove();
-
-    document.body.appendChild(viewer);
+function closeImageModal() {
+    document
+        .getElementById(
+            "imageModal"
+        )
+        .classList.add(
+            "hidden"
+        );
 }
 
 // slug open
