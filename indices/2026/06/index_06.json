@@ -207,5 +207,16 @@
         "date": "2026-06-17",
         "year": "2026",
         "month": "06"
+    },
+    {
+        "id": 1781693614087,
+        "slug": "ceramah-nikahan",
+        "title": "Ceramah Nikahan",
+        "thumbnail": "assets/img/articel.jpg",
+        "author": "admin",
+        "category": "Umum",
+        "date": "2026-06-17",
+        "year": "2026",
+        "month": "06"
     }
 ]
