@@ -251,7 +251,6 @@ transform: scale(0.9);
 .modal-content {
     width: 100%;
     max-width: 850px;
-    margin-top: 0px;
 
     max-height: calc(100vh - 110px);  
     overflow-y: auto;  
