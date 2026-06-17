@@ -236,7 +236,11 @@ transform: scale(0.9);
     left: 0;
     right: 0;
     bottom: 0;
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> f18ec5c (style)
     background: rgba(43, 71, 127, 0.7);
     backdrop-filter: blur(16px);
 
