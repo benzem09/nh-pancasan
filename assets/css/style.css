@@ -542,8 +542,8 @@ transform: scale(0.9);
     background:
         linear-gradient(
             165deg,
-            rgba(10,20,40,.96) 0%,
-            rgba(15,30,55,.96) 100%
+            rgba(10,20,40,.76) 0%,
+            rgba(15,30,55,.88) 100%
         );
 
     border:1px solid rgba(255,255,255,.06);
