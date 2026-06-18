@@ -756,11 +756,11 @@ transform: scale(0.9);
     }
 
     #tocPopup .fab-popup-inner{
-        width:76vw;
+        width:86vw;
         max-width:270px;
         min-width:unset;
 
-        max-height:55vh;
+        max-height:60vh;
 
         padding:13px;
         border-radius:20px;
