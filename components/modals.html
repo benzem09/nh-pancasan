@@ -1,8 +1,8 @@
 <div id="postModal" class="modal mt-5 p-4 hidden">
-    <div class="glass p-6 rounded-2xl w-full overflow-y-auto">
-        <h2 class="text-lg font-bold mb-4 text-blue-400">📝 Tulis Postingan</h2>
-        <input type="text" id="postTitle" placeholder="Judul Artikel" class="w-full bg-slate-800 p-2 rounded mb-3 outline-none border border-white/10">
-        <select id="postCategory" class="w-full bg-slate-800 p-2 rounded mb-3 outline-none border border-white/10 text-xs text-slate-300">
+    <div class="glass p-6 rounded-2xl w-full overflow-y-auto" style="background: var(--bg-modl-c); border-color: var(--border);">
+        <h2 class="text-lg font-bold mb-4 text-[var(--primary)]">✍️ Tulis Postingan</h2>
+        <input type="text" id="postTitle" placeholder="Judul Artikel" class="w-full p-2 rounded mb-3 outline-none border border-[var(--border)] text-[var(--text-main)]" style="background: var(--bg-main);">
+        <select id="postCategory" class="w-full p-2 rounded mb-3 outline-none border border-[var(--border)] text-xs text-[var(--text-soft)]" style="background: var(--bg-main);">
             <option value="Umum">Pilih Kategori: Umum</option>
             <option value="Kisah">Kisah</option>
             <option value="Sharaf">Sharaf</option>
@@ -26,8 +26,9 @@
                 id="btnUploadImage"
                 type="button"
                 onclick="document.getElementById('imageUpload').click()"
-                class="px-2 py-1 rounded-lg bg-slate-700 text-xs">
-                📷 Upload
+                class="bg-blue-600 hover:bg-blue-500 text-white text-[11px] font-bold px-3 py-1.5 rounded-lg transition-all shadow-sm"
+            >
+                🖼️ Upload Gambar
             </button>
              <!-- IMAGE OCR / PDF OCR -->
              <input
@@ -38,25 +39,22 @@
             <button
                 type="button"
                 onclick="FILE_PICKER_ACTIVE = true; document.getElementById('ocrFile').click();"
-                class="px-2 py-1 rounded-lg bg-slate-700 text-xs">
-                <span>🔍</span> Scan IMG / PDF / docx
+                class="bg-emerald-600 hover:bg-emerald-500 text-white text-[11px] font-bold px-3 py-1.5 rounded-lg transition-all shadow-sm"
+            >
+                🔍 Scan Gambar/PDF (OCR)
             </button>
             <span
                 id="ocrStatus"
-                class="text-[11px] opacity-70 self-center italic text-emerald-400">
-            </span>
+                class="text-[10px] text-[var(--text-soft)] italic self-center"></span>
         </div>
-        <textarea id="postContent" placeholder="Isi konten..." rows="16" class="w-full min-h-[320px] max-h-[65vh] resize-y bg-slate-800 p-3 rounded-xl mb-4 outline-none border border-white/10 text-sm leading-relaxed"></textarea>
+        <textarea id="postContent" placeholder="Isi konten..." rows="16" class="w-full min-h-[320px] max-h-[65vh] resize-y bg-slate-800 p-3 rounded-xl mb-4 outline-none border border-[var(--border)] text-xs text-[var(--text-main)]" style="background: var(--bg-main);"></textarea>
         <div class="flex gap-2">
-            <button onclick="closeModal('postModal'); resetPostModal();" class="flex-1 bg-slate-700 py-2 rounded-lg text-xs">Batal</button>
-            <button onclick="submitPost()" id="btnSubmitPost" class="flex-1 bg-blue-600 py-2 rounded-lg text-xs font-bold">Terbitkan</button>
+            <button onclick="closeModal('postModal'); resetPostModal();" class="px-4 py-2 rounded-xl text-xs font-bold text-[var(--text-soft)] hover:opacity-80 transition-all" style="background: var(--bg-pop-itm);">Batal</button>
+            <button onclick="submitPost()" id="btnSubmitPost" class="bg-blue-600 hover:bg-blue-500 text-white px-5 py-2 rounded-xl text-xs font-bold shadow-md transition-all">Terbitkan</button>
         </div>
     </div>
 </div>
-    <div id="screenModeToggle">
-        <button id="screenModeBtn" onclick="toggleWideMode()" class="fab-btn"> ⛶
-        </button>
-    </div>
+    
 <div id="viewModal" class="modal mt-5 p-4 hidden">
     <div id="floatingAction" class="floating-actions">
         <button onclick="closeModal('viewModal')"  class="fab-btn"><img src="assets/icons/close.svg" class="icon"></button>
@@ -70,7 +68,7 @@
         <div class="fab-popup-inner" id="tocContainer"></div>
     </div>
 
-    <div id="searchPopup" class="fab-popup hidden">
+    <div id="searchPopup" class="fab-popup hidden" style="background: var(--bg-pop-iner); border-color: var(--border);">
       <div class="fab-popup-inner">
         <div class="popup-title">Search in Post</div>
         
@@ -81,7 +79,7 @@
         class="w-full bg-slate-900 border border-slate-700 rounded px-3 py-2 text-xs text-white outline-none"/>
       </div>
     </div>
-    <div id="sharePopup" class="fab-popup hidden">
+    <div id="sharePopup" class="fab-popup hidden" style="background: var(--bg-pop-iner); border-color: var(--border);">
         <div class="fab-popup-inner">
             <div class="popup-title">Bagikan Link</div>
             <div class="popup-url">
@@ -91,7 +89,7 @@
         </div>
     </div>
 
-    <div id="downloadPopup" class="fab-popup hidden">
+    <div id="downloadPopup" class="fab-popup hidden" style="background: var(--bg-pop-iner); border-color: var(--border);">
         <div class="fab-popup-inner">
             <div class="popup-title">Format Download</div>
             <button id="dlMd" class="popup-item">Markdown (.md)</button>
@@ -103,7 +101,7 @@
     <div class="glass p-6 rounded-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto">
         <h2 id="viewTitle" class="text-xl font-bold mb-4 text-blue-400 text-center"></h2>
         <div id="viewContent" class="text-sm opacity-80 leading-loose mb-6"></div>
-        <button onclick="closeModal('viewModal')" class="w-full bg-slate-700 py-2 rounded-lg text-xs mt-6">Tutup</button>
+        <button onclick="closeModal('viewModal')" class="w-full py-2 rounded-lg text-xs mt-6 text-[var(--text-main)] font-medium transition-all hover:opacity-80" style="background: var(--bg-pop-itm); border: 1px solid var(--border);">Tutup</button>
     </div>
 </div>
 <div id="imageModal"

@@ -1,6 +1,18 @@
-<button onclick="switchTab('blog')" id="tab-blog" class="pb-2 border-b-2 border-transparent text-slate-200 text-sm whitespace-nowrap">Feed</button>
-<button onclick="switchTab('categories')" id="tab-categories" class="pb-2 border-b-2 border-transparent text-slate-200 text-sm whitespace-nowrap">Explore</button>
-<button onclick="switchTab('archive')" id="tab-archive"  class="pb-2 border-b-2 border-transparent text-slate-200 text-sm whitespace-nowrap">Archive</button>
-<button onclick="switchTab('about')" id="tab-about" class= "pb-2 border-b-2 border-transparent text-slate-200 text-sm whitespace-nowrap">About</button>
-<button id="btnNotif" class="fab-btn"><img src="assets/icons/bell.svg" alt="notif"></button>
-<button id="btnRefresh" class="fab-btn"><img src="assets/icons/refresh.svg" alt="refresh"></button>
+<div class="nav">
+    <button onclick="switchTab('blog')" id="tab-blog" class="pb-2 border-b-2 border-transparent text-[var(--text-main)] text-sm font-semibold whitespace-nowrap opacity-80 hover:opacity-100 transition-opacity">Feed</button>
+    <button onclick="switchTab('categories')" id="tab-categories" class="pb-2 border-b-2 border-transparent text-[var(--text-main)] text-sm font-semibold whitespace-nowrap opacity-80 hover:opacity-100 transition-opacity">Explore</button>
+    <button onclick="switchTab('archive')" id="tab-archive" class="pb-2 border-b-2 border-transparent text-[var(--text-main)] text-sm font-semibold whitespace-nowrap opacity-80 hover:opacity-100 transition-opacity">Archive</button>
+    <button onclick="switchTab('about')" id="tab-about" class="pb-2 border-b-2 border-transparent text-[var(--text-main)] text-sm font-semibold whitespace-nowrap opacity-80 hover:opacity-100 transition-opacity">About</button>
+    <button id="screenModeBtn" onclick="toggleWideMode()" > ⛶
+    </button>
+    <button
+    onclick="toggleTheme()">
+    🌓
+    </button>
+    <button id="btnNotif">
+    <img src="assets/icons/bell.svg" alt="notif" style="filter: var(--icon-filter);">
+    </button>
+    <button id="btnRefresh">
+    <img src="assets/icons/refresh.svg" alt="refresh" style="filter: var(--icon-filter);">
+    </button>
+</div>

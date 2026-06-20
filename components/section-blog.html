@@ -1,16 +1,18 @@
 <div class="flex justify-between items-center mb-6 gap-2">
-    <h4 class="text-lg font-bold">Postingan Terkini</h4>
+    <h4 class="text-lg font-bold text-[var(--text-main)]">Postingan Terkini</h4>
     
     <div class="flex items-center gap-2">
-        <div id="search-container" class="flex items-center bg-slate-800/50 rounded-full px-2 py-1 border border-white/5 transition-all duration-300 w-10 overflow-hidden">
-            <button onclick="toggleSearch()" class="min-w-[24px] text-slate-400 hover:text-white">
+        <div id="search-container" class="flex items-center bg-[var(--bg-main)] rounded-full px-2 py-1 border border-[var(--border)] transition-all duration-300 w-10 overflow-hidden" style="background: var(--bg-pop-url);">
+            <button onclick="toggleSearch()" class="min-w-[24px] text-[var(--text-soft)] hover:text-[var(--text-main)] opacity-70">
                 🔍
             </button>
-            <input type="text" id="searchInput" onkeyup="filterBlog()" placeholder="Cari judul..." 
-                class="bg-transparent border-none outline-none text-[10px] text-white w-0 transition-all duration-300">
+            <input type="text" id="searchInput" onkeyup=\"filterBlog()\" placeholder="Cari judul..." 
+                class="bg-transparent border-none outline-none text-[10px] text-[var(--text-main)] w-0 transition-all duration-300 placeholder:opacity-50">
         </div>
 
-        <button onclick="openModal('postModal')" class="bg-blue-600/20 text-blue-400 border border-blue-600 px-3 py-1 rounded-md text-[10px] font-bold whitespace-nowrap">+ Post Baru</button>
+        <button onclick="openModal('postModal')" class="bg-[var(--primary)]/10 text-[var(--primary)] border border-[var(--primary)]/40 hover:bg-[var(--primary)] hover:text-white px-3 py-1 rounded-md text-[10px] font-bold whitespace-nowrap transition-all shadow-sm">
+            + Post Baru
+        </button>
     </div>
 </div>
 <div id="blog-feed" class="space-y-4"></div>

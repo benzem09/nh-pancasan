@@ -1,5 +1,5 @@
-<div id="commentSection" class="border-t border-white/10 pt-6">
-    <h4 class="text-[11px] font-bold mb-4 flex items-center gap-2 opacity-80 italic">
+<div id="commentSection" class="border-t border-[var(--border)] pt-6">
+    <h4 class="text-[11px] font-bold mb-4 flex items-center gap-2 opacity-80 italic text-[var(--text-main)]">
         <span>💬</span> Komentar
     </h4>
 
@@ -7,29 +7,26 @@
         id="commentList" 
         class="max-h-[350px] overflow-y-auto pr-3 space-y-4 custom-scrollbar scroll-smooth"
     >
-        </div>
+    </div>
 
-    <div class="mt-4 bg-white/5 backdrop-blur-sm p-3 rounded-xl border border-white/10 shadow-2xl max-w-sm">
+    <div class="mt-4 glass p-3 rounded-xl border border-[var(--border)] shadow-2xl max-w-sm" style="background: var(--bg-scmt);">
         <input
             id="commentName"
             placeholder="Nama panggilan..."
-            class="mb-2 bg-transparent border-b border-white/10 w-full outline-none text-[11px] pb-1.5 text-blue-400 placeholder:opacity-30 focus:border-blue-500 transition-all">
+            class="mb-2 bg-transparent border-b border-[var(--border)] w-full outline-none text-[11px] pb-1.5 text-[var(--primary)] placeholder:opacity-40 focus:border-[var(--primary)] transition-all">
 
-        <!-- Mengubah flex-col menjadi flex-row agar textarea dan tombol sejajar kesamping -->
         <div class="flex items-end gap-2">
             <textarea
                 id="commentInput"
                 placeholder="Tulis pendapatmu..."
-                class="flex-1 bg-slate-900/40 p-2 rounded-lg outline-none text-[11px] text-slate-200 border border-white/5 resize-none h-9 focus:border-blue-500/50 transition-all leading-normal"></textarea>
+                class="flex-1 bg-[var(--bg-main)] p-2 rounded-lg outline-none text-[11px] text-[var(--text-main)] border border-[var(--border)] resize-none h-9 focus:border-[var(--primary)] 50 transition-all leading-normal"></textarea>
 
-            <!-- Tombol kirim sekarang berada di sebelah kanan textarea -->
             <button
                 id="commentBtn"
                 type="button"
-                class="bg-blue-600 hover:bg-blue-500 text-white px-3 h-9 rounded-lg text-[10px] font-bold transition-all active:scale-95 shadow-[0_0_15px_rgba(37,99,235,0.3)] whitespace-nowrap flex items-center justify-center">
+                class="bg-[var(--primary)] hover:bg-[var(--primary-hover)] text-white px-3 h-9 rounded-lg text-[11px] font-bold transition-all shrink-0 shadow-md active:scale-95">
                 Kirim
             </button>
         </div>
     </div>
-
 </div>
