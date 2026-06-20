@@ -1,0 +1,51 @@
+@media (max-width: 640px) {
+    .feed-thumb {
+        width: 28px;
+        height: 28px;
+    }
+}
+
+@media (max-width: 768px) {
+    .modal {
+        top: 72px;
+        padding: 0px 10px 10px 10px;
+    }
+    .modal-content {  
+        max-height: calc(100vh - 85px);  
+        padding: 0px;  
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }  
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* =========================
+   MOBILE
+========================= */
+@media(max-width:767px) {
+    #floatingAction { right: 16px; bottom: 100px; gap: 7px; }
+    .fab-btn { width: 40px; height: 40px; border-radius: 15px; }
+    .fab-popup { right: 56px; bottom: 100px; }
+    #tocPopup .fab-popup-inner { width: 86vw; max-width: 270px; min-width: unset; max-height: 60vh; padding: 13px; border-radius: 20px; }
+    #tocContainer { max-height: 42vh; }
+    #tocContainer a { font-size: 12px; padding: 6px 9px; }
+    .popup-title { font-size: 12px; margin-bottom: 8px; padding-bottom: 8px; }
+}
+
+@keyframes popupFade {
+    from { opacity: 0; transform: translateY(10px) scale(.96); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Animasi Fade In untuk komentar baru */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}

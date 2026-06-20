@@ -1,0 +1,102 @@
+.post-body {
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.9;
+    color: var(--text-main) !important;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.post-body h1, .post-body h2, .post-body h3 {
+    color: var(--primary);
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 12px;
+}
+
+.post-body p { margin-bottom: 12px; }
+.post-body ul, .post-body ol { padding-left: 20px; margin-bottom: 12px; }
+
+.post-body table {
+    border-collapse: collapse;
+    min-width: 100%;
+    width: max-content;
+    font-size: 13px;
+}
+
+.post-body th, .post-body td {
+    border: 1px solid var(--border);
+    padding: 10px;
+    text-align: left;
+    vertical-align: top;
+    white-space: nowrap;
+}
+
+.post-body td:nth-child(3), .post-body th:nth-child(3) {
+    white-space: normal;
+    min-width: 180px;
+}
+
+.post-body th {
+    background: rgba(59, 130, 246, 0.08);
+    color: var(--primary);
+}
+
+.post-body p, .post-body span, .post-body div {
+    color: var(--text-main) !important;
+    opacity: 1 !important;
+}
+
+.post-body img {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    max-height: 120px;
+    margin: 12px auto;
+    border-radius: 10px;
+    object-fit: cover;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: .25s;
+}
+
+.post-body img:hover { transform: scale(1.02); }
+
+.arabic-text {
+    direction: rtl;
+    display: block;
+    white-space: pre-wrap;
+    text-align: right;
+    padding-right: 10px;
+    padding-left: 10px;
+    unicode-bidi: isolate;
+    font-size: 1.2em;
+    line-height: 2;
+    color: var(--text-main) !important;
+    opacity: 1 !important;
+    font-family: 'Amiri', serif;
+    font-weight: 700;
+    margin: 24px 0;
+}
+.arabic-text * {
+    color: var(--text-main) !important;
+    opacity: 1 !important;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 16px 0;
+    width: 100%;
+    border-radius: 8px;
+}
+.table-wrapper table {
+    min-width: 100%;
+    width: max-content;
+    border-collapse: collapse;
+}
+.table-wrapper::-webkit-scrollbar { height: 6px; }
+.table-wrapper::-webkit-scrollbar-thumb {
+    background: var(--bg-tbl-wrp);
+    border-radius: 10px;
+}
