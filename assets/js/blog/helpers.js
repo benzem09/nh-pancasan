@@ -55,11 +55,11 @@ function renderPosts(posts) {
     const sortedPosts = posts.sort((a,b)=>b.id-a.id);
 
     feed.innerHTML = sortedPosts.map(p => `
-        <div class="glass p-3 rounded-xl mb-2">
+        <div class="glass p-4 rounded-xl mb-3 shadow-sm border border-[var(--border)]" style="background: var(--bg-glass);">
             <div onclick="openPost('${p.slug}', ${p.id})">
-                <h3 class="font-bold text-sm text-blue-400">${p.title}</h3>
-                <div class="text-[10px] opacity-50 mt-2">
-                    ${p.date} • ${p.category}
+                <h3 class="font-bold text-sm text-[var(--text-main)] hover:text-[var(--primary)] transition-colors">${p.title}</h3>
+                <div class="text-[10px] text-[var(--text-soft)] font-medium mt-2">
+                    📅 ${p.date} • 🏷️ ${p.category}
                 </div>
             </div>
         </div>

@@ -33,7 +33,7 @@ async function refreshBlog(targetData = null, action = null) {
 
         if (!sortedPosts.length) {
             feed.innerHTML =
-                "<p class='opacity-50 text-xs'>Belum ada postingan</p>";
+                "<p class='text-[var(--text-soft)] text-xs font-medium'>Belum ada postingan</p>";
             return;
         }
 
@@ -64,11 +64,11 @@ async function refreshBlog(targetData = null, action = null) {
 
                     <!-- Content -->
                     <div class="flex-1 min-w-0">
-                        <h3 class="font-bold text-sm text-blue-400 truncate">
+                        <h3 class="font-bold text-sm text-blue-400">
                             ${sanitizeHTML(p.title)}
                         </h3>
 
-                        <div class="text-[9px] opacity-50 mt-1 truncate">
+                        <div class="text-[10px] text-[var(--text-main)] mt-1 font-medium">
                             👤 ${p.author.toUpperCase()}
                             · 🏷 ${p.category || 'Umum'}
                             · 📅 ${p.date}
@@ -162,7 +162,7 @@ async function renderArchive() {
 
         for (const year of years.sort((a,b)=>b-a)) {
             html += `<div class="mb-4">
-                <h3 class="font-bold text-blue-400">${year}</h3>`;
+                <h3 class="font-bold text-blue-600">${year}</h3>`;
 
             try {
                 const monthsData = await getPublicFile(
@@ -173,7 +173,7 @@ async function renderArchive() {
                     html += `
                         <button
                             onclick="filterArchive('${year}','${month}')"
-                            class="block text-xs opacity-70 hover:text-blue-400 ml-3 mt-1">
+                            class= block text-xs text-gray-600 hover:text-blue-600 ml-3 mt-1 font-medium">
                             📁 ${month}
                         </button>
                     `;

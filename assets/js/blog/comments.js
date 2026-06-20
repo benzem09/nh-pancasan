@@ -158,75 +158,12 @@ window.loadComments = async function(postId) {
                 );
 
             html += `
-                <div class="
-                    group
-                    bg-slate-800/30
-                    hover:bg-slate-800/50
-                    border border-white/5
-                    p-1 rounded-2xl
-                    transition-all
-                    duration-300
-                    transform
-                    hover:-translate-y-1
-                ">
-
-                    <div class="
-                        flex justify-between
-                        items-center
-                        mb-1
-                    ">
-
-                        <div class="
-                            flex items-center
-                            gap-2
-                        ">
-
-                            <div class="
-                                w-6 h-6
-                                rounded-full
-                                bg-blue-600/20
-                                flex
-                                items-center
-                                justify-center
-                                text-[10px]
-                                text-blue-400
-                                border
-                                border-blue-600/30
-                            ">
-                                ${(c.author || "G")[0].toUpperCase()}
-                            </div>
-
-                            <span class="
-                                text-[11px]
-                                text-blue-400
-                                font-semibold
-                            ">
-                                @${c.author || "guest"}
-                            </span>
-
-                        </div>
-
-                        <span class="
-                            text-[9px]
-                            opacity-30
-                            font-medium
-                        ">
-                            ${dateString}
-                        </span>
-
+                <div class="mb-3 border-b border-[var(--border)] pb-2">
+                    <div class="flex justify-between text-[10px] text-[var(--primary)] font-bold mb-0.5">
+                        <span>👤 ${c.name}</span>
+                        <span class="text-[var(--text-soft)] font-medium">${c.date || ''}</span>
                     </div>
-
-                    <div class="
-                        text-[13.5px]
-                        text-white
-                        font-normal
-                        leading-relaxed
-                        pl-1
-                        contrast-125
-                    ">
-                        ${c.text}
-                    </div>
-
+                    <p class="text-xs text-[var(--text-main)] leading-relaxed font-medium">${c.text}</p>
                 </div>
             `;
         });

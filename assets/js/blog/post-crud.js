@@ -266,7 +266,7 @@ function resetPostModal() {
     EDIT_POST_ID = null;
     document.getElementById('postTitle').value = "";
     document.getElementById('postContent').value = "";
-    document.querySelector('#postModal h2').innerText = "📝 Tulis Postingan";
+    document.querySelector('#postModal h2').innerText = "✍️ Tulis Postingan";
     document.getElementById('btnSubmitPost').innerText = "Terbitkan";
     document.getElementById('btnSubmitPost').onclick = submitPost;
 }

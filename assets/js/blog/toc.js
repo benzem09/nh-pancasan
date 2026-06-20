@@ -35,17 +35,10 @@ window.generateTOC = function () {
         li.innerHTML = `
             <a
                 href="#"
-                onclick="jumpToHeading('${id}')"
-                class="
-                    text-slate-400
-                    text-[11px]
-                    hover:text-blue-400
-                    flex items-center
-                    transition
-                "
+                onclick="event.preventDefault(); jumpToHeading('${id}', this);"
+                class="text-[var(--text-soft)] text-[12px] hover:text-[var(--primary)] block transition-all"
             >
-                <span class="toc-dot mr-2">•</span>
-                ${heading.innerText}
+                <span class="toc-dot mr-1">•</span> ${heading.innerText}
             </a>
         `;
 
@@ -70,15 +63,33 @@ window.generateTOC = function () {
 // Fungsi untuk menandai item yang aktif
 window.setActiveTOC = function(activeItem) {
     document.querySelectorAll(".toc-item").forEach(el => {
-        el.classList.remove("bg-blue-600/20", "border", "border-blue-500/30", "text-blue-300", "shadow-lg");
+        // Bersihkan kelas kustom lama
+        el.classList.remove("border", "shadow-sm");
+        el.style.backgroundColor = "";
+        
+        const link = el.querySelector("a");
+        if (link) {
+            link.style.color = "var(--text-soft)";
+        }
+        
         const dot = el.querySelector(".toc-dot");
         if (dot) dot.innerHTML = "•";
     });
 
-    activeItem.classList.add("bg-blue-600/20", "border", "border-blue-500/30", "text-blue-300", "shadow-lg");
+    // Tambahkan style aktif menggunakan variabel warna CSS dinamis
+    activeItem.classList.add("border", "shadow-sm");
+    activeItem.style.borderColor = "rgba(37, 99, 235, 0.25)";
+    activeItem.style.backgroundColor = "rgba(37, 99, 235, 0.08)";
+    
+    const link = activeItem.querySelector("a");
+    if (link) {
+        link.style.color = "var(--primary)";
+    }
+    
     const dot = activeItem.querySelector(".toc-dot");
     if (dot) dot.innerHTML = "▶";
 };
+
 
 window.closeTOC = function() {
     const popup = document.getElementById("tocPopup");

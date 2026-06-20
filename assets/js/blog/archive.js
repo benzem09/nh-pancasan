@@ -27,9 +27,9 @@ async function refreshArchive() {
 
                 html += `
                     <div onclick="openArchiveMonth('${year}','${month}')"
-                        class="glass p-3 rounded-xl cursor-pointer hover:border-blue-500/30">
-                        <span class="text-sm">${month}/${year}</span>
-                        <span class="text-xs opacity-50 ml-2">(${posts.length} posts)</span>
+                        class="glass p-3 rounded-xl cursor-pointer bg:var(--bg-glass) border border-[var(--border)] hover:border-[var(--primary)] shadow-sm transition-all">
+                        <span class="text-sm text-[var(--text-main)] font-bold">📁 ${month}/${year}</span>
+                        <span class="text-xs text-[var(--text-soft)] ml-2 font-medium">(${posts.length} posts)</span>
                     </div>
                 `;
             }
@@ -65,8 +65,8 @@ async function openArchiveMonth(year, month) {
                 class="glass p-3 rounded-xl mb-2 cursor-pointer">
                 <h4 class="font-bold text-sm text-blue-400">
                     ${sanitizeHTML(post.title)}
-                </h4>
-                <p class="text-[10px] opacity-50 mt-1">
+                </h3>
+                <p class="text-[10px] text-[var(--text-main)] mt-1 font-medium">
                     👤 ${post.author} | 📅 ${post.date}
                 </p>
             </div>

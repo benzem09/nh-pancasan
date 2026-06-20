@@ -66,16 +66,16 @@ async function refreshCategories(filter = "Semua") {
             const cleanTitle = typeof sanitizeHTML === "function" ? sanitizeHTML(p.title) : p.title;
             
             return `
-            <div class="glass p-4 rounded-xl flex justify-between items-center group cursor-pointer mb-2 hover:border-blue-500/30 transition-all" 
+            <div class="glass p-4 rounded-xl flex justify-between items-center group cursor-pointer mb-2 border border-[var(--border)] hover:border-[var(--primary)] transition-all shadow-sm" 
                  onclick="openPost('${postSlug}', ${p.id})">
                 <div class="pr-4 overflow-hidden">
-                    <span class="text-[8px] bg-blue-600/20 text-blue-400 px-2 py-0.5 rounded mb-1 inline-block border border-blue-500/10">
+                    <span class="text-[8px] bg-blue-50 text-blue-600 px-2 py-0.5 rounded mb-1 inline-block border border-blue-100 font-bold">
                         ${p.category || 'Umum'}
                     </span>
-                    <h4 class="font-bold text-sm text-slate-200 line-clamp-1"># ${cleanTitle}</h4>
-                    <span class="text-[8px] opacity-30 block mt-1">📅 ${p.date || '-'}</span>
+                    <h4 class="font-bold text-sm text-[var(--text-main)] line-clamp-1"># ${cleanTitle}</h4>
+                    <span class="text-[8px] text-[var(--text-soft)] block mt-1 font-medium">📅 ${p.date || '-'}</span>
                 </div>
-                <div class="text-blue-500 transform group-hover:translate-x-1 transition-transform shrink-0">→</div>
+                <div class="text-[var(--primary)] transform group-hover:translate-x-1 transition-transform shrink-0 font-bold">→</div>
             </div>`;
         }).join('');
 
