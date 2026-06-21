@@ -75,7 +75,7 @@ async function refreshCategories(filter = "Semua") {
                     <span class="text-[8px] bg-blue-50 text-blue-600 px-2 py-0.5 rounded mb-1 inline-block border border-blue-100 font-bold">
                         ${p.category || 'Umum'}
                     </span>
-                    <h4 class="font-bold text-sm text-[var(--text-main)] line-clamp-1"># ${cleanTitle}</h4>
+                    <h4 class="font-bold text-sm text-blue-400 line-clamp-1"># ${cleanTitle}</h4>
                     <span class="text-[8px] text-[var(--text-soft)] block mt-1 font-medium">📅 ${p.date || '-'}</span>
                 </div>
                 <div class="text-[var(--primary)] transform group-hover:translate-x-1 transition-transform shrink-0 font-bold">→</div>
