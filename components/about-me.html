@@ -3,53 +3,57 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>about me</title>
+  <title>About Me</title>
   <script src="https://cdn.tailwindcss.com"></script>
-      <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
 </head>
-<body class="p-4 md:p-8 bg-[#0f172a] text-slate-200">
+<body class="p-4 md:p-8" style="background: var(--bg-main); color: var(--text-main);">
 <div class="glass p-6 rounded-3xl mt-4">
   
   <div class="mb-4">
-  <a href="../" class="fab-btn">
-    <img src="../assets/icons/home.svg" class="Icon"></a>
-    </div>
+    <a href="../" class="fab-btn">
+      <img src="../assets/icons/home.svg" class="Icon">
+    </a>
+  </div>
   
   <div class="mb-4">
-    <span class="text-[10px] px-3 py-1 rounded-full bg-blue-600/20 text-blue-400 border border-blue-500/20">
+    <span class="text-[10px] px-3 py-1 rounded-full bg-blue-600/20 text-[var(--primary)] border border-[var(--primary)]/20">
       ABOUT ME
     </span>
   </div>
-  <h2 class="text-2xl font-bold text-white mb-3">
-    Halo, Saya [ADMIN]!  👋
+  <h2 class="text-2xl font-bold text-[var(--text-main)] mb-3">
+    Halo, Saya [ADMIN]! 👋
   </h2>
-  <p class="text-slate-300 text-sm leading-relaxed mb-5">
-    Selamat datang di sudut digital saya. Saya adalah seorang pelajar yang senang berbagi catatan , pemikiran hukum, dan perjalanan belajar saya di dunia maya.</p>
+  <p class="text-[var(--text-soft)] text-sm leading-relaxed mb-5">
+    Selamat datang di sudut digital saya. Saya adalah seorang pelajar yang senang berbagi catatan, pemikiran hukum, dan perjalanan belajar saya di dunia maya.
+  </p>
 
-    <div class="grid gap-3">
-      <div class="glass p-4 rounded-2xl">
-        <div class="text-sm font-semibold text-white mb-1">
-          ⚡  Apa yang saya bahas di sini?
-        </div>
-          <p class="text-xs text-slate-300">
-            Melalui blog ini, saya mendokumentasikan berbagai hal, mulai dari:
-            * ** Pengalaman pelajaran nahu sharaf fiqih  .
-            * ** Panduan langkah demi langkah yang saya pelajari sehari-hari.</p>
-      </div>
-    </div>
-                  
+  <div class="grid gap-3">
     <div class="glass p-4 rounded-2xl">
-      <div class="text-sm font-semibold text-white mb-1"> 🔐 Mengapa blog ini ada?
+      <div class="text-sm font-semibold text-[var(--primary)] mb-1">
+        ⚡ Apa yang saya bahas di sini?
       </div>
-      <p class="text-xs text-slate-300">
-        Blog ini dibuat sebagai "perpustakaan pribadi" yang bisa diakses siapa saja. Saya percaya bahwa cara terbaik untuk belajar adalah dengan menuliskan kembali apa yang telah kita pelajari.</p>
-    </div>
-    <div class="glass p-4 rounded-2xl">
-      <div class="text-sm font-semibold text-white mb-1"> ☁️ notif </div>
-      <p class="text-xs text-slate-300">
-        Mari terhubung melalui  - <img src="../assets/icons/github.svg" class="icon">  [GitHub]
-        (https://github.com/onkbaonk) atau jelajahi tulisan saya melalui tab kategori di atas.</p>
+      <p class="text-xs text-[var(--text-soft)]">
+        Melalui blog ini, saya mendokumentasikan berbagai hal, mulai dari:<br>
+        * Pengalaman pelajaran nahu sharaf fiqih.<br>
+        * Panduan langkah demi langkah yang saya pelajari sehari-hari.
+      </p>
     </div>
   </div>
+                
+  <div class="glass p-4 rounded-2xl mt-3">
+    <div class="text-sm font-semibold text-[var(--primary)] mb-1"> 🔐 Mengapa blog ini ada?</div>
+    <p class="text-xs text-[var(--text-soft)]">
+      Blog ini dibuat sebagai "perpustakaan pribadi" yang bisa diakses siapa saja. Saya percaya bahwa cara terbaik untuk belajar adalah dengan menuliskan kembali apa yang telah kita pelajari.
+    </p>
+  </div>
+
+  <div class="glass p-4 rounded-2xl mt-3">
+    <div class="text-sm font-semibold text-[var(--primary)] mb-1"> ☁️ Notif </div>
+    <p class="text-xs text-[var(--text-soft)] flex items-center gap-1">
+      Mari terhubung melalui - <img src="../assets/icons/github.svg" class="icon" style="filter: var(--icon-filter);">
+    </p>
+  </div>
+</div>
 </body>
 </html>
