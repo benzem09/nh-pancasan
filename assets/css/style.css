@@ -131,7 +131,7 @@ header {
 
 .flex.border-b {
     position: sticky;
-    top: 50px;
+    top: 45px;
     z-index: 30;
     background: var(--bg-bor-b);
     backdrop-filter: blur(12px);
@@ -176,7 +176,7 @@ button[onclick^="handleReaction"]:active {
 
 .modal {
     position: fixed;
-    top: 75px;
+    top: 90px;
     left: 0;
     right: 0;
     bottom: 0;
