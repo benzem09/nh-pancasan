@@ -39,16 +39,19 @@ async function refreshCategories(filter = "Semua") {
         const activeCategories = getAvailableCategories(window.BLOG_POSTS);
 
         // 3. RENDER TOMBOL FILTER (KATEGORI BAR)
-        filterBar.innerHTML = activeCategories.map(cat => `
+        filterBar.innerHTML = activeCategories.map(cat => {
+            const isActive = cat === filter;
+            return `
             <button onclick="refreshCategories('${cat}')" 
-                class="px-4 py-1 rounded-full text-[10px] whitespace-nowrap border transition-all ${
-                    filter === cat 
-                        ? 'bg-blue-600 border-blue-600 text-white font-bold' 
-                        : 'bg-white/5 border-white/10 text-slate-400 hover:bg-white/10'
-                }">
-                ${cat}
-            </button>
-        `).join('');
+                        class="px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap transition-all ${
+                            isActive 
+                            ? 'bg-blue-600 text-white shadow-md' 
+                            : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                        }">
+                    ${cat}
+                </button>
+            `;
+        }).join('');
 
         // 4. FILTER POSTINGAN BERDASARKAN KATEGORI YANG DIKLIK
         let filtered = (filter === "Semua") 
