@@ -26,9 +26,8 @@
                 id="btnUploadImage"
                 type="button"
                 onclick="document.getElementById('imageUpload').click()"
-                class="bg-blue-600 hover:bg-blue-500 text-white text-[11px] font-bold px-3 py-1.5 rounded-lg transition-all shadow-sm"
-            >
-                🖼️ Upload Gambar
+                class="bg-blue-600 hover:bg-blue-500 text-white text-[11px] px-2 py-1 rounded-lg">
+                📷 Upload
             </button>
              <!-- IMAGE OCR / PDF OCR -->
              <input
@@ -39,15 +38,15 @@
             <button
                 type="button"
                 onclick="FILE_PICKER_ACTIVE = true; document.getElementById('ocrFile').click();"
-                class="bg-emerald-600 hover:bg-emerald-500 text-white text-[11px] font-bold px-3 py-1.5 rounded-lg transition-all shadow-sm"
-            >
-                🔍 Scan Gambar/PDF (OCR)
+                class="bg-emerald-600 hover:bg-emerald-500 text-white text-[11px]  px-2 py-1 rounded-lg">
+               🔍 Scan Img/Pdf/Docx
             </button>
             <span
                 id="ocrStatus"
-                class="text-[10px] text-[var(--text-soft)] italic self-center"></span>
+                class="text-[10px] text-[var(--text-soft)] italic self-center">
+            </span>
         </div>
-        <textarea id="postContent" placeholder="Isi konten..." rows="16" class="w-full min-h-[320px] max-h-[65vh] resize-y bg-slate-800 p-3 rounded-xl mb-4 outline-none border border-[var(--border)] text-xs text-[var(--text-main)]" style="background: var(--bg-main);"></textarea>
+        <textarea id="postContent" placeholder="Isi konten..." rows="16" class="w-full min-h-[320px] max-h-[75vh] resize-y bg-slate-800 p-3 rounded-xl mb-4 outline-none border border-[var(--border)] text-xs text-[var(--text-main)]" style="background: var(--bg-main);"></textarea>
         <div class="flex gap-2">
             <button onclick="closeModal('postModal'); resetPostModal();" class="px-4 py-2 rounded-xl text-xs font-bold text-[var(--text-soft)] hover:opacity-80 transition-all" style="background: var(--bg-pop-itm);">Batal</button>
             <button onclick="submitPost()" id="btnSubmitPost" class="bg-blue-600 hover:bg-blue-500 text-white px-5 py-2 rounded-xl text-xs font-bold shadow-md transition-all">Terbitkan</button>
