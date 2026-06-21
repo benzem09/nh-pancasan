@@ -5,12 +5,12 @@
 function setTheme(theme){
 
     document.body.classList.remove(
-        "dark"
+        "light"
     );
 
-    if(theme === "dark"){
+    if(theme === "light"){
         document.body.classList.add(
-            "dark"
+            "light"
         );
     }
 
@@ -25,13 +25,13 @@ function toggleTheme(){
 
     const isDark =
         document.body.classList.contains(
-            "dark"
+            "light"
         );
 
     setTheme(
         isDark
-            ? "light"
-            : "dark"
+            ? "dark"
+            : "light"
     );
 
 }
@@ -41,7 +41,7 @@ function loadTheme(){
     const savedTheme =
         localStorage.getItem(
             "theme"
-        ) || "light";
+        ) || "dark";
 
     setTheme(savedTheme);
 
