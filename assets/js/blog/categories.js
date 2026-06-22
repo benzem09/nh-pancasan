@@ -1,6 +1,5 @@
 // categories.js
 
-// Fungsi untuk mendapatkan daftar kategori unik secara dinamis dari data postingan
 function getAvailableCategories(allPosts) {
     const categories = new Set();
     categories.add("Semua"); // Selalu pastikan opsi "Semua" ada di awal

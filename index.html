@@ -28,6 +28,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="icon" href="assets/img/favicon.ico">
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body class="p-4 md:p-8 text-slate-200">
@@ -71,19 +72,29 @@ async function initApp() {
     ]);
 
     const scripts = [
-        'assets/js/api.js',
 
-        'assets/js/blog/config.js',
-        'assets/js/blog/helpers.js',
+        /* CORE */
+        'assets/js/core/api.js',
+        'assets/js/core/config.js',
+        'assets/js/core/helpers.js',
+        'assets/js/core/router.js',
+
+        /* UI */
+        'assets/js/ui/modal.js',
+        'assets/js/ui/navigation.js',
+        'assets/js/ui/screen-mode.js',
+        'assets/js/ui/toast.js',
+        'assets/js/ui/loading.js',
+
+
+        /* BLOG */
         'assets/js/blog/search.js',
         'assets/js/blog/comments.js',
         'assets/js/blog/views.js',
         'assets/js/blog/bookmarks.js',
         'assets/js/blog/toc.js',
-        'assets/js/blog/post-viewer.js',
+        
         'assets/js/blog/lightbox.js',
-
-        'assets/vendor/jspdf.umd.min.js',
         'assets/js/blog/sitemap.js',
 
         'assets/js/blog/image-upload.js',
@@ -93,11 +104,24 @@ async function initApp() {
         'assets/js/blog/categories.js',
         'assets/js/blog/archive.js',
         'assets/js/blog/blog-feed.js',
-        'assets/js/blog/router.js',
         'assets/js/blog/fab.js',
+        
+        /* VENDOR / LIBRARY OUTSIDE */
+        'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js',
+        'assets/vendor/jspdf.umd.min.js',
+        
+
+        /* POST */
+        'assets/js/post/post-render.js',
+        'assets/js/post/post-actions.js',
+        'assets/js/post/post-download.js',
+        'assets/js/post/post-viewer.js',
+
+        /* THEME */
         'assets/js/theme.js',
 
-        'assets/js/main.js',
+        /* MAIN */
+        'assets/js/main.js'
     ];
 
     for (const src of scripts) {

@@ -1,26 +1,53 @@
 const CACHE_NAME = "nh-pancasan-v2.3";
 
 const FILES_TO_CACHE = [
-  '/',
-  '/index.html',
-  '/assets/css/style.css',
-  '/assets/js/main.js',
-  '/assets/js/api.js',
-  '/assets/js/auth.js',
+        '/',
+        '/index.html',
+        'assets/js/core/api.js',
+        'assets/js/core/config.js',
+        'assets/js/core/helpers.js',
+        'assets/js/core/router.js',
 
-  '/assets/js/blog/config.js',
-  '/assets/js/blog/helpers.js',
-  '/assets/js/blog/search.js',
-  '/assets/js/blog/comments.js',
-  '/assets/js/blog/post-viewer.js',
-  '/assets/js/blog/post-crud.js',
-  '/assets/js/blog/image-upload.js',
-  '/assets/js/blog/lightbox.js',
-  '/assets/js/blog/categories.js',
-  '/assets/js/blog/archive.js',
-  '/assets/js/blog/blog-feed.js',
-  '/assets/js/blog/router.js',
-  '/assets/js/blog/fab.js'
+        /* UI */
+        'assets/js/ui/modal.js',
+        'assets/js/ui/navigation.js',
+        'assets/js/ui/screen-mode.js',
+        'assets/js/ui/toast.js',
+        'assets/js/ui/loading.js',
+
+        /* BLOG */
+        'assets/js/blog/search.js',
+        'assets/js/blog/comments.js',
+        'assets/js/blog/views.js',
+        'assets/js/blog/bookmarks.js',
+        'assets/js/blog/toc.js',
+        
+        'assets/js/blog/lightbox.js',
+
+        'assets/vendor/jspdf.umd.min.js',
+        'assets/js/blog/sitemap.js',
+
+        'assets/js/blog/image-upload.js',
+        'assets/js/blog/ocr.js',
+        'assets/js/blog/post-crud.js',
+
+        'assets/js/blog/categories.js',
+        'assets/js/blog/archive.js',
+        'assets/js/blog/blog-feed.js',
+        'assets/js/blog/fab.js',
+
+
+        /* POST */
+        'assets/js/post/post-render.js',
+        'assets/js/post/post-actions.js',
+        'assets/js/post/post-download.js',
+        'assets/js/post/post-viewer.js',
+
+        /* THEME */
+        'assets/js/theme.js',
+
+        /* MAIN */
+        'assets/js/main.js'
 ];
 
 self.addEventListener("install", event => {

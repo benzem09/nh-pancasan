@@ -11,7 +11,7 @@ async function refreshArchive() {
 
         for (const year of years.sort((a, b) => b - a)) {
             const monthsData = await getPublicFile(
-                `indices/${year}/months.json?t=${Date.now()}`
+                `indices/${year}/months.json`
             );
 
             html += `
@@ -22,7 +22,7 @@ async function refreshArchive() {
 
             for (const month of monthsData.months.sort().reverse()) {
                 const posts = await getPublicFile(
-                    `indices/${year}/${month}/index_${month}.json?t=${Date.now()}`
+                    `indices/${year}/${month}/index_${month}.json`
                 );
 
                 html += `
@@ -54,7 +54,7 @@ async function openArchiveMonth(year, month) {
 
     try {
         const posts = await getPublicFile(
-            `indices/${year}/${month}/index_${month}.json?t=${Date.now()}`
+            `indices/${year}/${month}/index_${month}.json`
         );
 
         container.innerHTML = `
