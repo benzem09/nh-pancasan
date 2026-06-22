@@ -5,16 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>About Me</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/theme.css">
+    <link rel="stylesheet" href="../assets/css/layout.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/post.css">
+    <link rel="stylesheet" href="../assets/css/mobile.css">
 </head>
 <body class="p-4 md:p-8" style="background: var(--bg-main); color: var(--text-main);">
-<div class="glass p-6 rounded-3xl mt-4">
+
+<main id="main-content">
+  <div class="glass p-6 rounded-3xl mt-4">
   
   <div class="mb-4">
-    <a href="../" class="fab-btn">
-      <img src="../assets/icons/home.svg" class="Icon">
-    </a>
-  </div>
+  <a href="../" class="fab-btn">
+    <img src="../assets/icons/home.svg" class="Icon"></a>
+    </div>
   
   <div class="mb-4">
     <span class="text-[10px] px-3 py-1 rounded-full bg-blue-600/20 text-[var(--primary)] border border-[var(--primary)]/20">
@@ -50,10 +55,13 @@
 
   <div class="glass p-4 rounded-2xl mt-3">
     <div class="text-sm font-semibold text-[var(--primary)] mb-1"> ☁️ Notif </div>
-    <p class="text-xs text-[var(--text-soft)] flex items-center gap-1">
-      Mari terhubung melalui - <img src="../assets/icons/github.svg" class="icon" style="filter: var(--icon-filter);">
+    <p class="text-xs text-[var(--text-soft)] ">
+      Mari terhubung melalui - <a href="http://github.com/onkbaonk"><img src="../assets/icons/github.svg" class="icon" style="filter: var(--icon-filter);"> GITHUB </a> 
+      atau jelajahi tulisan saya melalui tab kategori di atas.
     </p>
   </div>
 </div>
+</main>
+<script src="../assets/js/theme.js"></script>
 </body>
 </html>
