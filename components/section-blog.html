@@ -2,11 +2,11 @@
     <h4 class="text-lg font-bold text-[var(--text-main)]">Postingan Terkini</h4>
     
     <div class="flex items-center gap-2">
-        <div id="search-container" class="flex items-center bg-[var(--bg-main)] rounded-full px-2 py-1 border border-[var(--border)] transition-all duration-300 w-10 overflow-hidden" style="background: var(--bg-pop-url);">
-            <button onclick="toggleSearch()" class="min-w-[24px] text-[var(--text-soft)] hover:text-[var(--text-main)] opacity-70">
+        <div id="search-container" class="flex items-center bg-[var(--bg-scmt)] rounded-full px-2 py-1 transition-all duration-300 w-10 overflow-hidden">
+            <button onclick="toggleSearch()" class="min-w-[18px] text-[var(--text-soft)] hover:text-[var(--text-main)] opacity-50">
                 🔍
             </button>
-            <input type="text" id="searchInput" onkeyup=\"filterBlog()\" placeholder="Cari judul..." 
+            <input type="text" id="searchInput" onkeyup="filterBlog()" placeholder="Cari judul..." 
                 class="bg-transparent border-none outline-none text-[10px] text-[var(--text-main)] w-0 transition-all duration-300 placeholder:opacity-50">
         </div>
 
