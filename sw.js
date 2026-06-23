@@ -3,17 +3,17 @@ const CACHE_NAME = "nh-pancasan-v2.3";
 const FILES_TO_CACHE = [
         '/',
         '/index.html',
+        'assets/css/theme.css'
+        'assets/css/layout.css'
+        'assets/css/components.css'
+        'assets/css/post.css'
+        'assets/css/mobile.css'
+        '/assets/js/main.js',
+        /* CORE */
         'assets/js/core/api.js',
         'assets/js/core/config.js',
         'assets/js/core/helpers.js',
         'assets/js/core/router.js',
-
-        /* UI */
-        'assets/js/ui/modal.js',
-        'assets/js/ui/navigation.js',
-        'assets/js/ui/screen-mode.js',
-        'assets/js/ui/toast.js',
-        'assets/js/ui/loading.js',
 
         /* BLOG */
         'assets/js/blog/search.js',
@@ -21,10 +21,9 @@ const FILES_TO_CACHE = [
         'assets/js/blog/views.js',
         'assets/js/blog/bookmarks.js',
         'assets/js/blog/toc.js',
-        
+        'assets/js/blog/post-viewer.js',
         'assets/js/blog/lightbox.js',
 
-        'assets/vendor/jspdf.umd.min.js',
         'assets/js/blog/sitemap.js',
 
         'assets/js/blog/image-upload.js',
@@ -36,18 +35,11 @@ const FILES_TO_CACHE = [
         'assets/js/blog/blog-feed.js',
         'assets/js/blog/fab.js',
 
+        /* VENDOR / LIBRARY OUTSIDE */
+        'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js',
+        'assets/vendor/jspdf.umd.min.js',
 
-        /* POST */
-        'assets/js/post/post-render.js',
-        'assets/js/post/post-actions.js',
-        'assets/js/post/post-download.js',
-        'assets/js/post/post-viewer.js',
-
-        /* THEME */
         'assets/js/theme.js',
-
-        /* MAIN */
-        'assets/js/main.js'
 ];
 
 self.addEventListener("install", event => {
