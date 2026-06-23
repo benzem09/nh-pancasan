@@ -9,11 +9,12 @@ const FILES_TO_CACHE = [
         'assets/css/post.css'
         'assets/css/mobile.css'
         '/assets/js/main.js',
+        
         /* CORE */
         'assets/js/core/api.js',
         'assets/js/core/config.js',
         'assets/js/core/helpers.js',
-        'assets/js/core/router.js',
+        
 
         /* BLOG */
         'assets/js/blog/search.js',
@@ -33,6 +34,7 @@ const FILES_TO_CACHE = [
         'assets/js/blog/categories.js',
         'assets/js/blog/archive.js',
         'assets/js/blog/blog-feed.js',
+        'assets/js/core/router.js',
         'assets/js/blog/fab.js',
 
         /* VENDOR / LIBRARY OUTSIDE */
