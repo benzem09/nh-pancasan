@@ -100,7 +100,10 @@ async function submitPost() {
         resetPostModal();
         
         // LANGSUNG DI-REFRESH SECARA INSTAN MENGGUNAKAN DATA BARU
-        refreshBlog(newIndexItem, 'create');
+        window.POST_CACHE.unshift(
+          newIndexItem
+        );
+        refreshBlog();
 
     } catch (e) {
         console.error(e);
@@ -202,7 +205,21 @@ async function submitEdit() {
         closeModal('postModal');
         
         // Perbarui feed secara instan tanpa menunggu cache CDN GitHub
-        refreshBlog(updatedIndexItem, 'edit');
+        const i =
+            window.POST_CACHE.findIndex(
+                p => p.id === EDIT_POST_ID
+            );
+
+        if (i !== -1) {
+
+            window.POST_CACHE[i] = {
+                ...window.POST_CACHE[i],
+                ...updatedIndexItem
+            };
+
+        }
+
+        refreshBlog();
         alert("Postingan berhasil diperbarui!");
     } catch (e) {
         console.error(e);
@@ -252,7 +269,12 @@ async function deletePost(postId) {
         await generateSitemap();
         
         // 5. Refresh UI secara instan (Penundaan dihapus)
-        refreshBlog(postId, 'delete');
+        window.POST_CACHE =
+            window.POST_CACHE.filter(
+                p => p.id !== postId
+            );
+
+        refreshBlog();
         alert("Postingan berhasil dihapus!");
     } catch (e) {
         console.error(e);
