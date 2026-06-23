@@ -7,10 +7,7 @@ async function loadFullPost(postId) {
     const titleElem = document.getElementById('viewTitle');
     const fab = document.getElementById("floatingAction");
 
-    // reset loader
-    container.innerHTML = "<div class='skeleton h-32 w-full'></div>";
-    titleElem.innerText = "Memuat...";
-    fab?.classList.add("hidden");
+
 
     try {
         const post = await findPostById(postId);

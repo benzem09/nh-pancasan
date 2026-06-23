@@ -16,6 +16,13 @@ const FILES_TO_CACHE = [
         'assets/js/core/helpers.js',
         
 
+        /* UI */
+        'assets/js/ui/modal.js',
+        'assets/js/ui/navigation.js',
+        'assets/js/ui/screen-mode.js',
+        'assets/js/ui/toast.js',
+        'assets/js/ui/loading.js',
+
         /* BLOG */
         'assets/js/blog/search.js',
         'assets/js/blog/comments.js',
