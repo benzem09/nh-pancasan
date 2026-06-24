@@ -1,6 +1,6 @@
 async function generateSitemap() {
     try {
-        const allPosts = await loadAllIndexes();
+        const allPosts = await getAllPosts();
 
         const base = "https://benzem09.github.io/nh-pancasan";
         

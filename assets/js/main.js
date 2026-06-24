@@ -32,15 +32,23 @@ let FILE_PICKER_ACTIVE = false;
 
 document.addEventListener("visibilitychange", () => {
 
-    // Jangan reload saat pilih file / OCR
+    console.log(
+        "VISIBILITY",
+        document.hidden,
+        new Date().toLocaleTimeString()
+    );
+
     if (FILE_PICKER_ACTIVE) return;
 
     if (!document.hidden) {
+        console.warn("RELOAD DIPANGGIL");
         location.reload();
     }
 });
+window.onload = async () => {
 
-window.onload = () => {
+    await getAllPosts();
+
     switchTab('blog');
 
 };

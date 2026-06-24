@@ -30,8 +30,7 @@ function getIndexPath(year, month) {
 }
 
 async function findPostById(postId) {
-    // 1. Ambil semua index untuk mencari meta data (Year & Month)
-    const allPosts = await loadAllIndexes();
+    const allPosts = await getAllPosts();
     
     // Pastikan perbandingan ID menggunakan String/Number yang konsisten
     const meta = allPosts.find(p => String(p.id) === String(postId));

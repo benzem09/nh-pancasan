@@ -14,7 +14,12 @@ async function loadFullPost(postId) {
 
         if (!post) throw new Error("Data kosong");
 
+        
         renderPost(post, postId);
+
+        console.log("SEO dipanggil");
+        updateSEO(post);
+
         wrapTables();
         generateTOC();
 
@@ -209,7 +214,10 @@ function openPost(slug, id) {
 
 function updateSEO(post) {
 
+    console.log("SEO UPDATE:", post.title);
     const siteUrl = "https://benzem09.github.io/nh-pancasan";
+    console.log(document.querySelector('meta[name="description"]'));
+    console.log(document.querySelector('link[rel="canonical"]'));
 
     const slug =
         post.slug || generateSlug(post.title);

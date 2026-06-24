@@ -29,7 +29,7 @@ async function refreshCategories(filter = "Semua") {
 
     try {
         // 1. AMBIL DATA INDEKS TERBARU dari polder bulanan
-        const allPosts = await loadAllIndexes();
+        const allPosts = await getAllPosts();
         
         // Simpan ke global state jika diperlukan oleh bagian app lain
         window.BLOG_POSTS = allPosts.sort((a, b) => b.id - a.id);
