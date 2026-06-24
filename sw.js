@@ -29,7 +29,11 @@ const FILES_TO_CACHE = [
         'assets/js/blog/views.js',
         'assets/js/blog/bookmarks.js',
         'assets/js/blog/toc.js',
-        'assets/js/blog/post-viewer.js',
+        /* POST */
+        'assets/js/post/post-render.js',
+        'assets/js/post/post-actions.js',
+        'assets/js/post/post-download.js',
+        'assets/js/post/post-viewer.js',
         'assets/js/blog/lightbox.js',
 
         'assets/js/blog/sitemap.js',
