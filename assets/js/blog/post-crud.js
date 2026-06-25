@@ -4,7 +4,7 @@ async function submitPost() {
     const c = document.getElementById('postContent').value.trim();
     const imgMatch = c.match(/!\[.*?\]\((.*?)\)/);
     const thumbnail = imgMatch ? imgMatch[1] : "assets/img/articel.jpg";
-    const cat = document.getElementById('postCategory').value || "Umum";
+    const cat = document.getElementById('postCategory').value;
     
     if(!t || !c) return alert("Isi judul & konten!");
     
@@ -169,7 +169,6 @@ async function submitEdit() {
         const file = await getGithubFile(postPath);
 
         file.content.title = t;
-        file.content.thumbnail = thumbnail;
         file.content.slug = newSlug;
         file.content.content = c;
         file.content.category = cat;
@@ -194,7 +193,6 @@ async function submitEdit() {
         const updatedIndexItem = {
             id: EDIT_POST_ID,
             title: t,
-            thumbnail: thumbnail
             slug: newSlug,
             category: cat
         };
