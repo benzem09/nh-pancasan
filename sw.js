@@ -8,7 +8,6 @@ const FILES_TO_CACHE = [
         'assets/css/components.css'
         'assets/css/post.css'
         'assets/css/mobile.css'
-        '/assets/js/main.js',
         
         /* CORE */
         'assets/js/core/api.js',
@@ -53,6 +52,8 @@ const FILES_TO_CACHE = [
         'assets/vendor/jspdf.umd.min.js',
 
         'assets/js/theme.js',
+
+        '/assets/js/main.js',
 ];
 
 self.addEventListener("install", event => {
