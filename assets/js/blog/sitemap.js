@@ -27,7 +27,6 @@ async function generateSitemap() {
             const postDate = post.updated || post.date || currentDate;
             const formattedDate = new Date(postDate).toISOString();
             const usedSlugs = new Set();
-            
 
             allPosts.forEach(post => {
 

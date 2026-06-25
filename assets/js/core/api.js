@@ -95,7 +95,30 @@ async function updateGithubFile(fileName, newObj, sha = null, message = "Update 
 
     return await res.json();
 }
+async function deleteGithubFile(path, sha, message = "Delete file") {
 
+    const res = await fetch(
+        `https://api.github.com/repos/${REPO_PATH}/contents/${path}`,
+        {
+            method: "DELETE",
+            headers: {
+                Authorization: `token ${GITHUB_TOKEN}`,
+                Accept: "application/vnd.github+json"
+            },
+            body: JSON.stringify({
+                message,
+                sha
+            })
+        }
+    );
+
+    if (!res.ok) {
+        const err = await res.text();
+        throw new Error(`Gagal hapus file: ${err}`);
+    }
+
+    return await res.json();
+}
 async function uploadGithubImage(file) {
 
     requireToken();
