@@ -5,6 +5,10 @@ function sanitizeHTML(str) {
     return temp.innerHTML;
 }
 
+
+
+
+
 document.getElementById("btnNotif")?.addEventListener("click", async () => {
     const permission = await Notification.requestPermission();
 

@@ -1,14 +1,13 @@
 [
     {
         "id": 1777784036729,
-        "slug": "welcome",
+        "slug": "Welcome",
         "title": "Welcome",
         "author": "admin",
         "category": "Umum",
         "date": "2026-05-03",
         "year": "2026",
-        "month": "05",
-        "thumbnail": "assets/img/articel.jpg"
+        "month": "05"
     },
     {
         "id": 1779796109117,

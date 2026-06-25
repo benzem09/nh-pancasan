@@ -26,31 +26,14 @@ async function generateSitemap() {
             // Jika tidak ada, kita gunakan tanggal hari ini sebagai alternatif.
             const postDate = post.updated || post.date || currentDate;
             const formattedDate = new Date(postDate).toISOString();
-            const usedSlugs = new Set();
 
-            allPosts.forEach(post => {
-
-                if (!post.slug) return;
-
-                if (usedSlugs.has(post.slug)) return;
-
-                usedSlugs.add(post.slug);
-
-                const postDate =
-                    post.updated ||
-                    post.date ||
-                    currentDate;
-
-                const formattedDate =
-                    new Date(postDate).toISOString();
-
-                xml += `
-              <url>
-                <loc>${base}/?post=${encodeURIComponent(post.slug)}</loc>
-                <lastmod>${formattedDate}</lastmod>
-                <priority>0.8</priority>
-              </url>`;
-            });
+            xml += `
+  <url>
+    <loc>${base}/?post=${encodeURIComponent(post.slug)}</loc>
+    <lastmod>${formattedDate}</lastmod>
+    <priority>0.8</priority>
+  </url>`;
+        });
 
         xml += `
 </urlset>`;

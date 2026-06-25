@@ -20,22 +20,20 @@ async function refreshBlog(targetData = null, action = null) {
         // JIKA ADA MANIPULASI DATA LOKAL INSTAN
         if (targetData && action) {
             if (action === "create") {
-                if (!posts.some(p => String(p.id) === String(targetData.id))) {
+                if (!posts.some(p => p.id === targetData.id)) {
                     posts.push(targetData);
                 }
             }
 
             if (action === "edit") {
-                // Gunakan String() untuk menghindari bug tipe data Number vs String
-                const idx = posts.findIndex(p => String(p.id) === String(targetData.id));
+                const idx = posts.findIndex(p => p.id === targetData.id);
                 if (idx !== -1) {
-                    // MERGE data: pertahankan data lama (author, date, dll), timpa yang diubah
                     posts[idx] = { ...posts[idx], ...targetData };
                 }
             }
 
             if (action === "delete") {
-                posts = posts.filter(p => String(p.id) !== String(targetData));
+                posts = posts.filter(p => p.id !== targetData);
             }
         }
 
