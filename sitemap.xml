@@ -6,10 +6,20 @@
 
   <url>
     <loc>https://benzem09.github.io/nh-pancasan/</loc>
-    <lastmod>2026-06-25T08:11:48.742Z</lastmod>
+    <lastmod>2026-06-25T08:18:28.793Z</lastmod>
     <priority>1.0</priority>
   </url>
 
+  <url>
+    <loc>https://benzem09.github.io/nh-pancasan/?post=testing</loc>
+    <lastmod>2026-06-25T00:00:00.000Z</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://benzem09.github.io/nh-pancasan/?post=tes</loc>
+    <lastmod>2026-06-25T00:00:00.000Z</lastmod>
+    <priority>0.8</priority>
+  </url>
   <url>
     <loc>https://benzem09.github.io/nh-pancasan/?post=surah-at-takastur</loc>
     <lastmod>2026-06-19T00:00:00.000Z</lastmod>
