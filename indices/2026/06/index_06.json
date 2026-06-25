@@ -251,5 +251,16 @@
         "date": "2026-06-25",
         "year": "2026",
         "month": "06"
+    },
+    {
+        "id": 1782431906428,
+        "slug": "siti-hajar",
+        "title": "Siti Hajar",
+        "thumbnail": "assets/img/articel.jpg",
+        "author": "admin",
+        "category": "Kisah",
+        "date": "2026-06-25",
+        "year": "2026",
+        "month": "06"
     }
 ]
