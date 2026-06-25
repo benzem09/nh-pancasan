@@ -172,6 +172,7 @@ async function submitEdit() {
         file.content.slug = newSlug;
         file.content.content = c;
         file.content.category = cat;
+        file.content.thumbnail = thumbnail;
 
         await updateGithubFile(postPath, file.content, file.sha, `Edit post ${EDIT_POST_ID}`);
 
@@ -194,7 +195,8 @@ async function submitEdit() {
             id: EDIT_POST_ID,
             title: t,
             slug: newSlug,
-            category: cat
+            category: cat,
+            thumbnail: thumbnail
         };
 
         // 4. Selesai (Penundaan dihapus)
