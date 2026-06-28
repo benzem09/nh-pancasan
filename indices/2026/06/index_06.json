@@ -306,5 +306,16 @@
         "date": "2026-06-27",
         "year": "2026",
         "month": "06"
+    },
+    {
+        "id": 1782606268725,
+        "slug": "khutbah-nikah",
+        "title": "Khutbah Nikah",
+        "thumbnail": "assets/img/articel.jpg",
+        "author": "admin",
+        "category": "Fiqih",
+        "date": "2026-06-28",
+        "year": "2026",
+        "month": "06"
     }
 ]
